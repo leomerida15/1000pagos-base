@@ -22,7 +22,7 @@ export default (config: any) => {
 			fm_rif: { type: STRING },
 			fm_ident_card: { type: STRING },
 			id_way_pay: { type: INTEGER({ length: 11 }) },
-			id_user: { type: INTEGER({ length: 11 }) },
+			id_client: { type: INTEGER({ length: 11 }) },
 			id_commerce: { type: INTEGER({ length: 11 }) },
 			id_type_request: { type: INTEGER({ length: 11 }) },
 			id_status_request: { type: INTEGER({ length: 11 }) },

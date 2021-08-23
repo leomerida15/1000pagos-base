@@ -1,5 +1,5 @@
 // models
-import user from './user';
+import clinet from './client';
 import way_pay from './way_pay';
 import type_request from './type_request';
 import status_request from './status_request';
@@ -19,13 +19,14 @@ import ciudades from './ciudades';
 import bank_commerce from './bank_commerce';
 import bank from './bank';
 import activity from './activity';
+import worker from './worker';
 
 //
 
 const config: any = { freezeTableName: true, timestamps: false };
 export default () => {
 	return {
-		user: user(config),
+		Clinet: clinet(config),
 		WayPay: way_pay(config),
 		TypeRequest: type_request(config),
 		StatusRequest: status_request(config),
@@ -45,10 +46,11 @@ export default () => {
 		BankCommerce: bank_commerce(config),
 		Bank: bank(config),
 		Activity: activity(config),
+		Worker: worker(config),
 	};
 };
 
-export const User = user(config);
+export const Clinet = clinet(config);
 //
 export const WayPay = way_pay(config);
 //
@@ -87,3 +89,5 @@ export const BankCommerce = bank_commerce(config);
 export const Bank = bank(config);
 //
 export const Activity = activity(config);
+//
+export const Worker = worker(config);

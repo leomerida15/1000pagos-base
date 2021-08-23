@@ -5,14 +5,9 @@ export const RegisterData: ValidationChain[] = [
 	//
 	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
 	//
-	check('id_roles', 'rol invalido')
-		.exists({ checkFalsy: true, checkNull: true })
-		.isNumeric({ no_symbols: true })
-		.custom(NoSQL),
-	//
 	check(
 		'password',
-		'la contraseña debe tener 1 numero, 1 minuscula, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres',
+		'la contraseña debe tener 1 numero, 1 minuscula, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres'
 	)
 		.exists({ checkFalsy: true, checkNull: false })
 		.isStrongPassword({ minLength: 6, minNumbers: 1, minLowercase: 1, minUppercase: 1, minSymbols: 1 })
@@ -26,11 +21,6 @@ export const RegisterData: ValidationChain[] = [
 	check('nro_ident', 'el numero de documento de identidad no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
 		.isLength({ min: 6, max: 10 })
-		.isNumeric({ no_symbols: true })
-		.custom(NoSQL),
-	//
-	check('id_depart', 'el departamento no es valido')
-		.exists({ checkFalsy: true, checkNull: true })
 		.isNumeric({ no_symbols: true })
 		.custom(NoSQL),
 	//

@@ -16,7 +16,7 @@ export default (config: any) => {
 			id_activity: { type: INTEGER({ length: 11 }) },
 			id_location: { type: INTEGER({ length: 11 }) },
 			id_aci: { type: INTEGER({ length: 11 }) },
-			id_user: { type: INTEGER({ length: 11 }) },
+			id_client: { type: INTEGER({ length: 11 }) },
 		},
 		config
 	);

@@ -27,7 +27,7 @@ export interface DepartmentInit extends fn3, Model {}
 export interface Activity extends fn3 {}
 export interface ActivityInit extends fn3, Model {}
 // !
-export interface User extends id {
+export interface Clinet extends id {
 	name?: string;
 	last_name?: string;
 	id_roles?: number;
@@ -37,7 +37,19 @@ export interface User extends id {
 	id_depart?: number;
 	email?: string;
 }
-export interface UserInit extends User, Model {}
+export interface ClinetInit extends Clinet, Model {}
+// !
+export interface worker extends id {
+	name?: string;
+	last_name?: string;
+	id_roles?: number;
+	password?: string;
+	id_ident_type?: number;
+	nro_ident?: string;
+	id_depart?: number;
+	email?: string;
+}
+export interface workerInit extends worker, Model {}
 //
 export interface Request extends id {
 	cont_post?: number;
@@ -53,7 +65,7 @@ export interface Request extends id {
 	fm_rif?: string;
 	fm_ident_card?: string;
 	way_pay_id?: number;
-	user_id?: number;
+	Clinet_id?: number;
 	commerce_id?: number;
 	type_request_id?: number;
 	status_request_id?: number;
@@ -61,7 +73,7 @@ export interface Request extends id {
 export interface RequestInit extends Request, Model {}
 //
 export interface Phone extends id {
-	user_id?: number;
+	Clinet_id?: number;
 	phone_number?: string;
 }
 export interface PhoneInit extends Phone, Model {}
@@ -113,7 +125,7 @@ export interface Commerce extends id {
 	id_activity?: number;
 	id_location?: number;
 	id_aci?: number;
-	id_user?: number;
+	id_Clinet?: number;
 }
 export interface CommerceInit extends Commerce, Model {}
 //
@@ -150,7 +162,7 @@ export interface Models {
 	TypeReq: TypeRequest;
 	Department: DepartmentInit;
 	Activity: ActivityInit;
-	User: UserInit;
+	Clinet: ClinetInit;
 	Request: RequestInit;
 	Phone: PhoneInit;
 	Parroquia: ParroquiaInit;
