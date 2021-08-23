@@ -1,6 +1,6 @@
 // modules
 import { Request, Response, NextFunction } from 'express';
-// scripts 
+// scripts
 import codes, { errCodes } from './code';
 
 export default (err: any, req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +8,12 @@ export default (err: any, req: Request, res: Response, next: NextFunction) => {
 	// define vars
 	const descripts: any = codes;
 	const code: number = err.code ? err.code : err.response ? err.response.status : 500;
-	const message: string = err.response ? err.response : err.message ? err.message : err;
+	const message = ((): string => {
+		if (err.response) return err.response.message;
+		else if (err.errors) return err.errors.map((err: any) => err.msg).join(', ');
+		else if (err.message) return err.message;
+		else return err;
+	})();
 	const code_descript: string = descripts[code] ? descripts[code] : `${code}`;
 
 	// create obj for response

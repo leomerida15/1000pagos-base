@@ -1,47 +1,78 @@
-import { DB } from 'interfaces';
-import hasMany from './hasMany';
-import hasOne from './hasOne';
-import { BankCommerce, Commerce } from '../models/index';
+import KeysQuey from './querys';
 
-export default (sql: any): void => {
-	try {
-		interface obj {
-			fks: { boy: string; key: string }[];
-			dad: any;
-		}
-
-		const objs: obj[] = [{ fks: [{ boy: 'fm_bank_commerce', key: 'id_commerce' }], dad: 'fm_commerce' }];
-
-		console.log(objs);
-
-		const queryString: string = objs
-			.map((obj: obj, i: number) => {
-				const ands: string = obj.fks
-					.map((item: { boy: string; key: string }, j: number) => {
-						const fin: string = j == obj.fks.length - 1 ? ';' : ',';
-						return (
-							'constraint FK_' +
-							obj.dad +
-							'_' +
-							item.boy +
-							'_' +
-							i +
-							' foreign key (`' +
-							item.key +
-							'`) references ' +
-							item.boy +
-							' (id)' +
-							fin
-						);
-					})
-					.join('');
-
-				return 'alter table `' + obj.dad + '` ' + ands;
-			})
-			.join('');
-
-		sql.query(queryString);
-	} catch (err) {
-		console.error(err);
-	}
+export default (sql: any) => {
+	KeysQuey(sql, [
+		{
+			dad: 'fm_bank_commerce',
+			fks: [
+				{ boy: 'fm_commerce', key: 'id_commerce' },
+				{ boy: 'fm_bank', key: 'id_bank' },
+			],
+		},
+		{
+			dad: 'fm_ciudades',
+			fks: [{ boy: 'fm_estados', key: 'id_estado' }],
+		},
+		{
+			dad: 'fm_cod_postal',
+			fks: [{ boy: 'fm_parroquias', key: 'id_parroquia' }],
+		},
+		{
+			dad: 'fm_commerce',
+			fks: [
+				{ boy: 'fm_ident_type', key: 'id_ident_type' },
+				{ boy: 'fm_activity', key: 'id_activity' },
+				{ boy: 'fm_user', key: 'id_aci' },
+				{ boy: 'fm_location', key: 'id_location' },
+				{ boy: 'fm_user', key: 'id_user' },
+			],
+		},
+		{
+			dad: 'fm_dir_pos',
+			fks: [
+				{ boy: 'fm_location', key: 'id_location' },
+				{ boy: 'fm_commerce', key: 'id_commerce' },
+			],
+		},
+		{
+			dad: 'fm_location',
+			fks: [
+				{ boy: 'fm_estados', key: 'id_estado' },
+				{ boy: 'fm_municipios', key: 'id_municipio' },
+				{ boy: 'fm_ciudades', key: 'id_ciudad' },
+				{ boy: 'fm_parroquias', key: 'id_parroquia' },
+				{ boy: 'fm_cod_postal', key: 'id_cod_postal' },
+			],
+		},
+		{
+			dad: 'fm_municipios',
+			fks: [{ boy: 'fm_estados', key: 'id_estado' }],
+		},
+		{
+			dad: 'fm_parroquias',
+			fks: [{ boy: 'fm_municipios', key: 'id_municipio' }],
+		},
+		{
+			dad: 'fm_phone',
+			fks: [{ boy: 'fm_user', key: 'id_user' }],
+		},
+		{
+			dad: 'fm_request',
+			fks: [
+				{ boy: 'fm_user', key: 'id_user' },
+				{ boy: 'fm_commerce', key: 'id_commerce' },
+				{ boy: 'fm_type_request', key: 'id_type_request' },
+				{ boy: 'fm_status_request', key: 'id_status_request' },
+				{ boy: 'fm_way_pay', key: 'id_way_pay' },
+			],
+		},
+		{
+			dad: 'fm_user',
+			fks: [
+				{ boy: 'fm_roles', key: 'id_roles' },
+				{ boy: 'fm_ident_type', key: 'id_ident_type' },
+				{ boy: 'fm_department', key: 'id_depart' },
+			],
+		},
+	]);
 };

@@ -10,7 +10,7 @@ export default (config: any) => {
 		{
 			id: { type: INTEGER({ length: 11 }), primaryKey: true, autoIncrement: true },
 			id_location: { type: INTEGER({ length: 11 }) },
-			id_comemerce: { type: INTEGER({ length: 11 }) },
+			id_commerce: { type: INTEGER({ length: 11 }) },
 		},
 		config,
 	);

@@ -3,7 +3,6 @@ import err_404 from './err/err_404';
 import token from './token';
 import cors from './secure';
 import { file_files_err } from './upload/err_image';
-import data from './data';
 import { upload, uploads } from './upload';
 
 import { Application } from 'express';
@@ -12,7 +11,6 @@ import { Application } from 'express';
 export const preRoutes: any = (app: Application): void => {
 	app.use(cors);
 	app.use(token);
-	// app.use(data);
 };
 
 /** Middleware PostRoutes */

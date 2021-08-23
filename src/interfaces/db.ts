@@ -166,3 +166,13 @@ export interface Models {
 	Banck: BanckInit;
 	WayPay: WayPayInit;
 }
+
+//
+export interface Fks {
+	boy: string;
+	key: string;
+}
+export interface keysQuery {
+	fks: Fks[];
+	dad: any;
+}

@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { RegisterData } from '../../Middlewares/data';
+
 const Auth: Router = Router();
 
 // controllers
@@ -7,7 +9,7 @@ import { login, register, passMail, editPass } from '../../controllers/auth/inde
 //User
 Auth.route('/login').post(login);
 //
-Auth.route('/register').post(register);
+Auth.route('/register').post(RegisterData, register);
 //
 Auth.route('/passMail').post(passMail);
 //

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+const { validationResult } = require('express-validator');
 import { User } from '../../db/models';
 import bcrypt from 'bcrypt';
 import { Api, DB } from '../../interfaces';
@@ -12,9 +13,11 @@ const key: string = '_secreto';
 export const register = async (
 	req: Request<any, Api.resp, DB.User>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
+		validationResult(req).throw();
+
 		const { password }: any = req.body;
 
 		// encript password
@@ -39,7 +42,7 @@ export const register = async (
 export const login = async (
 	req: Request<any, Api.resp, DB.User>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		const { password, email }: any = req.body;
@@ -67,7 +70,7 @@ export const login = async (
 export const passMail = async (
 	req: Request<any, Api.resp, DB.User>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		// define email
