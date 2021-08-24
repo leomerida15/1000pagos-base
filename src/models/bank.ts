@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, getRepos
 import bankCommerce from './bank_commerce';
 
 @Entity()
-export default class Bank {
+export default class fm_Bank {
 	@PrimaryGeneratedColumn()
 	@Column({ length: 11 })
 	id!: number;
@@ -18,5 +18,3 @@ export default class Bank {
 	@JoinColumn()
 	commerces!: bankCommerce;
 }
-
-getRepository(Bank);
