@@ -2,13 +2,13 @@ import KeysQuey from './querys';
 
 export default (sql: any) => {
 	KeysQuey(sql, [
-		{
-			dad: 'fm_bank_commerce',
-			fks: [
-				{ boy: 'fm_commerce', key: 'id_commerce' },
-				{ boy: 'fm_bank', key: 'id_bank' },
-			],
-		},
+		// {
+		// 	dad: 'fm_bank_commerce',
+		// 	fks: [
+		// 		{ boy: 'fm_commerce', key: 'id_commerce' },
+		// 		{ boy: 'fm_bank', key: 'id_bank' },
+		// 	],
+		// },
 		{
 			dad: 'fm_ciudades',
 			fks: [{ boy: 'fm_estados', key: 'id_estado' }],
@@ -17,16 +17,16 @@ export default (sql: any) => {
 			dad: 'fm_cod_postal',
 			fks: [{ boy: 'fm_parroquias', key: 'id_parroquia' }],
 		},
-		{
-			dad: 'fm_commerce',
-			fks: [
-				{ boy: 'fm_ident_type', key: 'id_ident_type' },
-				// { boy: 'fm_activity', key: 'id_activity' },
-				// { boy: 'fm_worker', key: 'id_aci' },
-				// { boy: 'fm_location', key: 'id_location' },
-				// { boy: 'fm_client', key: 'id_client' },
-			],
-		},
+		// {
+		// 	dad: 'fm_commerce',
+		// 	fks: [
+		// 		{ boy: 'fm_ident_type', key: 'id_ident_type' },
+		// 		{ boy: 'fm_activity', key: 'id_activity' },
+		// 		{ boy: 'fm_worker', key: 'id_aci' },
+		// 		{ boy: 'fm_location', key: 'id_location' },
+		// 		{ boy: 'fm_client', key: 'id_client' },
+		// 	],
+		// },
 		{
 			dad: 'fm_dir_pos',
 			fks: [

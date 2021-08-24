@@ -36,6 +36,8 @@ export interface Clinet extends id {
 	nro_ident?: string;
 	id_depart?: number;
 	email?: string;
+	phone1?: string;
+	phone2?: string;
 }
 export interface ClinetInit extends Clinet, Model {}
 // !

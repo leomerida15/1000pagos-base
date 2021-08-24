@@ -10,13 +10,17 @@ export const RegisterData: ValidationChain[] = [
 		'la contraseña debe tener 1 numero, 1 minuscula, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres'
 	)
 		.exists({ checkFalsy: true, checkNull: false })
-		.isStrongPassword({ minLength: 6, minNumbers: 1, minLowercase: 1, minUppercase: 1, minSymbols: 1 })
+		.isStrongPassword({ minLength: 6, minNumbers: 1, minUppercase: 1, minSymbols: 1 })
 		.custom(NoSQL),
 	//
 	check('id_ident_type', 'el tipo de documento de identidad no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
 		.isNumeric({ no_symbols: true })
 		.custom(NoSQL),
+	//
+	check('phone1', 'telefono 1 invalido').isString().custom(NoSQL),
+	//
+	check('phone2', 'telefono 2 invalido').isString().custom(NoSQL),
 	//
 	check('nro_ident', 'el numero de documento de identidad no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
