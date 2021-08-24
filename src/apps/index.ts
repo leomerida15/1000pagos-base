@@ -6,14 +6,14 @@ import Routes from '../router';
 const app: Application = express();
 
 //database
-import '../db/';
+// import '../db/';
 
 // middleware preRoutes
 preRoutes(app);
 app.use(express.json());
 
 // Routes
-Routes(app);
+// Routes(app);
 
 // meddleware posRutes
 posRoutes(app);
