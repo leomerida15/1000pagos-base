@@ -4,8 +4,15 @@
 	"port": 3306,
 	"username": "root",
 	"password": "",
-	"database": "test",
-	"entities": ["dist/models/**/*.js"],
+	"database": "test2",
+	"synchronize": true,
 	"logging": false,
-	"synchronize": false
+	"entities": ["src/db/models/**/*.ts"],
+	"migrations": ["src/db/base/**/*.ts"],
+	"subscribers": ["src/db/subscriber/**/*.ts"],
+	"cli": {
+		"entitiesDir": "src/db/models",
+		"migrationsDir": "src/db/base",
+		"subscribersDir": "src/db/subscriber"
+	}
 }

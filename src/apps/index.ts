@@ -5,14 +5,7 @@ import Routes from '../router';
 
 import { createConnection } from 'typeorm';
 
-createConnection({
-	type: 'mysql',
-	host: 'localhost',
-	port: 3306,
-	username: 'root',
-	password: '',
-	database: 'test',
-})
+createConnection()
 	.then(() => console.log('DB OK'))
 	.catch((err) => console.log('DB ERR', err));
 
