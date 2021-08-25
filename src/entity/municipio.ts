@@ -7,7 +7,7 @@ import fm_Parroquia from './parroquia';
 import fm_Cod_postal from './cod_postal';
 
 @Entity()
-export default class fm_Location {
+export default class fm_Municipio {
 	@PrimaryGeneratedColumn()
 	@Column({ length: 11 })
 	id!: number;

@@ -5,6 +5,7 @@ import fm_Estado from './estado';
 import fm_Ciudad from './ciudad';
 import fm_Parroquia from './parroquia';
 import fm_Cod_postal from './cod_postal';
+import fm_Municipio from './municipio';
 
 @Entity()
 export default class fm_Location {
@@ -18,6 +19,8 @@ export default class fm_Location {
 	id_estado!: fm_Estado | number;
 
 	@Column({ length: 11 })
+	@OneToOne((fm_Municipio) => fm_Municipio)
+	@JoinColumn()
 	id_municipio!: number;
 
 	@Column({ length: 11 })

@@ -13,7 +13,7 @@ import { Api } from '../../interfaces';
 import { mail } from '../../services';
 
 // db talbes
-import fm_clinet from '../../models/clinet';
+import fm_clinet from '../../entity/clinet';
 
 // getter a Clinet
 export const register = async (

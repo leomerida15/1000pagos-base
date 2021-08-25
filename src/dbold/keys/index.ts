@@ -34,24 +34,24 @@ export default (sql: any) => {
 		// 		{ boy: 'fm_commerce', key: 'id_commerce' },
 		// 	],
 		// },
-		{
-			dad: 'fm_location',
-			fks: [
-				{ boy: 'fm_estados', key: 'id_estado' },
-				{ boy: 'fm_municipios', key: 'id_municipio' },
-				{ boy: 'fm_ciudades', key: 'id_ciudad' },
-				{ boy: 'fm_parroquias', key: 'id_parroquia' },
-				{ boy: 'fm_cod_postal', key: 'id_cod_postal' },
-			],
-		},
-		{
-			dad: 'fm_municipios',
-			fks: [{ boy: 'fm_estados', key: 'id_estado' }],
-		},
-		{
-			dad: 'fm_parroquias',
-			fks: [{ boy: 'fm_municipios', key: 'id_municipio' }],
-		},
+		// {
+		// 	dad: 'fm_location',
+		// 	fks: [
+		// 		{ boy: 'fm_estados', key: 'id_estado' },
+		// 		{ boy: 'fm_municipios', key: 'id_municipio' },
+		// 		{ boy: 'fm_ciudades', key: 'id_ciudad' },
+		// 		{ boy: 'fm_parroquias', key: 'id_parroquia' },
+		// 		{ boy: 'fm_cod_postal', key: 'id_cod_postal' },
+		// 	],
+		// },
+		// {
+		// 	dad: 'fm_municipios',
+		// 	fks: [{ boy: 'fm_estados', key: 'id_estado' }],
+		// },
+		// {
+		// 	dad: 'fm_parroquias',
+		// 	fks: [{ boy: 'fm_municipios', key: 'id_municipio' }],
+		// },
 		{
 			dad: 'fm_phone',
 			fks: [{ boy: 'fn_client', key: 'id_client' }],

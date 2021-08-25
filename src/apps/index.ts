@@ -3,7 +3,8 @@ import express, { Application, Request, Response } from 'express';
 import { posRoutes, preRoutes } from '../Middlewares';
 import Routes from '../router';
 
-import { createConnection } from 'typeorm';
+import { Connection, createConnection, getRepository } from 'typeorm';
+import fm_clinet from '../entity/clinet';
 
 createConnection({
 	type: 'mysql',
@@ -11,9 +12,12 @@ createConnection({
 	port: 3306,
 	username: 'root',
 	password: '',
-	database: 'test',
+	database: 'test2',
 })
-	.then(() => console.log('DB OK'))
+	.then((conet: any) => {
+		conet.getRepository(fm_clinet);
+		console.log('DB OK');
+	})
 	.catch((err) => console.log('DB ERR', err));
 
 const app: Application = express();
