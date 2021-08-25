@@ -13,11 +13,7 @@ import { Api } from '../../interfaces';
 import { mail } from '../../services';
 
 // db talbes
-<<<<<<< HEAD
 import fm_clinet from '../../db/models/fm_client';
-=======
-import fm_clinet from '../../entity/clinet';
->>>>>>> 4c971058318fd3dac72dec100ae379e3498f7d85
 
 // getter a Clinet
 export const register = async (
