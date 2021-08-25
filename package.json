@@ -6,8 +6,13 @@
 	"scripts": {
 		"start": "node dist/app.js",
 		"serve": "tsc-watch --onSuccess \"nodemon dist/app.js\"",
+<<<<<<< HEAD
 		"typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
 		"build": "tsc"
+=======
+		"build": "tsc",
+		"typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+>>>>>>> 4c971058318fd3dac72dec100ae379e3498f7d85
 	},
 	"author": "Dimas Merida",
 	"license": "ISC",

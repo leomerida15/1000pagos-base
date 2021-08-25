@@ -5,5 +5,5 @@ import auth from './auth/auth.routes';
 
 //
 export default (app: Application) => {
-	app.use('/auth/', auth);
+	app.use('/auth', auth);
 };
