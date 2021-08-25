@@ -12,6 +12,6 @@ export default (config: any) => {
 			id_parroquia: { type: INTEGER({ length: 11 }) },
 			cod: { type: INTEGER({ length: 8 }) },
 		},
-		config,
+		config
 	);
 };

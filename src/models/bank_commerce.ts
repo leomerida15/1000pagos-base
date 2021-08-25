@@ -15,7 +15,7 @@ export default class Activity {
 
 	@Column({ length: 11 })
 	@ManyToOne(() => fm_Bank, (fm_Bank) => fm_Bank.commerces)
-	id_bank!: fm_Bank;
+	id_bank!: fm_Bank | number;
 
 	@Column({ length: 20 })
 	bank_account_num!: number;

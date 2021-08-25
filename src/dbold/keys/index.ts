@@ -9,14 +9,14 @@ export default (sql: any) => {
 		// 		{ boy: 'fm_bank', key: 'id_bank' },
 		// 	],
 		// },
-		{
-			dad: 'fm_ciudades',
-			fks: [{ boy: 'fm_estados', key: 'id_estado' }],
-		},
-		{
-			dad: 'fm_cod_postal',
-			fks: [{ boy: 'fm_parroquias', key: 'id_parroquia' }],
-		},
+		// {
+		// 	dad: 'fm_ciudades',
+		// 	fks: [{ boy: 'fm_estados', key: 'id_estado' }],
+		// },
+		// {
+		// 	dad: 'fm_cod_postal',
+		// 	fks: [{ boy: 'fm_parroquias', key: 'id_parroquia' }],
+		// },
 		// {
 		// 	dad: 'fm_commerce',
 		// 	fks: [
@@ -27,13 +27,13 @@ export default (sql: any) => {
 		// 		{ boy: 'fm_client', key: 'id_client' },
 		// 	],
 		// },
-		{
-			dad: 'fm_dir_pos',
-			fks: [
-				{ boy: 'fm_location', key: 'id_location' },
-				{ boy: 'fm_commerce', key: 'id_commerce' },
-			],
-		},
+		// {
+		// 	dad: 'fm_dir_pos',
+		// 	fks: [
+		// 		{ boy: 'fm_location', key: 'id_location' },
+		// 		{ boy: 'fm_commerce', key: 'id_commerce' },
+		// 	],
+		// },
 		{
 			dad: 'fm_location',
 			fks: [

@@ -6,7 +6,7 @@ import fm_Worker from './worker';
 import bankCommerce from './bank_commerce';
 
 @Entity()
-export default class Activity {
+export default class fm_Commerce {
 	@PrimaryGeneratedColumn()
 	@Column({ length: 11 })
 	id!: number;
@@ -26,7 +26,7 @@ export default class Activity {
 	@Column({ length: 11 })
 	@OneToOne(() => fm_Activity)
 	@JoinColumn()
-	id_activity!: fm_Activity;
+	id_activity!: fm_Activity | number;
 
 	@Column({ length: 11 })
 	id_location!: number;
@@ -34,15 +34,20 @@ export default class Activity {
 	@Column({ length: 11 })
 	@OneToOne(() => fm_Worker)
 	@JoinColumn()
-	id_aci!: fm_Worker;
+	id_aci!: fm_Worker | number;
 
 	@Column({ length: 11 })
 	@OneToOne(() => fm_Client)
 	@JoinColumn()
-	id_client!: fm_Client;
+	id_client!: fm_Client | number;
 
 	@Column({ length: 11 })
 	@OneToMany(() => bankCommerce, (bankCommerce) => bankCommerce.id_commerce)
 	@JoinColumn()
 	banks!: bankCommerce[];
+
+	@Column({ length: 11 })
+	@OneToMany(() => bankCommerce, (bankCommerce) => bankCommerce.id_commerce)
+	@JoinColumn()
+	dir_posts!: bankCommerce[];
 }
