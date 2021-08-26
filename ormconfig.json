@@ -4,7 +4,7 @@
 	"port": 3306,
 	"username": "root",
 	"password": "",
-	"database": "test2",
+	"database": "1000pagosdev",
 	"synchronize": true,
 	"logging": false,
 	"entities": ["src/db/models/**/*.ts"],

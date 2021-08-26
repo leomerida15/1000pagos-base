@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	OneToMany,
+	JoinColumn,
+	OneToOne,
+	ManyToMany,
+	JoinTable,
+} from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_phone from './fm_phone';
 import fm_request from './fm_request';
@@ -16,14 +25,15 @@ export default class fm_clinet {
 	last_name!: string;
 
 	@Column({ default: 1 })
-	@OneToOne(() => fm_roles)
+	@ManyToMany(() => fm_roles)
+	@JoinTable()
 	id_roles!: number;
 
 	@Column()
 	password!: string;
 
-	@Column()
 	@OneToOne(() => fm_ident_type)
+	@JoinColumn()
 	id_ident_type!: number;
 
 	@Column()

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ManyToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
 import fm_department from './fm_department';
@@ -15,7 +15,8 @@ export default class fm_worker {
 	last_name!: string;
 
 	@Column({ default: 2 })
-	@OneToOne(() => fm_roles)
+	@ManyToMany(() => fm_roles)
+	@JoinTable()
 	id_roles!: number;
 
 	@Column()
@@ -27,7 +28,7 @@ export default class fm_worker {
 
 	@Column()
 	@ManyToMany(() => fm_department)
-	@JoinColumn()
+	@JoinTable()
 	id_depart!: number;
 
 	@Column()
