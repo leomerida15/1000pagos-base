@@ -1,9 +1,19 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	OneToOne,
+	OneToMany,
+	ManyToMany,
+	JoinTable,
+	Index,
+} from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
 import fm_department from './fm_department';
 
 @Entity()
+@Index(['id_ident_type', 'ident_num'], { unique: true })
 export default class fm_worker {
 	@PrimaryGeneratedColumn()
 	id!: number;
@@ -32,7 +42,7 @@ export default class fm_worker {
 	id_depart!: number;
 
 	@Column()
-	nro_ident!: string;
+	ident_num!: string;
 
 	@Column({ unique: true })
 	email!: string;

@@ -7,6 +7,7 @@ import {
 	OneToOne,
 	ManyToMany,
 	JoinTable,
+	Index,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_phone from './fm_phone';
@@ -14,7 +15,8 @@ import fm_request from './fm_request';
 import fm_roles from './fm_roles';
 
 @Entity()
-export default class fm_clinet {
+@Index(['id_ident_type', 'ident_num'], { unique: true })
+export default class fm_client {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
@@ -37,7 +39,7 @@ export default class fm_clinet {
 	id_ident_type!: number;
 
 	@Column()
-	nro_ident!: string;
+	ident_num!: string;
 
 	@Column({ unique: true })
 	email!: string;

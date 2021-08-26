@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import fm_clinet from './fm_client';
+import fm_Client from './fm_client';
 import fm_way_pay from './fm_way_pay';
 import fm_commerce from './fm_commerce';
 import fm_type_request from './fm_type_request';
@@ -52,7 +52,7 @@ export default class fm_request {
 	id_way_pay!: number;
 
 	@Column()
-	@ManyToOne(() => fm_clinet, (fm_clinet) => fm_clinet.requests)
+	@ManyToOne(() => fm_Client, (fm_Client) => fm_Client.requests)
 	@JoinColumn()
 	id_client!: number;
 

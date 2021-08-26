@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import fm_activity from './fm_activity';
 import fm_worker from './fm_worker';
-import fm_clinet from './fm_client';
+import fm_Client from './fm_client';
 import fm_bank_commerce from './fm_bank_commerce';
 import fm_dir_post from './fm_dir_post';
 import fm_request from './fm_request';
@@ -37,7 +37,7 @@ export default class fm_commerce {
 	id_aci!: number;
 
 	@Column()
-	@OneToOne(() => fm_clinet)
+	@OneToOne(() => fm_Client)
 	@JoinColumn()
 	id_client!: number;
 

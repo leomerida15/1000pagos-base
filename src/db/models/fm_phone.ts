@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import fm_clinet from './fm_client';
+import fm_Client from './fm_client';
 
 @Entity()
 export default class fm_phone {
@@ -7,7 +7,7 @@ export default class fm_phone {
 	id!: number;
 
 	@Column()
-	@ManyToOne(() => fm_clinet, (fm_clinet) => fm_clinet.phones)
+	@ManyToOne(() => fm_Client, (fm_Client) => fm_Client.phones)
 	@JoinColumn()
 	id_client!: number;
 

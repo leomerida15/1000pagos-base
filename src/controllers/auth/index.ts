@@ -9,34 +9,41 @@ const key: string = '_secreto';
 import { getRepository } from 'typeorm';
 
 // services and hooks and personal interface
-import { Api } from '../../interfaces';
+import { Api, DB } from '../../interfaces';
 import { mail } from '../../services';
 
 // db talbes
-import fm_clinet from '../../db/models/fm_client';
+import fm_client from '../../db/models/fm_client';
+import fm_phone from '../../db/models/fm_phone';
 
-// getter a Clinet
+// getter a Client
 export const register = async (
-	req: Request<any, Api.resp, fm_clinet>,
+	req: Request<any, Api.resp, DB.Client>,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
 
-		const { password }: any = req.body;
+		const { password, phone1, phone2 }: any = req.body;
 
 		// encript password
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(password, salt);
 
-		const clinet: any = getRepository(fm_clinet).create(req.body);
-		const resp: fm_clinet = await getRepository(fm_clinet).save(clinet);
+		const Client: any = getRepository(fm_client).create(req.body);
+		const resp: fm_client = await getRepository(fm_client).save(Client);
 
 		// enviar correo de validacion
-		mail.verify(clinet);
+		await mail.verify(Client);
 
-		const token = jwt.sign({ id: resp.id }, key);
+		const token = jwt.sign({ id: resp.id }, key, { expiresIn: '3h' });
+
+		const phones: Promise<void>[] = [phone1, phone2].map(async (phone: string): Promise<void> => {
+			const item: any = getRepository(fm_phone).create({ phone, id_client: resp.id });
+			await getRepository(fm_client).save(item);
+		});
+		await Promise.all(phones);
 
 		// response
 		res.status(200).json({ message: 'Usuario registrado Revise su correo por favor', info: { token } });
@@ -45,76 +52,107 @@ export const register = async (
 	}
 };
 
-// // getter a Clinet
-// export const login = async (
-// 	req: Request<any, Api.resp, DB.Clinet>,
-// 	res: Response,
-// 	next: NextFunction
-// ): Promise<void> => {
-// 	try {
-// 		const { password, email }: any = req.body;
+// register valid 1
+export const registerValid1 = (req: Request, res: Response, next: NextFunction): void => {
+	try {
+		validationResult(req).throw();
+		res.status(200).json({ message: 'ok' });
+	} catch (err) {
+		next(err);
+	}
+};
 
-// 		// encript password
+// register valid 1
+export const registerValid2 = async (
+	req: Request<any, Api.resp, fm_client>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		validationResult(req).throw();
 
-// 		const clinet: DB.Clinet | any = await Clinet.findOne<Model<DB.Clinet, DB.Clinet>>({ where: { email } });
+		const { id_ident_type, ident_num } = req.body;
 
-// 		const salt: string = await bcrypt.genSalt(10);
-// 		const hash = await bcrypt.hash(password, salt);
+		// validar existencia de la clave cumpuesta
+		const Client = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
+		if (Client) throw { message: 'el documento de identidad ya existe' };
 
-// 		const validPassword = await bcrypt.compare(password, clinet.password);
-// 		if (!validPassword) throw { message: 'contraseña incorrecta', code: 400 };
+		res.status(200).json({ message: 'ok' });
+	} catch (err) {
+		next(err);
+	}
+};
 
-// 		const token = jwt.sign({ id: clinet.id }, key);
+// getter a Client
+export const login = async (
+	req: Request<any, Api.resp, fm_client>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		const { password, email }: any = req.body;
 
-// 		// response
-// 		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// };
+		// encript password
+		const Client: any = await getRepository(fm_client).findOne({ where: { email } });
 
-// // this function is for emit a mail for edit a password
-// export const passMail = async (
-// 	req: Request<any, Api.resp, DB.Clinet>,
-// 	res: Response,
-// 	next: NextFunction
-// ): Promise<void> => {
-// 	try {
-// 		// define email
-// 		const { email }: any = req.body;
-// 		// query for valid email
-// 		const clinet: any = await Clinet.findOne({ where: { email } });
-// 		if (!Clinet) throw { message: `El correo ${email} no se encuentra registrado en la plataforma`, code: 400 };
+		const validPassword = await bcrypt.compare(password, Client.password);
+		if (!validPassword) throw { message: 'contraseña incorrecta', code: 400 };
 
-// 		// emit mail
-// 		await mail.newPass(clinet);
+		const token = jwt.sign({ id: Client.id }, key);
 
-// 		// response
-// 		res.status(200).json({ message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
-// 	} catch (err) {
-// 		err.logger = true;
-// 		next(err);
-// 	}
-// };
+		// response
+		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
+	} catch (err) {
+		next(err);
+	}
+};
 
-// // editar usuarios
-// export const editPass = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-// 	try {
-// 		// encript password
-// 		const salt: string = await bcrypt.genSalt(10);
-// 		req.body.password = await bcrypt.hash(`${req.body.password}`, salt);
+// this function is for emit a mail for edit a password
+export const passMail = async (
+	req: Request<any, Api.resp, fm_client>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		// define email
+		const { email }: any = req.body;
+		// query for valid email
+		const Client = await getRepository(fm_client).findOne({ where: { email } });
+		if (!Client) throw { message: `El correo ${email} no se encuentra registrado en la plataforma`, code: 400 };
 
-// 		// define email
-// 		const { password } = req.body;
-// 		const { id }: any = req.headers.token;
+		// emit mail
+		await mail.newPass(Client);
 
-// 		// query for valid email
-// 		await Clinet.update({ password }, { where: { id } });
+		// response
+		res.status(200).json({ message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
+	} catch (err) {
+		next(err);
+	}
+};
 
-// 		// response
-// 		res.status(200).json({ message: 'Contraseña actualizada con exito' });
-// 	} catch (err) {
-// 		err.logger = true;
-// 		next(err);
-// 	}
-// };
+// editar usuarios
+export const editPass = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+	try {
+		// encript password
+		const salt: string = await bcrypt.genSalt(10);
+		req.body.password = await bcrypt.hash(`${req.body.password}`, salt);
+
+		// define email
+		const { password } = req.body;
+		const { id }: any = req.headers.token;
+
+		// query for valid email
+		await getRepository(fm_client)
+			.createQueryBuilder()
+			.update(fm_client)
+			.set({ password })
+			.where('id = :id', { id })
+			.execute();
+
+		// response
+		res.status(200).json({ message: 'Contraseña actualizada con exito' });
+	} catch (err) {
+		err.logger = true;
+		next(err);
+	}
+};

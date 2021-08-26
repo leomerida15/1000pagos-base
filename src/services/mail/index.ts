@@ -22,7 +22,7 @@ const mailer: Mail = nodemailer.createTransport({
 });
 
 // this mail is for verify the email a user
-export const verify = async (info: DB.Clinet) => {
+export const verify = async (info: DB.Client) => {
 	try {
 		/** define vars */
 		const { name, last_name, email, id } = info;
@@ -47,7 +47,7 @@ export const verify = async (info: DB.Clinet) => {
 };
 
 // this mail is for valid edition of a password
-export const newPass = async (info: DB.Clinet) => {
+export const newPass = async (info: DB.Client) => {
 	try {
 		/** define vars */
 		const { name, email, id, last_name } = info;

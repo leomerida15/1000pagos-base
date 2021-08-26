@@ -1,4 +1,5 @@
 import { Model } from 'sequelize';
+import fm_client from '../db/models/fm_client';
 
 export interface id {
 	id?: number;
@@ -27,19 +28,19 @@ export interface DepartmentInit extends fn3, Model {}
 export interface Activity extends fn3 {}
 export interface ActivityInit extends fn3, Model {}
 // !
-export interface Clinet extends id {
+export interface Client extends id {
 	name?: string;
 	last_name?: string;
 	id_roles?: number;
 	password?: string;
 	id_ident_type?: number;
-	nro_ident?: string;
+	ident_num?: string;
 	id_depart?: number;
 	email?: string;
 	phone1?: string;
 	phone2?: string;
 }
-export interface ClinetInit extends Clinet, Model {}
+export interface ClientInit extends Client, Model {}
 // !
 export interface worker extends id {
 	name?: string;
@@ -67,7 +68,7 @@ export interface Request extends id {
 	fm_rif?: string;
 	fm_ident_card?: string;
 	way_pay_id?: number;
-	Clinet_id?: number;
+	Client_id?: number;
 	commerce_id?: number;
 	type_request_id?: number;
 	status_request_id?: number;
@@ -75,7 +76,7 @@ export interface Request extends id {
 export interface RequestInit extends Request, Model {}
 //
 export interface Phone extends id {
-	Clinet_id?: number;
+	Client_id?: number;
 	phone_number?: string;
 }
 export interface PhoneInit extends Phone, Model {}
@@ -127,7 +128,7 @@ export interface Commerce extends id {
 	id_activity?: number;
 	id_location?: number;
 	id_aci?: number;
-	id_Clinet?: number;
+	id_Client?: number;
 }
 export interface CommerceInit extends Commerce, Model {}
 //
@@ -164,7 +165,7 @@ export interface Models {
 	TypeReq: TypeRequest;
 	Department: DepartmentInit;
 	Activity: ActivityInit;
-	Clinet: ClinetInit;
+	Client: ClientInit;
 	Request: RequestInit;
 	Phone: PhoneInit;
 	Parroquia: ParroquiaInit;
