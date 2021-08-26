@@ -6,11 +6,10 @@ export default class fm_phone {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Column()
 	@ManyToOne(() => fm_Client, (fm_Client) => fm_Client.phones)
 	@JoinColumn()
 	id_client!: number;
 
-	@Column()
+	@Column({ unique: false })
 	phone!: string;
 }

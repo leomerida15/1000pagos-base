@@ -23,27 +23,45 @@ export const register = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
+		let i: number = 0;
+		console.log('------|>> ' + i++);
+
 		validationResult(req).throw();
 
 		const { password, phone1, phone2 }: any = req.body;
 
+		console.log('------|>> ' + i++);
 		// encript password
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(password, salt);
 
+		console.log('------|>> ' + i++);
 		const Client: any = getRepository(fm_client).create(req.body);
+		console.log('Client');
+		console.log(Client);
+
 		const resp: fm_client = await getRepository(fm_client).save(Client);
 
 		// enviar correo de validacion
 		await mail.verify(Client);
 
+		console.log('------|>> ' + i++);
+
 		const token = jwt.sign({ id: resp.id }, key, { expiresIn: '3h' });
+
+		console.log('------|>> ' + i++);
 
 		const phones: Promise<void>[] = [phone1, phone2].map(async (phone: string): Promise<void> => {
 			const item: any = getRepository(fm_phone).create({ phone, id_client: resp.id });
+
+			console.log('item');
+			console.log(item);
+
 			await getRepository(fm_client).save(item);
 		});
 		await Promise.all(phones);
+
+		console.log('------|>> ' + i++);
 
 		// response
 		res.status(200).json({ message: 'Usuario registrado Revise su correo por favor', info: { token } });

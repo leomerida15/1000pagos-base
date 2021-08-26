@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class initDB1630003679096 implements MigrationInterface {
-    name = 'initDB1630003679096'
+export class initDB1630012096342 implements MigrationInterface {
+    name = 'initDB1630012096342'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_phone\` DROP FOREIGN KEY \`FK_c6e07f1585b1805268c9c6584a5\``);

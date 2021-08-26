@@ -7,7 +7,9 @@ export default (err: any, req: Request, res: Response, next: NextFunction) => {
 	if (!err) next();
 	// define vars
 	const descripts: any = codes;
-	const code: number = err.code ? err.code : err.response ? err.response.status : 500;
+	const code: number =
+		err.code && typeof err.code != 'string' ? err.code : err.response ? err.response.status : 500;
+
 	const message = ((): string => {
 		if (err.response) return err.response.message;
 		else if (err.errors) return err.errors.map((err: any) => err.msg).join(', ');
