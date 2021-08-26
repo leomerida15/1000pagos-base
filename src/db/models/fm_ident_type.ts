@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, getRepository } from 'typeorm';
 
 @Entity()
 export default class fm_ident_type {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	name!: string;
