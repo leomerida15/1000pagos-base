@@ -63,9 +63,11 @@ export default class fm_request {
 
 	@Column()
 	@OneToOne(() => fm_type_request)
+	@JoinColumn()
 	id_type_request!: number;
 
 	@Column()
 	@OneToOne(() => fm_status_request)
+	@JoinColumn()
 	fm_status_request!: number;
 }
