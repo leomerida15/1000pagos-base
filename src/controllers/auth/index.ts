@@ -111,6 +111,8 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
+		console.log(req.body);
+
 		const { password, email, worker }: any = req.body;
 
 		// encript password
@@ -118,6 +120,7 @@ export const login = async (
 			if (!worker) return await getRepository(fm_client).findOne({ where: { email } });
 			else await getRepository(fm_worker).findOne({ where: { email } });
 		})();
+		if (!user) throw { message: 'el correo no existe' };
 
 		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) throw { message: 'contraseña incorrecta', code: 400 };
