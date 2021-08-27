@@ -111,8 +111,6 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		console.log(req.body);
-
 		const { password, email, worker }: any = req.body;
 
 		// encript password
