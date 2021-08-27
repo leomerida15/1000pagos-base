@@ -1,5 +1,15 @@
 // create table with id primary key and name string in typeorm
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	OneToMany,
+	JoinColumn,
+	ManyToOne,
+	OneToOne,
+	UpdateDateColumn,
+	CreateDateColumn,
+} from 'typeorm';
 import fm_estado from './fm_estado';
 import fm_municipio from './fm_municipio';
 import fm_ciudad from './fm_ciudad';
@@ -39,4 +49,10 @@ export default class fm_location {
 
 	@Column()
 	local!: string;
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }

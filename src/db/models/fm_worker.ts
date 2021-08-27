@@ -8,6 +8,8 @@ import {
 	JoinTable,
 	Index,
 	JoinColumn,
+	CreateDateColumn,
+	UpdateDateColumn,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
@@ -49,4 +51,10 @@ export default class fm_worker {
 
 	@Column()
 	phone!: string;
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }

@@ -1,5 +1,14 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import fm_activity from './fm_activity';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	OneToMany,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from 'typeorm';
+import { fm_activity } from './fm_activity';
 import fm_worker from './fm_worker';
 import fm_Client from './fm_client';
 import fm_bank_commerce from './fm_bank_commerce';
@@ -49,4 +58,10 @@ export default class fm_commerce {
 	@OneToMany(() => fm_request, (fm_request) => fm_request.id_commerce)
 	@JoinColumn()
 	requests!: fm_request[];
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }

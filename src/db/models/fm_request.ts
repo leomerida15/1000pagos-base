@@ -1,8 +1,17 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from 'typeorm';
 import fm_Client from './fm_client';
 import fm_way_pay from './fm_payment_method';
 import fm_commerce from './fm_commerce';
-import fm_type_request from './fm_type_request';
+import { fm_type_request } from './fm_type_request';
 import fm_status_request from './fm_status_request';
 
 @Entity()
@@ -11,44 +20,47 @@ export default class fm_request {
 	id?: number;
 
 	@Column()
-	const_post!: number;
+	number_post!: number;
 
 	@Column()
-	fm_act!: string;
+	rc_constitutive_act!: string;
 
 	@Column()
-	fm_pro_doc!: string;
+	rc_property_document!: string;
 
 	@Column()
-	fm_services!: string;
+	rc_service_document!: string;
 
 	@Column()
-	fm_contributor!: string;
+	rc_special_contributor!: string;
 
 	@Column()
-	fm_ref_bank!: string;
+	rc_ref_bank!: string;
 
 	@Column()
-	fm_ref_perso!: string;
+	rc_ref_perso!: string;
 
 	@Column()
-	fm_account!: string;
+	rc_account_number!: string;
 
 	@Column()
-	fm_front_local!: string;
+	text_account_number!: string;
 
 	@Column()
-	fm_in_local!: string;
+	rc_front_local!: string;
 
 	@Column()
-	fm_rif!: string;
+	rc_in_local!: string;
 
 	@Column()
-	fm_ident_card!: string;
+	rc_rif!: string;
+
+	@Column()
+	rc_ident_card!: string;
 
 	@OneToOne(() => fm_way_pay)
 	@JoinColumn()
-	id_way_pay!: number;
+	id_payment_method!: number;
 
 	@ManyToOne(() => fm_Client, (fm_Client) => fm_Client.requests)
 	@JoinColumn()
@@ -65,4 +77,10 @@ export default class fm_request {
 	@OneToOne(() => fm_status_request)
 	@JoinColumn()
 	fm_status_request!: number;
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }

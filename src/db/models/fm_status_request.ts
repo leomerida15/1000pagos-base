@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export default class fm_status_request {
@@ -7,4 +7,10 @@ export default class fm_status_request {
 
 	@Column()
 	name!: string;
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }

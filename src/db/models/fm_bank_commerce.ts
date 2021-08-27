@@ -1,5 +1,13 @@
 // create table with id primary key and name string in typeorm
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	ManyToOne,
+	JoinColumn,
+	UpdateDateColumn,
+	CreateDateColumn,
+} from 'typeorm';
 import { fm_bank } from './fm_bank';
 import fm_commerce from './fm_commerce';
 
@@ -18,4 +26,10 @@ export default class fm_bank_commerce {
 
 	@Column()
 	bank_account_num!: number;
+
+	@CreateDateColumn()
+	createdAt?: string;
+
+	@UpdateDateColumn({ type: 'timestamp' })
+	updatedAt?: number;
 }
