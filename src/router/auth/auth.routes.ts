@@ -4,7 +4,7 @@ import { RegisterData1, RegisterData2, RegisterData } from '../../Middlewares/da
 const Auth: Router = Router();
 
 // controllers
-import { register, registerValid1, registerValid2 } from '../../controllers/auth/index';
+import { editPass, login, passMail, register, registerValid1, registerValid2 } from '../../controllers/auth/index';
 
 // ? Auth
 //
@@ -14,10 +14,10 @@ Auth.route('/register/valid/2').post(RegisterData2, registerValid2);
 //
 Auth.route('/register').post(RegisterData, register);
 //
-// Auth.route('/login').post(login);
+Auth.route('/login').post(login);
 //
-// Auth.route('/passMail').post(passMail);
+Auth.route('/passMail').post(passMail);
 //
-// Auth.route('/log/editPass').patch(editPass);
+Auth.route('/log/editPass').patch(editPass);
 
 export default Auth;
