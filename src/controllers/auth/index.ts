@@ -15,6 +15,7 @@ import { mail } from '../../services';
 // db talbes
 import fm_client from '../../db/models/fm_client';
 import fm_phone from '../../db/models/fm_phone';
+import fm_worker from '../../db/models/fm_worker';
 
 // getter a Client
 export const register = async (
@@ -110,15 +111,18 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { password, email }: any = req.body;
+		const { password, email, worker }: any = req.body;
 
 		// encript password
-		const Client: any = await getRepository(fm_client).findOne({ where: { email } });
+		const user: any = await (async () => {
+			if (!worker) return await getRepository(fm_client).findOne({ where: { email } });
+			else await getRepository(fm_worker).findOne({ where: { email } });
+		})();
 
-		const validPassword = await bcrypt.compare(password, Client.password);
+		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) throw { message: 'contraseña incorrecta', code: 400 };
 
-		const token = jwt.sign({ id: Client.id }, key);
+		const token = jwt.sign({ id: user.id }, key);
 
 		// response
 		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });

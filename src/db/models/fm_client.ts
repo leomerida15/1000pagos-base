@@ -4,7 +4,6 @@ import {
 	PrimaryGeneratedColumn,
 	OneToMany,
 	JoinColumn,
-	OneToOne,
 	ManyToMany,
 	JoinTable,
 	Index,
