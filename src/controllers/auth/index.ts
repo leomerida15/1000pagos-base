@@ -120,10 +120,10 @@ export const login = async (
 			if (!worker) return await getRepository(fm_client).findOne({ where: { email } });
 			else await getRepository(fm_worker).findOne({ where: { email } });
 		})();
-		if (!user) throw { message: 'el correo no existe' };
+		if (!user) throw { message: 'el correo o contraseña incorrecta', code: 400 };
 
 		const validPassword = await bcrypt.compare(password, user.password);
-		if (!validPassword) throw { message: 'contraseña incorrecta', code: 400 };
+		if (!validPassword) throw { message: 'el correo o contraseña incorrecta', code: 400 };
 
 		const token = jwt.sign({ id: user.id }, key);
 
