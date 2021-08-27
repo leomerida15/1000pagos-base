@@ -23,10 +23,6 @@ export default class fm_photo {
 	@Column()
 	name!: string;
 
-	@ManyToOne(() => fm_commerce, (fm_commerce) => fm_commerce.photos)
-	@JoinColumn({ name: 'id_commerce' })
-	id_commerce!: number;
-
 	@CreateDateColumn()
 	createdAt?: string;
 

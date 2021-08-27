@@ -56,7 +56,7 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'dir_posts' })
 	dir_posts!: fm_dir_post[];
 
-	@OneToMany(() => fm_photo, (fm_photo) => fm_photo.id_commerce)
+	@OneToMany(() => fm_photo, (fm_photo) => fm_photo.id)
 	@JoinColumn({ name: 'photos' })
 	photos!: fm_photo[];
 

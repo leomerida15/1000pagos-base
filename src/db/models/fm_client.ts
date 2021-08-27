@@ -8,6 +8,7 @@ import {
 	ManyToMany,
 	JoinTable,
 	Index,
+	ManyToOne,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_phone from './fm_phone';
@@ -34,7 +35,7 @@ export default class fm_client {
 	@Column()
 	password!: string;
 
-	@OneToOne(() => fm_ident_type)
+	@ManyToOne(() => fm_ident_type)
 	@JoinColumn({ name: 'id_ident_type' })
 	id_ident_type!: number;
 

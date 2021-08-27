@@ -10,6 +10,7 @@ import {
 	JoinColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
+	ManyToOne,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
@@ -35,7 +36,7 @@ export default class fm_worker {
 	@Column()
 	password!: string;
 
-	@OneToOne(() => fm_ident_type)
+	@ManyToOne(() => fm_ident_type)
 	@JoinColumn({ name: 'id_ident_type' })
 	id_ident_type!: number;
 
