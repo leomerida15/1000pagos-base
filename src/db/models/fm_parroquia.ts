@@ -15,7 +15,7 @@ export default class fm_parroquia {
 	id?: number;
 
 	@ManyToOne(() => fm_municipio, (fm_municipio) => fm_municipio)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_municipio' })
 	id_municipio!: number;
 
 	@Column()

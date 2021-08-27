@@ -18,16 +18,16 @@ export default class fm_dir_post {
 	id?: number;
 
 	@OneToOne(() => fm_location)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_location' })
 	id_location!: number;
 
 	@ManyToOne(() => fm_commerce, (fm_Commerce) => fm_Commerce.dir_posts)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_commerce' })
 	id_commerce!: number;
 
 	@CreateDateColumn()
 	createdAt?: string;
 
 	@UpdateDateColumn({ type: 'timestamp' })
-	updatedAt?: number;
+	updatedAt!: number;
 }

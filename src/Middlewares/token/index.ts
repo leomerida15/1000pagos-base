@@ -13,9 +13,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
 		const result: boolean =
 			list.includes(req.baseUrl) || list.includes(req.path.split('/')[1]) || list.includes(req.path.split('/')[2]);
 
-		console.clear();
-		console.log('result', result);
-
 		// use
 		if (result) {
 			if (req.headers.token) {

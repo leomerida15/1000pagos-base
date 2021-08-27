@@ -18,7 +18,7 @@ export default class fm_municipio {
 	id?: number;
 
 	@OneToOne(() => fm_estado)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_estado' })
 	id_estado!: number;
 
 	@Column()
@@ -26,7 +26,7 @@ export default class fm_municipio {
 
 	// relation OneToMany with fm_parroquia
 	@OneToMany(() => fm_parroquia, (fm_parroquia) => fm_parroquia.id_municipio)
-	@JoinColumn()
+	@JoinColumn({ name: 'parroquia' })
 	parroquia!: fm_parroquia[];
 
 	@CreateDateColumn()

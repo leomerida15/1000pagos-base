@@ -23,45 +23,36 @@ export const register = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		let i: number = 0;
-		console.log('------|>> ' + i++);
-
 		validationResult(req).throw();
 
-		const { password, phone1, phone2 }: any = req.body;
+		const { password, phone1, phone2, email, id_ident_type, ident_num }: any = req.body;
 
-		console.log('------|>> ' + i++);
+		// validar existencia de la clave cumpuesta
+		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
+		if (validIdent) throw { message: 'el documento de identidad ya existe' };
+
+		// validar existencia de la clave cumpuesta
+		const validMail = await getRepository(fm_client).findOne({ email });
+		if (validMail) throw { message: 'el correo ya existe' };
+
 		// encript password
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(password, salt);
 
-		console.log('------|>> ' + i++);
-		const Client: any = getRepository(fm_client).create(req.body);
-		console.log('Client');
-		console.log(Client);
-
-		const resp: fm_client = await getRepository(fm_client).save(Client);
+		const resp = await getRepository(fm_client).save(req.body);
 
 		// enviar correo de validacion
-		await mail.verify(Client);
+		await mail.verify(req.body);
 
-		console.log('------|>> ' + i++);
-
+		// generar token
 		const token = jwt.sign({ id: resp.id }, key, { expiresIn: '3h' });
 
-		console.log('------|>> ' + i++);
+		// definimos data de telefonos
+		const id_client: any = resp.id;
+		const phones: fm_phone[] = [phone1, phone2].map((phone: string): fm_phone => ({ phone, id_client }));
 
-		const phones: Promise<void>[] = [phone1, phone2].map(async (phone: string): Promise<void> => {
-			const item: any = getRepository(fm_phone).create({ phone, id_client: resp.id });
-
-			console.log('item');
-			console.log(item);
-
-			await getRepository(fm_client).save(item);
-		});
-		await Promise.all(phones);
-
-		console.log('------|>> ' + i++);
+		// guardamos los telefonos
+		await getRepository(fm_phone).save(phones);
 
 		// response
 		res.status(200).json({ message: 'Usuario registrado Revise su correo por favor', info: { token } });
@@ -71,9 +62,20 @@ export const register = async (
 };
 
 // register valid 1
-export const registerValid1 = (req: Request, res: Response, next: NextFunction): void => {
+export const registerValid1 = async (
+	req: Request<any, Api.resp, fm_client>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
 	try {
 		validationResult(req).throw();
+
+		const { email } = req.body;
+
+		// validar existencia de la clave cumpuesta
+		const Client = await getRepository(fm_client).findOne({ email });
+		if (Client) throw { message: 'el correo ya existe' };
+
 		res.status(200).json({ message: 'ok' });
 	} catch (err) {
 		next(err);

@@ -35,7 +35,7 @@ export default class fm_client {
 	password!: string;
 
 	@OneToOne(() => fm_ident_type)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_ident_type' })
 	id_ident_type!: number;
 
 	@Column()
@@ -45,10 +45,10 @@ export default class fm_client {
 	email!: string;
 
 	@OneToMany(() => fm_phone, (fm_phone) => fm_phone.id_client)
-	@JoinColumn()
+	@JoinColumn({ name: 'phones' })
 	phones!: fm_phone[];
 
 	@OneToMany(() => fm_request, (fm_request) => fm_request.id_client)
-	@JoinColumn()
+	@JoinColumn({ name: 'requests' })
 	requests!: fm_request[];
 }

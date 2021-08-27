@@ -22,7 +22,7 @@ export default class fm_estado {
 	iso_3166!: number;
 
 	@OneToMany(() => fm_ciudad, (fm_Ciudad) => fm_Ciudad.id_estado)
-	@JoinColumn()
+	@JoinColumn({ name: 'ciudades' })
 	ciudades!: fm_ciudad[];
 
 	@CreateDateColumn()

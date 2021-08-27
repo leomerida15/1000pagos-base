@@ -22,23 +22,23 @@ export default class fm_location {
 	id?: number;
 
 	@OneToOne(() => fm_estado)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_estado' })
 	id_estado!: number;
 
 	@OneToOne(() => fm_municipio)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_municipio' })
 	id_municipio!: number;
 
 	@OneToOne(() => fm_ciudad)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_ciudad' })
 	id_ciudad!: number;
 
 	@OneToOne(() => fm_parroquia)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_parroquia' })
 	id_parroquia!: number;
 
 	@OneToOne(() => fm_cod_postal)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_cod_postal' })
 	id_cod_postal!: number;
 
 	@Column()

@@ -1,4 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+	ManyToOne,
+	JoinColumn,
+} from 'typeorm';
+import fm_commerce from './fm_commerce';
 
 @Entity()
 export default class fm_photo {
@@ -13,6 +22,10 @@ export default class fm_photo {
 
 	@Column()
 	name!: string;
+
+	@ManyToOne(() => fm_commerce, (fm_commerce) => fm_commerce.photos)
+	@JoinColumn({ name: 'id_commerce' })
+	id_commerce!: number;
 
 	@CreateDateColumn()
 	createdAt?: string;

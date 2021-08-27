@@ -21,7 +21,7 @@ export class fm_bank {
 	name!: string;
 
 	@OneToMany(() => fm_bank_commerce, (fm_bank_commerce) => fm_bank_commerce.id_commerce)
-	@JoinColumn()
+	@JoinColumn({ name: 'commerces' })
 	commerces!: fm_bank_commerce[];
 
 	@CreateDateColumn()

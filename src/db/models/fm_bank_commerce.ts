@@ -17,11 +17,11 @@ export default class fm_bank_commerce {
 	id?: number;
 
 	@ManyToOne(() => fm_commerce, (fm_commerce) => fm_commerce.banks)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_commerce' })
 	id_commerce!: number;
 
 	@ManyToOne(() => fm_bank, (fm_bank) => fm_bank.commerces)
-	@JoinColumn()
+	@JoinColumn({ name: 'id_bank' })
 	id_bank!: number;
 
 	@Column()

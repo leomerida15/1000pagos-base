@@ -9,7 +9,7 @@ export const RegisterData: ValidationChain[] = [
 	//
 	check(
 		'password',
-		'la contraseña debe tener 1 numero, 1 minuscula, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres'
+		'la contraseña debe tener 1 numero, 1 minuscula, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres',
 	)
 		.exists({ checkFalsy: true, checkNull: false })
 		.isStrongPassword({ minLength: 6, minNumbers: 1, minUppercase: 1, minSymbols: 1 })
@@ -39,12 +39,7 @@ export const RegisterData1: ValidationChain[] = [
 		.exists({ checkFalsy: true, checkNull: true })
 		.normalizeEmail()
 		.isEmail()
-		.custom(NoSQL)
-		.custom(async (email: string) => {
-			const resp = await getRepository(fm_Client).findOne({ where: { email } });
-
-			return resp ? false : true;
-		}),
+		.custom(NoSQL),
 ];
 
 export const RegisterData2: ValidationChain[] = [
