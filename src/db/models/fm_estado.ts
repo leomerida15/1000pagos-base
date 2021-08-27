@@ -5,7 +5,7 @@ import fm_ciudad from './fm_ciudad';
 @Entity()
 export default class fm_estado {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	estado!: string;

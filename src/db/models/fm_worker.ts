@@ -7,6 +7,7 @@ import {
 	ManyToMany,
 	JoinTable,
 	Index,
+	JoinColumn,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
@@ -16,7 +17,7 @@ import fm_department from './fm_department';
 @Index(['id_ident_type', 'ident_num'], { unique: true })
 export default class fm_worker {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	name!: string;
@@ -32,11 +33,10 @@ export default class fm_worker {
 	@Column()
 	password!: string;
 
-	@Column()
 	@OneToOne(() => fm_ident_type)
+	@JoinColumn()
 	id_ident_type!: number;
 
-	@Column()
 	@ManyToMany(() => fm_department)
 	@JoinTable()
 	id_depart!: number;

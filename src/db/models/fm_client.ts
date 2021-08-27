@@ -18,7 +18,7 @@ import fm_roles from './fm_roles';
 @Index(['id_ident_type', 'ident_num'], { unique: true })
 export default class fm_client {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	name!: string;

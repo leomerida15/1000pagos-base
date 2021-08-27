@@ -6,9 +6,8 @@ import fm_parroquia from './fm_parroquia';
 @Entity()
 export default class fm_municipio {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
-	@Column()
 	@OneToOne(() => fm_estado)
 	@JoinColumn()
 	id_estado!: number;

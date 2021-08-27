@@ -9,7 +9,7 @@ import fm_request from './fm_request';
 @Entity()
 export default class fm_commerce {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	name!: string;
@@ -23,7 +23,6 @@ export default class fm_commerce {
 	@Column({ default: 0 })
 	special_contributor!: number;
 
-	@Column()
 	@OneToOne(() => fm_activity)
 	@JoinColumn()
 	id_activity!: number;
@@ -31,12 +30,10 @@ export default class fm_commerce {
 	@Column()
 	id_location!: number;
 
-	@Column()
 	@OneToOne(() => fm_worker)
 	@JoinColumn()
 	id_aci!: number;
 
-	@Column()
 	@OneToOne(() => fm_Client)
 	@JoinColumn()
 	id_client!: number;

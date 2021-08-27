@@ -7,14 +7,12 @@ import fm_commerce from './fm_commerce';
 @Entity()
 export default class fm_dir_post {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
-	@Column()
 	@OneToOne(() => fm_location)
 	@JoinColumn()
 	id_location!: number;
 
-	@Column()
 	@ManyToOne(() => fm_commerce, (fm_Commerce) => fm_Commerce.dir_posts)
 	@JoinColumn()
 	id_commerce!: number;

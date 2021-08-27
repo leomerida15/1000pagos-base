@@ -4,9 +4,8 @@ import fm_estado from './fm_estado';
 @Entity()
 export default class fm_ciudad {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
-	@Column()
 	@ManyToOne(() => fm_estado, (fm_estado) => fm_estado.ciudades)
 	@JoinColumn()
 	id_estado!: number;

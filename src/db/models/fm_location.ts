@@ -9,29 +9,24 @@ import fm_parroquia from './fm_parroquia';
 @Entity()
 export default class fm_location {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
-	@Column()
 	@OneToOne(() => fm_estado)
 	@JoinColumn()
 	id_estado!: number;
 
-	@Column()
 	@OneToOne(() => fm_municipio)
 	@JoinColumn()
 	id_municipio!: number;
 
-	@Column()
 	@OneToOne(() => fm_ciudad)
 	@JoinColumn()
 	id_ciudad!: number;
 
-	@Column()
 	@OneToOne(() => fm_parroquia)
 	@JoinColumn()
 	id_parroquia!: number;
 
-	@Column()
 	@OneToOne(() => fm_cod_postal)
 	@JoinColumn()
 	id_cod_postal!: number;

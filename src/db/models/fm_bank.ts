@@ -4,7 +4,7 @@ import fm_bank_commerce from './fm_bank_commerce';
 @Entity()
 export class fm_bank {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	id?: number;
 
 	@Column()
 	code!: string;
