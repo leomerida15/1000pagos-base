@@ -5,13 +5,13 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import { host } from './host';
+import { host } from '../host';
 import { v4 as uuidv4 } from 'uuid';
 // import svg2png from 'svg2png';
 
 const base: string = path.resolve('static');
 //
-export const ImgToFile: any = async (file: string | string[], title: string): Promise<string> => {
+export const DocToFile: any = async (file: string | string[], title: string): Promise<string> => {
 	const svg: string = (() => {
 		if (typeof file == 'string') {
 			return file;
@@ -35,7 +35,7 @@ export const fileExistin = async (folder: string) => {
 	}
 };
 //
-export const Img64ToFile = async (file: string, title: string, folder?: string): Promise<string> => {
+export const Doc64ToFile = async (file: string, title: string, folder?: string): Promise<string> => {
 	const id: string = uuidv4() + '@' + title.replace(/ /gi, '_') + '.png';
 
 	const image: string = file.replace(/^data:image\/png;base64,/, '');
@@ -51,48 +51,48 @@ export const Img64ToFile = async (file: string, title: string, folder?: string):
 
 	await fs.writeFile(URL, image, 'base64');
 
-	return ImgRoute({ filename: id }, folder);
+	return DocRoute({ filename: id }, folder);
 };
 //
-export const ImgID = (file: string) => file.split('/')[file.split('/').length - 1];
+export const DocID = (file: string) => file.split('/')[file.split('/').length - 1];
 //
-export const ImgIDs = (files: string[]) =>
+export const DocIDs = (files: string[]) =>
 	files.map((file: string) => file.split('/')[file.split('/').length - 1]);
 //
-export const ImgMove = async (file: string, folder: string) => {
+export const DocMove = async (file: string, folder: string) => {
 	if (folder) await fileExistin(folder);
 
 	await fs.rename(path.join(base, file), path.join(base, folder, file));
 	return `${host}/${folder}/${file}`;
 };
 //
-export const ImgMoves = async (files: string[], folder: string) => {
+export const DocMoves = async (files: string[], folder: string) => {
 	if (folder) await fileExistin(folder);
 
 	const resp: any = files.map(
-		async (file: string) => await fs.rename(`${base}/${file}`, `${base}/${folder}/${file}`)
+		async (file: string) => await fs.rename(`${base}/${file}`, `${base}/${folder}/${file}`),
 	);
 	await Promise.all(resp);
 
 	return files.map((file: any) => `${host}static/${folder}/${file}`);
 };
 //
-export const ImgRoute = (file: any, folder?: string) => {
+export const DocRoute = (file: any, folder?: string) => {
 	return `${host}static/${folder ? folder + '/' : ''}${file.filename}`;
 };
 //
-export const ImgMoveRoute = async (file: any, folder: string) => {
-	const resp: string = ImgRoute(file, folder);
-	const id = ImgID(resp);
-	await ImgMove(id, folder);
+export const DocMoveRoute = async (file: any, folder: string) => {
+	const resp: string = DocRoute(file, folder);
+	const id = DocID(resp);
+	await DocMove(id, folder);
 	return resp;
 };
 //
-export const ImgRoutes = (files: any, folder?: string) => {
+export const DocRoutes = (files: any, folder?: string) => {
 	return files ? files.map((a: any) => `${host}static/${folder ? folder + '/' : ''}${a.filename}`) : [];
 };
 //
-export const ImgDelete = async (file: string, folder?: string) => {
+export const DocDelete = async (file: string, folder?: string) => {
 	try {
 		const route: string = (() => {
 			if (folder) {
@@ -110,7 +110,7 @@ export const ImgDelete = async (file: string, folder?: string) => {
 	}
 };
 //
-export const ImgDeletes = async (files: string[], folder?: string) => {
+export const DocDeletes = async (files: string[], folder?: string) => {
 	try {
 		const stop = files.map(async (file: string) => {
 			const route: string = (() => {
@@ -132,28 +132,28 @@ export const ImgDeletes = async (files: string[], folder?: string) => {
 	}
 };
 //s
-export const ImgCatch = async (file: any, folder: string): Promise<string | false> => {
+export const DocCatch = async (file: any, folder: string): Promise<string | false> => {
 	if (file) {
-		const routesIMG: string = ImgRoute(file, folder);
+		const routesDoc: string = DocRoute(file, folder);
 
-		const id = ImgID(routesIMG);
+		const id = DocID(routesDoc);
 
-		await ImgMove(id, folder);
+		await DocMove(id, folder);
 		//
-		return routesIMG;
+		return routesDoc;
 		//
 	} else {
 		return false;
 	}
 };
 //
-export const ImgCatchs = async (files: any[], folder: string): Promise<string[]> => {
+export const DocCatchs = async (files: any[], folder: string): Promise<string[]> => {
 	const stop: Promise<string | false>[] = files.map(async (file: any) => {
 		if (file) {
-			const routesIMG: string = ImgRoute(file, folder);
-			const id = ImgID(routesIMG);
+			const routesDoc: string = DocRoute(file, folder);
+			const id = DocID(routesDoc);
 			//
-			return await ImgMove(id, folder);
+			return await DocMove(id, folder);
 			//
 		} else {
 			return false;
@@ -167,7 +167,7 @@ export const ImgCatchs = async (files: any[], folder: string): Promise<string[]>
 	return data;
 };
 //
-export const ImgPath = (route: any) => {
+export const DocPath = (route: any) => {
 	let valid: boolean = false;
 	const split: string = route
 		.split('/')
