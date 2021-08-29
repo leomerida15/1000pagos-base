@@ -1,4 +1,9 @@
+import { id } from './db';
 export interface resp<info = any> {
-	messages: string;
+	message: string;
 	info?: info;
+}
+
+export interface params {
+	id: number | string;
 }

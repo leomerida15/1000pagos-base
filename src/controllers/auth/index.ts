@@ -19,14 +19,14 @@ import fm_worker from '../../db/models/fm_worker';
 
 // getter a Client
 export const register = async (
-	req: Request<any, Api.resp, DB.Client>,
-	res: Response,
-	next: NextFunction
+	req: Request<any, Api.resp, fm_worker>,
+	res: Response<Api.resp<{ token: string }>>,
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
 
-		const { password, phone1, phone2, email, id_ident_type, ident_num }: any = req.body;
+		const { password, phone, email, id_ident_type, ident_num } = req.body;
 
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
@@ -40,20 +40,13 @@ export const register = async (
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(password, salt);
 
-		const resp = await getRepository(fm_client).save(req.body);
+		const resp = await getRepository(fm_worker).save(req.body);
 
 		// enviar correo de validacion
 		await mail.verify(req.body);
 
 		// generar token
-		const token = jwt.sign({ id: resp.id }, key, { expiresIn: '3h' });
-
-		// definimos data de telefonos
-		const id_client: any = resp.id;
-		const phones: fm_phone[] = [phone1, phone2].map((phone: string): fm_phone => ({ phone, id_client }));
-
-		// guardamos los telefonos
-		await getRepository(fm_phone).save(phones);
+		const token = jwt.sign({ id: resp.id }, key);
 
 		// response
 		res.status(200).json({ message: 'Usuario registrado Revise su correo por favor', info: { token } });
@@ -65,8 +58,8 @@ export const register = async (
 // register valid 1
 export const registerValid1 = async (
 	req: Request<any, Api.resp, fm_client>,
-	res: Response,
-	next: NextFunction
+	res: Response<Api.resp>,
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -83,41 +76,17 @@ export const registerValid1 = async (
 	}
 };
 
-// register valid 1
-export const registerValid2 = async (
-	req: Request<any, Api.resp, fm_client>,
-	res: Response,
-	next: NextFunction
-): Promise<void> => {
-	try {
-		validationResult(req).throw();
-
-		const { id_ident_type, ident_num } = req.body;
-
-		// validar existencia de la clave cumpuesta
-		const Client = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
-		if (Client) throw { message: 'el documento de identidad ya existe' };
-
-		res.status(200).json({ message: 'ok' });
-	} catch (err) {
-		next(err);
-	}
-};
-
 // getter a Client
 export const login = async (
-	req: Request<any, Api.resp, fm_client>,
-	res: Response,
-	next: NextFunction
+	req: Request<any, Api.resp, fm_worker>,
+	res: Response<Api.resp>,
+	next: NextFunction,
 ): Promise<void> => {
 	try {
-		const { password, email, worker }: any = req.body;
+		const { password, email } = req.body;
 
 		// encript password
-		const user: any = await (async () => {
-			if (!worker) return await getRepository(fm_client).findOne({ where: { email } });
-			else await getRepository(fm_worker).findOne({ where: { email } });
-		})();
+		const user = await getRepository(fm_worker).findOne({ where: { email } });
 		if (!user) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
 		const validPassword = await bcrypt.compare(password, user.password);
@@ -134,15 +103,15 @@ export const login = async (
 
 // this function is for emit a mail for edit a password
 export const passMail = async (
-	req: Request<any, Api.resp, fm_client>,
+	req: Request<any, Api.resp, fm_worker>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		// define email
-		const { email }: any = req.body;
+		const { email } = req.body;
 		// query for valid email
-		const Client = await getRepository(fm_client).findOne({ where: { email } });
+		const Client = await getRepository(fm_worker).findOne({ where: { email } });
 		if (!Client) throw { message: `El correo ${email} no se encuentra registrado en la plataforma`, code: 400 };
 
 		// emit mail
@@ -156,7 +125,11 @@ export const passMail = async (
 };
 
 // editar usuarios
-export const editPass = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const editPass = async (
+	req: Request<Api.params, Api.resp, fm_worker>,
+	res: Response<Api.resp>,
+	next: NextFunction,
+): Promise<void> => {
 	try {
 		// encript password
 		const salt: string = await bcrypt.genSalt(10);
@@ -169,7 +142,7 @@ export const editPass = async (req: Request, res: Response, next: NextFunction):
 		// query for valid email
 		await getRepository(fm_client)
 			.createQueryBuilder()
-			.update(fm_client)
+			.update(fm_worker)
 			.set({ password })
 			.where('id = :id', { id })
 			.execute();
@@ -177,7 +150,6 @@ export const editPass = async (req: Request, res: Response, next: NextFunction):
 		// response
 		res.status(200).json({ message: 'Contraseña actualizada con exito' });
 	} catch (err) {
-		err.logger = true;
 		next(err);
 	}
 };
