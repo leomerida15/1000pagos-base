@@ -6,6 +6,8 @@ import Routes from '../router';
 import { createConnection, getRepository } from 'typeorm';
 import contents from '../db/contents';
 
+//database
+
 createConnection()
 	.then(async () => {
 		await contents();
@@ -14,8 +16,6 @@ createConnection()
 	.catch((err) => console.log('DB ERR', err));
 
 const app: Application = express();
-
-//database
 
 // middleware preRoutes
 preRoutes(app);
