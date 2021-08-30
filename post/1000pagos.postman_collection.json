@@ -201,6 +201,31 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "commerces",
+			"item": [
+				{
+					"name": "create commerce",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5051/client/commerce",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"client",
+								"commerce"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

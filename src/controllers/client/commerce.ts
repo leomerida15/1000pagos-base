@@ -11,8 +11,6 @@ export const createCommerce = async (
 	next: NextFunction,
 ): Promise<void> => {
 	try {
-		console.log(req.headers.token);
-
 		const { id, email }: any = req.headers.token;
 		// const { id_aci } = req.body;
 

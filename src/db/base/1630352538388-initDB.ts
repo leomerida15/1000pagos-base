@@ -1,9 +1,10 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class initDB1630289916659 implements MigrationInterface {
-    name = 'initDB1630289916659'
+export class initDB1630352538388 implements MigrationInterface {
+    name = 'initDB1630352538388'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE TABLE \`1000pagosdev\`.\`fm_product\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`price\` int NOT NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`id_paym_method\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` DROP FOREIGN KEY \`FK_e018746d22c55fc0477298963ad\``);
         await queryRunner.query(`DROP INDEX \`IDX_7a21b1b04b3df8909ad71d8909\` ON \`1000pagosdev\`.\`fm_worker\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` CHANGE \`id_ident_type\` \`id_ident_type\` int NULL`);
@@ -107,9 +108,11 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` ADD CONSTRAINT \`FK_ae4a2f524f6c29e5d38f265f7ac\` FOREIGN KEY (\`id_client\`) REFERENCES \`1000pagosdev\`.\`fm_client\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` ADD CONSTRAINT \`FK_f6a998bb3ed4eb4c244b9baa7f3\` FOREIGN KEY (\`id_commerce\`) REFERENCES \`1000pagosdev\`.\`fm_commerce\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` ADD CONSTRAINT \`FK_ac51278339d6ed7a4bcbb5bda7f\` FOREIGN KEY (\`id_bank\`) REFERENCES \`1000pagosdev\`.\`fm_bank\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` ADD CONSTRAINT \`FK_cc8feb26b45d579f0f7372aca66\` FOREIGN KEY (\`id_paym_method\`) REFERENCES \`1000pagosdev\`.\`fm_payment_method\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` DROP FOREIGN KEY \`FK_cc8feb26b45d579f0f7372aca66\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` DROP FOREIGN KEY \`FK_ac51278339d6ed7a4bcbb5bda7f\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` DROP FOREIGN KEY \`FK_f6a998bb3ed4eb4c244b9baa7f3\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` DROP FOREIGN KEY \`FK_ae4a2f524f6c29e5d38f265f7ac\``);
@@ -213,6 +216,7 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` CHANGE \`id_ident_type\` \`id_ident_type\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`CREATE UNIQUE INDEX \`IDX_7a21b1b04b3df8909ad71d8909\` ON \`1000pagosdev\`.\`fm_worker\` (\`id_ident_type\`, \`ident_num\`)`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` ADD CONSTRAINT \`FK_e018746d22c55fc0477298963ad\` FOREIGN KEY (\`id_ident_type\`) REFERENCES \`1000pagosdev\`.\`fm_ident_type\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`DROP TABLE \`1000pagosdev\`.\`fm_product\``);
     }
 
 }

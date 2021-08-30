@@ -16,16 +16,12 @@ export default (req: Request, res: Response, next: NextFunction) => {
 		// use
 		if (result) {
 			if (req.headers.token) {
-				// console.log('header', req.headers.token);
-
 				const { token }: any = req.headers;
 				const resp: any = jwt.verify(token, Key);
 
 				console.log(resp);
 
 				req.headers.token = resp;
-
-				console.log('header', req.headers.token);
 
 				next();
 				//
