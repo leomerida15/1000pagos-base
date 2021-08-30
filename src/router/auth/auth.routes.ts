@@ -5,6 +5,7 @@ const Auth: Router = Router();
 
 // controllers
 import { editPass, login, passMail, register, registerValid1, registerValid2 } from '../../controllers/auth/index';
+import { userByID } from '../../controllers/auth/user';
 
 // ? Auth
 //
@@ -19,5 +20,7 @@ Auth.route('/login').post(login);
 Auth.route('/passMail').post(passMail);
 //
 Auth.route('/log/editPass').patch(editPass);
+//
+Auth.route('/user').get(userByID);
 
 export default Auth;
