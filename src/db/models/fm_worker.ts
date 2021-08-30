@@ -15,6 +15,7 @@ import {
 import fm_ident_type from './fm_ident_type';
 import fm_roles from './fm_roles';
 import fm_department from './fm_department';
+import fm_commerce from './fm_commerce';
 
 @Entity()
 @Index(['id_ident_type', 'ident_num'], { unique: true })
@@ -40,12 +41,16 @@ export default class fm_worker {
 	@JoinColumn({ name: 'id_ident_type' })
 	id_ident_type!: number;
 
+	@Column()
+	ident_num!: string;
+
+	// @OneToMany(() => fm_commerce, (fm_commerce) => fm_commerce.id_aci)
+	// @JoinColumn()
+	// commerces?: fm_commerce[] | null;
+
 	@ManyToMany(() => fm_department)
 	@JoinTable()
 	id_depart!: number;
-
-	@Column()
-	ident_num!: string;
 
 	@Column({ unique: true })
 	email!: string;

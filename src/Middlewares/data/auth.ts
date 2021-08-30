@@ -1,7 +1,5 @@
 import { check, oneOf, ValidationChain } from 'express-validator';
 import { NoSQL } from './index';
-import { getRepository } from 'typeorm';
-import fm_Client from '../../db/models/fm_client';
 
 export const RegisterData: ValidationChain[] = [
 	//
