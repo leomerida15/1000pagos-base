@@ -9,7 +9,7 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { fm_activity } from './fm_activity';
+import fm_activity from './fm_activity';
 import fm_worker from './fm_worker';
 import fm_Client from './fm_client';
 import fm_bank_commerce from './fm_bank_commerce';

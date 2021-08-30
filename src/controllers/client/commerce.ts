@@ -11,14 +11,19 @@ export const createCommerce = async (
 	next: NextFunction,
 ): Promise<void> => {
 	try {
+		console.log(req.headers.token);
+
 		const { id, email }: any = req.headers.token;
+		// const { id_aci } = req.body;
 
 		const validClient = await getRepository(fm_client).findOne({ id, email });
 		if (validClient) throw { message: 'cliente no existente', code: 400 };
 
 		req.body.id_client = id;
 
-		const commerce = getRepository(fm_commerce).create(req.body);
+		await getRepository(fm_commerce).save(req.body);
+
+		res.status(200).json({ message: 'comercio creado' });
 	} catch (err) {
 		next(err);
 	}
