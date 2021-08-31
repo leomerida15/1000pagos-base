@@ -4,6 +4,7 @@ import roles from './roles';
 import worker from './worker';
 import activity from './activity';
 import Product from './product';
+import estado from './estado';
 
 export default async () => {
 	await ident_type();
@@ -12,4 +13,5 @@ export default async () => {
 	await worker();
 	await activity();
 	await Product();
+	await estado();
 };
