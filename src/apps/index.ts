@@ -5,6 +5,7 @@ import Routes from '../router';
 
 import { createConnection, getRepository } from 'typeorm';
 import contents from '../db/contents';
+import { Doc } from '../hooks/docs';
 
 //database
 
@@ -24,10 +25,13 @@ app.use(express.json());
 // Routes
 Routes(app);
 
+//
+app.use('/static/*', express.static(Doc.base + '*'));
+
 // meddleware posRutes
 posRoutes(app);
 
 // Settings
-app.set('port', process.env.PORT || 5050);
+app.set('port', process.env.PORT || 4040);
 
 export default app;

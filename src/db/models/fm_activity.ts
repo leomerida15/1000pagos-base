@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class fm_activity {
+export default class fm_activity {
 	@PrimaryGeneratedColumn()
 	id?: number;
 
