@@ -123,7 +123,7 @@ export const login = async (
 		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const token = jwt.sign({ id: user.id }, key);
+		const token = jwt.sign({ id: user.id, roles: user.id_roles }, key);
 
 		// response
 		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
