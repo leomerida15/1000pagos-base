@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class initDB1630289916659 implements MigrationInterface {
-    name = 'initDB1630289916659'
+export class initDB1630520275493 implements MigrationInterface {
+    name = 'initDB1630520275493'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` DROP FOREIGN KEY \`FK_e018746d22c55fc0477298963ad\``);
@@ -54,12 +54,10 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_1c57c6523dd537b0ef0a9f5b419\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_3e940da713ea86a9367f70618d0\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_73174abf588e8edc848e2e3a121\``);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_aa99815e80f2540166ff2cbb1ea\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_estado\` \`id_estado\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_municipio\` \`id_municipio\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_ciudad\` \`id_ciudad\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_parroquia\` \`id_parroquia\` int NULL`);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_cod_postal\` \`id_cod_postal\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` DROP FOREIGN KEY \`FK_015c3b2143094f7b284500f049d\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` DROP FOREIGN KEY \`FK_deac441944a320c379e0f1b1d5d\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` CHANGE \`id_location\` \`id_location\` int NULL`);
@@ -72,6 +70,8 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` DROP FOREIGN KEY \`FK_ac51278339d6ed7a4bcbb5bda7f\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` CHANGE \`id_commerce\` \`id_commerce\` int NULL`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` CHANGE \`id_bank\` \`id_bank\` int NULL`);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` DROP FOREIGN KEY \`FK_cc8feb26b45d579f0f7372aca66\``);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` CHANGE \`id_paym_method\` \`id_paym_method\` int NULL`);
         await queryRunner.query(`CREATE UNIQUE INDEX \`IDX_7a21b1b04b3df8909ad71d8909\` ON \`1000pagosdev\`.\`fm_worker\` (\`id_ident_type\`, \`ident_num\`)`);
         await queryRunner.query(`CREATE UNIQUE INDEX \`IDX_15f756dc2a9a6aefe1751f731f\` ON \`1000pagosdev\`.\`fm_client\` (\`id_ident_type\`, \`ident_num\`)`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` ADD CONSTRAINT \`FK_e018746d22c55fc0477298963ad\` FOREIGN KEY (\`id_ident_type\`) REFERENCES \`1000pagosdev\`.\`fm_ident_type\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -100,23 +100,23 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_1c57c6523dd537b0ef0a9f5b419\` FOREIGN KEY (\`id_municipio\`) REFERENCES \`1000pagosdev\`.\`fm_municipio\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_3e940da713ea86a9367f70618d0\` FOREIGN KEY (\`id_ciudad\`) REFERENCES \`1000pagosdev\`.\`fm_ciudad\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_73174abf588e8edc848e2e3a121\` FOREIGN KEY (\`id_parroquia\`) REFERENCES \`1000pagosdev\`.\`fm_parroquia\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_aa99815e80f2540166ff2cbb1ea\` FOREIGN KEY (\`id_cod_postal\`) REFERENCES \`1000pagosdev\`.\`fm_cod_postal\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` ADD CONSTRAINT \`FK_015c3b2143094f7b284500f049d\` FOREIGN KEY (\`id_location\`) REFERENCES \`1000pagosdev\`.\`fm_location\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` ADD CONSTRAINT \`FK_deac441944a320c379e0f1b1d5d\` FOREIGN KEY (\`id_commerce\`) REFERENCES \`1000pagosdev\`.\`fm_commerce\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` ADD CONSTRAINT \`FK_9d10e9066e2a479adcf4830e65b\` FOREIGN KEY (\`id_activity\`) REFERENCES \`1000pagosdev\`.\`fm_activity\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` ADD CONSTRAINT \`FK_ae4a2f524f6c29e5d38f265f7ac\` FOREIGN KEY (\`id_client\`) REFERENCES \`1000pagosdev\`.\`fm_client\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` ADD CONSTRAINT \`FK_f6a998bb3ed4eb4c244b9baa7f3\` FOREIGN KEY (\`id_commerce\`) REFERENCES \`1000pagosdev\`.\`fm_commerce\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` ADD CONSTRAINT \`FK_ac51278339d6ed7a4bcbb5bda7f\` FOREIGN KEY (\`id_bank\`) REFERENCES \`1000pagosdev\`.\`fm_bank\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` ADD CONSTRAINT \`FK_cc8feb26b45d579f0f7372aca66\` FOREIGN KEY (\`id_paym_method\`) REFERENCES \`1000pagosdev\`.\`fm_payment_method\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` DROP FOREIGN KEY \`FK_cc8feb26b45d579f0f7372aca66\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` DROP FOREIGN KEY \`FK_ac51278339d6ed7a4bcbb5bda7f\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` DROP FOREIGN KEY \`FK_f6a998bb3ed4eb4c244b9baa7f3\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` DROP FOREIGN KEY \`FK_ae4a2f524f6c29e5d38f265f7ac\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_commerce\` DROP FOREIGN KEY \`FK_9d10e9066e2a479adcf4830e65b\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` DROP FOREIGN KEY \`FK_deac441944a320c379e0f1b1d5d\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` DROP FOREIGN KEY \`FK_015c3b2143094f7b284500f049d\``);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_aa99815e80f2540166ff2cbb1ea\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_73174abf588e8edc848e2e3a121\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_3e940da713ea86a9367f70618d0\``);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` DROP FOREIGN KEY \`FK_1c57c6523dd537b0ef0a9f5b419\``);
@@ -145,6 +145,8 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_worker\` DROP FOREIGN KEY \`FK_e018746d22c55fc0477298963ad\``);
         await queryRunner.query(`DROP INDEX \`IDX_15f756dc2a9a6aefe1751f731f\` ON \`1000pagosdev\`.\`fm_client\``);
         await queryRunner.query(`DROP INDEX \`IDX_7a21b1b04b3df8909ad71d8909\` ON \`1000pagosdev\`.\`fm_worker\``);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` CHANGE \`id_paym_method\` \`id_paym_method\` int NULL DEFAULT 'NULL'`);
+        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_product\` ADD CONSTRAINT \`FK_cc8feb26b45d579f0f7372aca66\` FOREIGN KEY (\`id_paym_method\`) REFERENCES \`1000pagosdev\`.\`fm_payment_method\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` CHANGE \`id_bank\` \`id_bank\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` CHANGE \`id_commerce\` \`id_commerce\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_bank_commerce\` ADD CONSTRAINT \`FK_ac51278339d6ed7a4bcbb5bda7f\` FOREIGN KEY (\`id_bank\`) REFERENCES \`1000pagosdev\`.\`fm_bank\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -157,12 +159,10 @@ export class initDB1630289916659 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` CHANGE \`id_location\` \`id_location\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` ADD CONSTRAINT \`FK_deac441944a320c379e0f1b1d5d\` FOREIGN KEY (\`id_commerce\`) REFERENCES \`1000pagosdev\`.\`fm_commerce\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_dir_post\` ADD CONSTRAINT \`FK_015c3b2143094f7b284500f049d\` FOREIGN KEY (\`id_location\`) REFERENCES \`1000pagosdev\`.\`fm_location\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_cod_postal\` \`id_cod_postal\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_parroquia\` \`id_parroquia\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_ciudad\` \`id_ciudad\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_municipio\` \`id_municipio\` int NULL DEFAULT 'NULL'`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` CHANGE \`id_estado\` \`id_estado\` int NULL DEFAULT 'NULL'`);
-        await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_aa99815e80f2540166ff2cbb1ea\` FOREIGN KEY (\`id_cod_postal\`) REFERENCES \`1000pagosdev\`.\`fm_cod_postal\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_73174abf588e8edc848e2e3a121\` FOREIGN KEY (\`id_parroquia\`) REFERENCES \`1000pagosdev\`.\`fm_parroquia\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_3e940da713ea86a9367f70618d0\` FOREIGN KEY (\`id_ciudad\`) REFERENCES \`1000pagosdev\`.\`fm_ciudad\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`1000pagosdev\`.\`fm_location\` ADD CONSTRAINT \`FK_1c57c6523dd537b0ef0a9f5b419\` FOREIGN KEY (\`id_municipio\`) REFERENCES \`1000pagosdev\`.\`fm_municipio\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);

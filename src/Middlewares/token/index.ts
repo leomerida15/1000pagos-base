@@ -34,6 +34,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 			next();
 		}
 	} catch (err) {
+		err.code = 403;
 		next(err);
 	}
 };

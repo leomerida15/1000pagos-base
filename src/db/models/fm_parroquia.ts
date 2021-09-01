@@ -14,7 +14,7 @@ export default class fm_parroquia {
 	@PrimaryGeneratedColumn()
 	id?: number;
 
-	@ManyToOne(() => fm_municipio, (fm_municipio) => fm_municipio)
+	@ManyToOne(() => fm_municipio, (fm_municipio) => fm_municipio.parroquias)
 	@JoinColumn({ name: 'id_municipio' })
 	id_municipio!: number;
 
