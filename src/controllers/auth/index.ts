@@ -111,7 +111,7 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { password, email, worker }: any = req.body;
+		const { email, worker }: any = req.body;
 
 		// encript password
 		const user: any = await (async () => {
@@ -120,13 +120,15 @@ export const login = async (
 		})();
 		if (!user) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const validPassword = await bcrypt.compare(password, user.password);
+		const validPassword = await bcrypt.compare(req.body.password, user.password);
 		if (!validPassword) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
 		const token = jwt.sign({ id: user.id, roles: user.id_roles }, key);
 
+		const { password, ...data }: fm_client = user;
+
 		// response
-		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
+		res.status(200).json({ message: 'Usuario logeado con exito', info: { token, data } });
 	} catch (err) {
 		next(err);
 	}
