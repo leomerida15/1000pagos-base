@@ -9,9 +9,9 @@ import { host } from '../host';
 import { v4 as uuidv4 } from 'uuid';
 // import svg2png from 'svg2png';
 
-const base: string = path.resolve('static');
+export const base: string = path.resolve('static');
 //
-export const DocToFile: any = async (file: string | string[], title: string): Promise<string> => {
+export const ToFile: any = async (file: string | string[], title: string): Promise<string> => {
 	const svg: string = (() => {
 		if (typeof file == 'string') {
 			return file;
@@ -35,7 +35,7 @@ export const fileExistin = async (folder: string) => {
 	}
 };
 //
-export const Doc64ToFile = async (file: string, title: string, folder?: string): Promise<string> => {
+export const base64ToFile = async (file: string, title: string, folder?: string): Promise<string> => {
 	const id: string = uuidv4() + '@' + title.replace(/ /gi, '_') + '.png';
 
 	const image: string = file.replace(/^data:image\/png;base64,/, '');
@@ -51,48 +51,47 @@ export const Doc64ToFile = async (file: string, title: string, folder?: string):
 
 	await fs.writeFile(URL, image, 'base64');
 
-	return DocRoute({ filename: id }, folder);
+	return Route({ filename: id }, folder);
 };
 //
-export const DocID = (file: string) => file.split('/')[file.split('/').length - 1];
+export const ID = (file: string) => file.split('/')[file.split('/').length - 1];
 //
-export const DocIDs = (files: string[]) =>
-	files.map((file: string) => file.split('/')[file.split('/').length - 1]);
+export const IDs = (files: string[]) => files.map((file: string) => file.split('/')[file.split('/').length - 1]);
 //
-export const DocMove = async (file: string, folder: string) => {
+export const Move = async (file: string, folder: string) => {
 	if (folder) await fileExistin(folder);
 
 	await fs.rename(path.join(base, file), path.join(base, folder, file));
 	return `${host}/${folder}/${file}`;
 };
 //
-export const DocMoves = async (files: string[], folder: string) => {
+export const Moves = async (files: string[], folder: string) => {
 	if (folder) await fileExistin(folder);
 
 	const resp: any = files.map(
-		async (file: string) => await fs.rename(`${base}/${file}`, `${base}/${folder}/${file}`),
+		async (file: string) => await fs.rename(`${base}/${file}`, `${base}/${folder}/${file}`)
 	);
 	await Promise.all(resp);
 
 	return files.map((file: any) => `${host}static/${folder}/${file}`);
 };
 //
-export const DocRoute = (file: any, folder?: string) => {
+export const Route = (file: any, folder?: string) => {
 	return `${host}static/${folder ? folder + '/' : ''}${file.filename}`;
 };
 //
-export const DocMoveRoute = async (file: any, folder: string) => {
-	const resp: string = DocRoute(file, folder);
-	const id = DocID(resp);
-	await DocMove(id, folder);
+export const MoveRoute = async (file: any, folder: string) => {
+	const resp: string = Route(file, folder);
+	const id = ID(resp);
+	await Move(id, folder);
 	return resp;
 };
 //
-export const DocRoutes = (files: any, folder?: string) => {
+export const Routes = (files: any, folder?: string) => {
 	return files ? files.map((a: any) => `${host}static/${folder ? folder + '/' : ''}${a.filename}`) : [];
 };
 //
-export const DocDelete = async (file: string, folder?: string) => {
+export const Delete = async (file: string, folder?: string) => {
 	try {
 		const route: string = (() => {
 			if (folder) {
@@ -110,7 +109,7 @@ export const DocDelete = async (file: string, folder?: string) => {
 	}
 };
 //
-export const DocDeletes = async (files: string[], folder?: string) => {
+export const Deletes = async (files: string[], folder?: string) => {
 	try {
 		const stop = files.map(async (file: string) => {
 			const route: string = (() => {
@@ -132,28 +131,28 @@ export const DocDeletes = async (files: string[], folder?: string) => {
 	}
 };
 //s
-export const DocCatch = async (file: any, folder: string): Promise<string | false> => {
+export const Catch = async (file: any, folder: string): Promise<string | false> => {
 	if (file) {
-		const routesDoc: string = DocRoute(file, folder);
+		const routes: string = Route(file, folder);
 
-		const id = DocID(routesDoc);
+		const id = ID(routes);
 
-		await DocMove(id, folder);
+		await Move(id, folder);
 		//
-		return routesDoc;
+		return routes;
 		//
 	} else {
 		return false;
 	}
 };
 //
-export const DocCatchs = async (files: any[], folder: string): Promise<string[]> => {
+export const Catchs = async (files: any[], folder: string): Promise<string[]> => {
 	const stop: Promise<string | false>[] = files.map(async (file: any) => {
 		if (file) {
-			const routesDoc: string = DocRoute(file, folder);
-			const id = DocID(routesDoc);
+			const routes: string = Route(file, folder);
+			const id = ID(routes);
 			//
-			return await DocMove(id, folder);
+			return await Move(id, folder);
 			//
 		} else {
 			return false;
@@ -167,7 +166,7 @@ export const DocCatchs = async (files: any[], folder: string): Promise<string[]>
 	return data;
 };
 //
-export const DocPath = (route: any) => {
+export const Path = (route: any) => {
 	let valid: boolean = false;
 	const split: string = route
 		.split('/')
