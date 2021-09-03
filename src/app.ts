@@ -2,10 +2,8 @@ import https from 'https';
 import fs from 'fs';
 // app's
 import app from './apps';
+import { prod } from './hooks/host';
 // init server
-
-// print process.argv
-const prod = process.argv[0] === '/root/.nvm/versions/node/v14.15.0/bin/node';
 
 if (prod) {
 	const options = {
