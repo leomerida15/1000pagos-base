@@ -5,13 +5,15 @@ import Routes from '../router';
 
 import { createConnection, getRepository } from 'typeorm';
 import contents from '../db/contents';
+import log from '../hooks/logs/index';
 
 //database
 
 createConnection()
 	.then(async () => {
-		// await contents();
-		console.log('DB OK');
+
+		await contents();
+		log.text.OK('DB OK');
 	})
 	.catch((err) => console.log('DB ERR', err));
 
@@ -28,6 +30,6 @@ Routes(app);
 posRoutes(app);
 
 // Settings
-app.set('port', process.env.PORT || 5050);
+app.set('port', process.env.PORT || 5051);
 
 export default app;
