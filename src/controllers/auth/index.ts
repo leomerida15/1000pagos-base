@@ -9,7 +9,7 @@ const key: string = '_secreto';
 import { getRepository } from 'typeorm';
 
 // services and hooks and personal interface
-import { Api, DB } from '../../interfaces';
+import { Api } from '../../interfaces';
 import { mail } from '../../services';
 
 // db talbes
@@ -20,13 +20,13 @@ import fm_worker from '../../db/models/fm_worker';
 // getter a Client
 export const register = async (
 	req: Request<any, Api.resp, fm_worker>,
-	res: Response<Api.resp<{ token: string }>>,
-	next: NextFunction,
+	res: Response<Api.resp<{ token: string; data: any }>>,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
 
-		const { password, phone, email, id_ident_type, ident_num } = req.body;
+		const { email, id_ident_type, ident_num } = req.body;
 
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
@@ -38,18 +38,22 @@ export const register = async (
 
 		// encript password
 		const salt: string = await bcrypt.genSalt(10);
-		req.body.password = await bcrypt.hash(password, salt);
+		req.body.password = await bcrypt.hash(req.body.password, salt);
 
 		const resp = await getRepository(fm_worker).save(req.body);
+		const { password, id, id_roles, ...data_user } = resp;
+
+		// generar token
+		const token = jwt.sign({ id, id_roles }, key);
 
 		// enviar correo de validacion
 		await mail.verify(req.body);
 
-		// generar token
-		const token = jwt.sign({ id: resp.id }, key);
-
 		// response
-		res.status(200).json({ message: 'Usuario registrado Revise su correo por favor', info: { token } });
+		res.status(200).json({
+			message: 'Usuario registrado Revise su correo por favor',
+			info: { token, data: { ...data_user, id_roles } },
+		});
 	} catch (err) {
 		next(err);
 	}
@@ -57,9 +61,9 @@ export const register = async (
 
 // register valid 1
 export const registerValid1 = async (
-	req: Request<any, Api.resp, fm_client>,
-	res: Response<Api.resp>,
-	next: NextFunction,
+	req: Request<any, Api.resp, fm_worker>,
+	res: Response,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -67,8 +71,29 @@ export const registerValid1 = async (
 		const { email } = req.body;
 
 		// validar existencia de la clave cumpuesta
-		const Client = await getRepository(fm_client).findOne({ email });
-		if (Client) throw { message: 'el correo ya existe' };
+		const Worker = await getRepository(fm_worker).findOne({ email });
+		if (Worker) throw { message: 'el correo ya existe' };
+
+		res.status(200).json({ message: 'ok' });
+	} catch (err) {
+		next(err);
+	}
+};
+
+// register valid 1
+export const registerValid2 = async (
+	req: Request<any, Api.resp, fm_worker>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		validationResult(req).throw();
+
+		const { id_ident_type, ident_num } = req.body;
+
+		// validar existencia de la clave cumpuesta
+		const Worker = await getRepository(fm_worker).findOne({ id_ident_type, ident_num });
+		if (Worker) throw { message: 'el documento de identidad ya existe' };
 
 		res.status(200).json({ message: 'ok' });
 	} catch (err) {
@@ -79,23 +104,28 @@ export const registerValid1 = async (
 // getter a Client
 export const login = async (
 	req: Request<any, Api.resp, fm_worker>,
-	res: Response<Api.resp>,
-	next: NextFunction,
+	res: Response<Api.resp<{ token: string; data: any }>>,
+	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { password, email } = req.body;
+		const { email } = req.body;
 
 		// encript password
-		const user = await getRepository(fm_worker).findOne({ where: { email } });
-		if (!user) throw { message: 'correo o contraseña incorrecta', code: 400 };
+		const worker = await getRepository(fm_worker).findOne({ where: { email } });
+		if (!worker) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const validPassword = await bcrypt.compare(password, user.password);
-		if (!validPassword) throw { message: 'correo o contraseña incorrecta', code: 400 };
+		const validPassword = await bcrypt.compare(req.body.password, worker.password);
+		if (!validPassword) throw { message: 'Correo o Contraseña incorrecta', code: 400 };
 
-		const token = jwt.sign({ id: user.id }, key);
+		const { password, id, id_roles, ...data_user } = worker;
 
+		// generar token
+		const token = jwt.sign({ id, id_roles }, key);
 		// response
-		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
+		res.status(200).json({
+			message: 'Usuario logeado con exito',
+			info: { token, data: { ...data_user, id_roles } },
+		});
 	} catch (err) {
 		next(err);
 	}
@@ -105,17 +135,17 @@ export const login = async (
 export const passMail = async (
 	req: Request<any, Api.resp, fm_worker>,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		// define email
 		const { email } = req.body;
 		// query for valid email
-		const Client = await getRepository(fm_worker).findOne({ where: { email } });
-		if (!Client) throw { message: `El correo ${email} no se encuentra registrado en la plataforma`, code: 400 };
+		const worker = await getRepository(fm_worker).findOne({ where: { email } });
+		if (!worker) throw { message: `El correo ${email} no se encuentra registrado en la plataforma`, code: 400 };
 
 		// emit mail
-		await mail.newPass(Client);
+		await mail.newPass(worker);
 
 		// response
 		res.status(200).json({ message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
@@ -128,7 +158,7 @@ export const passMail = async (
 export const editPass = async (
 	req: Request<Api.params, Api.resp, fm_worker>,
 	res: Response<Api.resp>,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		// encript password
@@ -140,7 +170,7 @@ export const editPass = async (
 		const { id }: any = req.headers.token;
 
 		// query for valid email
-		await getRepository(fm_client)
+		await getRepository(fm_worker)
 			.createQueryBuilder()
 			.update(fm_worker)
 			.set({ password })

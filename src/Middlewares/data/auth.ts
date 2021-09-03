@@ -33,6 +33,29 @@ export const RegisterData: ValidationChain[] = [
 		.custom(NoSQL),
 ];
 
+export const RegisterData1: ValidationChain[] = [
+	//
+	check('email', 'el correo no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.normalizeEmail()
+		.isEmail()
+		.custom(NoSQL),
+];
+
+export const RegisterData2: ValidationChain[] = [
+	//
+	check('id_ident_type', 'el tipo de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('ident_num', 'el numero de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isLength({ min: 6, max: 20 })
+		.isNumeric()
+		.custom(NoSQL),
+];
+
 export const LoginData: ValidationChain[] = [
 	check('password', 'la contraseña debe tener 1 numero, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres')
 		.exists({ checkFalsy: true, checkNull: false })
