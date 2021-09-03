@@ -2,18 +2,18 @@ import {
 	Entity,
 	Column,
 	PrimaryGeneratedColumn,
-	OneToOne,
 	OneToMany,
+	JoinColumn,
 	ManyToMany,
 	JoinTable,
 	Index,
-	JoinColumn,
-	CreateDateColumn,
-	UpdateDateColumn,
 	ManyToOne,
 } from 'typeorm';
 import fm_ident_type from './fm_ident_type';
+import fm_phone from './fm_phone';
+import fm_request from './fm_request';
 import fm_roles from './fm_roles';
+import fm_company from './fm_company';
 import fm_department from './fm_department';
 
 @Entity()
@@ -31,7 +31,7 @@ export default class fm_worker {
 	@Column({ default: 2 })
 	@ManyToMany(() => fm_roles)
 	@JoinTable()
-	id_roles!: number;
+	id_roles?: number;
 
 	@Column()
 	password!: string;
@@ -40,9 +40,13 @@ export default class fm_worker {
 	@JoinColumn({ name: 'id_ident_type' })
 	id_ident_type!: number;
 
-	@ManyToMany(() => fm_department)
-	@JoinTable()
-	id_depart!: number;
+	@ManyToOne(() => fm_company)
+	@JoinColumn({ name: 'id_company' })
+	id_company!: number;
+
+	@ManyToOne(() => fm_department)
+	@JoinColumn({ name: 'id_department' })
+	id_department!: number;
 
 	@Column()
 	ident_num!: string;
@@ -53,9 +57,7 @@ export default class fm_worker {
 	@Column()
 	phone!: string;
 
-	@CreateDateColumn()
-	createdAt?: string;
-
-	@UpdateDateColumn({ type: 'timestamp' })
-	updatedAt?: number;
+	@OneToMany(() => fm_request, (fm_request) => fm_request.id_client)
+	@JoinColumn({ name: 'requests' })
+	requests?: fm_request[];
 }

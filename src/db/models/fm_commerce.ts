@@ -3,12 +3,13 @@ import {
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
+	ManyToOne,
 	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { fm_activity } from './fm_activity';
+import fm_activity from './fm_activity';
 import fm_worker from './fm_worker';
 import fm_Client from './fm_client';
 import fm_bank_commerce from './fm_bank_commerce';
@@ -40,7 +41,8 @@ export default class fm_commerce {
 	@Column()
 	id_location!: number;
 
-	@OneToOne(() => fm_worker)
+	@Column({ default: 0 })
+	@ManyToOne(() => fm_worker, (fm_worker) => fm_worker.id)
 	@JoinColumn({ name: 'id_aci' })
 	id_aci!: number;
 
