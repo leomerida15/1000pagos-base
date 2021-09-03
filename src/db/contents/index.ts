@@ -8,16 +8,18 @@ import estado from './estado';
 import municipio from './municipio';
 import parroquia from './parroquia';
 import ciudad from './ciudad';
+import company from './company';
 
 export default async () => {
 	await ident_type();
 	await roles();
 	await payment_method();
+	await company();
 	await worker();
 	await activity();
 	await Product();
 	await estado();
 	await municipio();
 	await parroquia();
-	// await ciudad();
+	await ciudad();
 };

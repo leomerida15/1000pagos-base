@@ -1151,7 +1151,7 @@ const parroquia = async (): Promise<void> => {
 		{ init: Math.round(i), end: Math.round(i * 2) },
 		{ init: Math.round(i * 2), end: Math.round(i * 3) },
 		{ init: Math.round(i * 3), end: Math.round(i * 4) },
-		{ init: Math.round(i * 4), end: Math.round(data.length - 1) },
+		{ init: Math.round(i * 4), end: Math.round(data.length) },
 	];
 
 	for (let i = 0; i < rangos.length; i++) {

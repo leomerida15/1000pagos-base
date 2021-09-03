@@ -345,7 +345,7 @@ const municipio = async (): Promise<void> => {
 	const rangos: any[] = [
 		{ init: 0, end: Math.round(i) },
 		{ init: Math.round(i), end: Math.round(i * 2) },
-		{ init: Math.round(i * 2), end: Math.round(data.length - 1) },
+		{ init: Math.round(i * 2), end: Math.round(data.length) },
 	];
 
 	const stop = rangos.map(async (item: { init: number; end: number }) => {

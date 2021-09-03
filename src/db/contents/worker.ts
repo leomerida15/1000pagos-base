@@ -14,6 +14,7 @@ const worker = async (): Promise<void> => {
 			id_depart: 1,
 			id_ident_type: 1,
 			ident_num: '',
+			id_company: 1,
 			phone: '',
 		},
 	];
