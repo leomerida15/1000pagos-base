@@ -12,6 +12,7 @@ import company from './company';
 import department from './department';
 import client from './client';
 
+
 export default async () => {
 	await ident_type();
 	await roles();
@@ -26,4 +27,5 @@ export default async () => {
 	await municipio();
 	await parroquia();
 	await ciudad();
+
 };

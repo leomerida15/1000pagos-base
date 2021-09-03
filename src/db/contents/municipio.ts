@@ -358,3 +358,4 @@ const municipio = async (): Promise<void> => {
 };
 
 export default municipio;
+
