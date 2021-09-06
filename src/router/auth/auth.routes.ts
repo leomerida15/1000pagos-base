@@ -21,6 +21,6 @@ Auth.route('/passMail').post(PassMailData, passMail);
 //
 Auth.route('/log/editPass').patch(editPass);
 //
-Auth.route('/worker').get(workerByID);
+Auth.route('/log/worker').get(workerByID);
 
 export default Auth;

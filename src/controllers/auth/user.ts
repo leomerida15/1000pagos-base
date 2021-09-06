@@ -9,10 +9,13 @@ export const workerByID = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { id, id_role }: any = req.headers.token;
+		const { id, id_roles }: any = req.headers.token;
+		console.log(req.headers.token);
 
-		const user = await getRepository(fm_worker).findOne({ where: { id, id_role } });
-		const { password, ...info }: any = user;
+		const worker = await getRepository(fm_worker).findOne({ id, id_roles });
+		console.log(worker);
+
+		const { password, ...info }: any = worker;
 
 		res.status(200).json({ message: 'data del usuario', info });
 	} catch (err) {
