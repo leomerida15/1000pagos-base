@@ -1,11 +1,11 @@
 import { Application } from 'express';
 
 // rputers
-import auth from './auth/auth.routes';
+import auth from './auth';
 import client from './client';
 
 //
 export default (app: Application) => {
-	app.use('/auth', auth);
+	auth(app);
 	client(app);
 };

@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import { DB } from 'interfaces';
 import mailMsg from './messages';
 import Mail from 'nodemailer/lib/mailer';
+import fm_worker from '../../db/models/fm_worker';
+import fm_client from '../../db/models/fm_client';
 const key: string = process.env.KEY || '_secreto';
 
 /** define mailOptions */
@@ -47,7 +49,7 @@ export const verify = async (info: DB.Client) => {
 };
 
 // this mail is for valid edition of a password
-export const newPass = async (info: DB.Client) => {
+export const newPass = async (info: fm_worker | fm_client) => {
 	try {
 		/** define vars */
 		const { name, email, id, last_name } = info;

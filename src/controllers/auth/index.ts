@@ -14,6 +14,7 @@ import { mail } from '../../services';
 
 // db talbes
 import fm_worker from '../../db/models/fm_worker';
+import respOk from '../../Middlewares/token/respOk';
 
 // getter a Client
 export const register = async (
@@ -38,19 +39,29 @@ export const register = async (
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(req.body.password, salt);
 
-		const resp = await getRepository(fm_worker).save(req.body);
-		const { password, id, id_roles, ...data_user } = resp;
+		req.body.roles = [{ id: 2, name: 'worker' }];
+
+		await getRepository(fm_worker).save(req.body);
+		// encript password
+		const worker = await getRepository(fm_worker)
+			.createQueryBuilder('fm_worker')
+			.where('email = :email', { email })
+			.leftJoinAndSelect('fm_worker.roles', 'roles')
+			.getOne();
+
+		const { password, id, roles, ...data_user }: any = worker;
 
 		// generar token
-		const token = jwt.sign({ id, id_roles }, key);
+		const token = jwt.sign({ id, roles }, key, { expiresIn: 60 * 30 });
 
 		// enviar correo de validacion
 		// await mail.verify(req.body);
 
 		// response
-		res.status(200).json({
+		respOk(req, res, {
 			message: 'Trabajador registrado Revise su correo por favor',
-			info: { token, data: { ...data_user, id_roles } },
+			info: { ...data_user, roles },
+			token,
 		});
 	} catch (err) {
 		next(err);
@@ -72,7 +83,7 @@ export const registerValid1 = async (
 		const Worker = await getRepository(fm_worker).findOne({ email });
 		if (Worker) throw { message: 'el correo ya existe' };
 
-		res.status(200).json({ message: 'ok' });
+		respOk(req, res, { message: 'ok' });
 	} catch (err) {
 		next(err);
 	}
@@ -93,7 +104,7 @@ export const registerValid2 = async (
 		const Worker = await getRepository(fm_worker).findOne({ id_ident_type, ident_num });
 		if (Worker) throw { message: 'el documento de identidad ya existe' };
 
-		res.status(200).json({ message: 'ok' });
+		respOk(req, res, { message: 'ok' });
 	} catch (err) {
 		next(err);
 	}
@@ -117,11 +128,16 @@ export const login = async (
 
 	try {
 		// encript password
-		const worker = await getRepository(fm_worker).findOne({ where: { email } });
+		const worker = await getRepository(fm_worker)
+			.createQueryBuilder('fm_worker')
+			.where('email = :email', { email })
+			.leftJoinAndSelect('fm_worker.roles', 'roles')
+			.getOne();
+
 		if (!worker) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
 		// extraemos data
-		const { password, id, id_roles, block, ...data_user }: any = worker;
+		const { password, id, roles, block, ...data_user }: any = worker;
 
 		const validPassword = await bcrypt.compare(req.body.password, password);
 		if (!validPassword) {
@@ -135,21 +151,24 @@ export const login = async (
 		}
 
 		if (block > 2) throw { message: 'usuario bloqueado', code: 400 };
-		// validamos si esta bloqueado
-		await getRepository(fm_worker)
-			.createQueryBuilder()
-			.update(fm_worker)
-			.set({ block: 0 })
-			.where('email = :email', { email })
-			.execute();
+		else if (block < 3 && block > 0) {
+			// validamos si esta bloqueado
+			await getRepository(fm_worker)
+				.createQueryBuilder()
+				.update(fm_worker)
+				.set({ block: 0 })
+				.where('email = :email', { email })
+				.execute();
+		}
 
 		//generamos token
-		const token = jwt.sign({ id, id_roles }, key);
+		const token = jwt.sign({ id, type: 2 }, key, { expiresIn: 60 * 30 });
 
 		// response
-		res.status(200).json({
+		respOk(req, res, {
 			message: 'Usuario logeado con exito',
-			info: { token, data: { ...data_user, id_roles } },
+			info: { data: { ...data_user, roles } },
+			token,
 		});
 	} catch (err) {
 		if (err.valid) await block(email);
@@ -174,7 +193,7 @@ export const passMail = async (
 		await mail.newPass(worker);
 
 		// response
-		res.status(200).json({ message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
+		respOk(req, res, { message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
 	} catch (err) {
 		next(err);
 	}
@@ -204,7 +223,7 @@ export const editPass = async (
 			.execute();
 
 		// response
-		res.status(200).json({ message: 'Contraseña actualizada con exito' });
+		respOk(req, res, { message: 'Contraseña actualizada con exito' });
 	} catch (err) {
 		next(err);
 	}
