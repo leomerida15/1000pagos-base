@@ -111,13 +111,11 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-
 		const { email }: any = req.body;
 
 		// encript password
 		const worker: any = await getRepository(fm_worker).findOne({ where: { email } });
-		if (!user) throw { message: 'correo o contraseña incorrecta', code: 400 };
-
+		if (!worker) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
 		const validPassword = await bcrypt.compare(req.body.password, worker.password);
 		if (!validPassword) throw { message: 'correo o contraseña incorrecta', code: 400 };
@@ -126,7 +124,7 @@ export const login = async (
 		const { password, id, id_roles, ...data_user } = worker;
 		const token = jwt.sign({ id, id_roles }, key);
 
-    // response
+		// response
 		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
 	} catch (err) {
 		next(err);
