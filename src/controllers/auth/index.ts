@@ -29,11 +29,11 @@ export const register = async (
 		const { email, id_ident_type, ident_num } = req.body;
 
 		// validar existencia de la clave cumpuesta
-		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
+		const validIdent = await getRepository(fm_worker).findOne({ id_ident_type, ident_num });
 		if (validIdent) throw { message: 'el documento de identidad ya existe' };
 
 		// validar existencia de la clave cumpuesta
-		const validMail = await getRepository(fm_client).findOne({ email });
+		const validMail = await getRepository(fm_worker).findOne({ email });
 		if (validMail) throw { message: 'el correo ya existe' };
 
 		// encript password
