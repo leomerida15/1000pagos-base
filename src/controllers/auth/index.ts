@@ -127,7 +127,7 @@ export const login = async (
 		if (!validPassword) {
 			if (block === 0) throw { message: 'Le quedan 2 intentos', code: 400, valid: true };
 			//
-			else if (block === 1) throw { message: 'Le quedan 1 intentos', code: 400, valid: true };
+			else if (block === 1) throw { message: 'Le queda 1 intento', code: 400, valid: true };
 			//
 			else if (block === 2) throw { message: 'usuario bloqueado', code: 400, valid: true };
 			//
