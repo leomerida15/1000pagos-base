@@ -45,7 +45,7 @@ export const register = async (
 		const token = jwt.sign({ id, id_roles }, key);
 
 		// enviar correo de validacion
-		await mail.verify(req.body);
+		// await mail.verify(req.body);
 
 		// response
 		res.status(200).json({
@@ -99,32 +99,60 @@ export const registerValid2 = async (
 	}
 };
 
+const block = async (email: string) => {
+	await getRepository(fm_worker)
+		.createQueryBuilder()
+		.update(fm_worker)
+		.set({ block: () => 'block + 1' })
+		.where('email = :email', { email })
+		.execute();
+};
 // getter a Client
 export const login = async (
 	req: Request<any, Api.resp, fm_worker>,
 	res: Response<Api.resp<{ token: string; data: any }>>,
 	next: NextFunction
 ): Promise<void> => {
-	try {
-		const { email } = req.body;
+	const { email } = req.body;
 
+	try {
 		// encript password
 		const worker = await getRepository(fm_worker).findOne({ where: { email } });
 		if (!worker) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const validPassword = await bcrypt.compare(req.body.password, worker.password);
-		if (!validPassword) throw { message: 'Correo o Contraseña incorrecta', code: 400 };
+		// extraemos data
+		const { password, id, id_roles, block, ...data_user }: any = worker;
 
-		const { password, id, id_roles, ...data_user } = worker;
+		const validPassword = await bcrypt.compare(req.body.password, password);
+		if (!validPassword) {
+			if (block === 0) throw { message: 'Le quedan 2 intentos', code: 400, valid: true };
+			//
+			else if (block === 1) throw { message: 'Le quedan 1 intentos', code: 400, valid: true };
+			//
+			else if (block === 2) throw { message: 'usuario bloqueado', code: 400, valid: true };
+			//
+			else if (block > 2) throw { message: 'usuario bloqueado', code: 400 };
+		}
 
-		// generar token
+		if (block > 2) throw { message: 'usuario bloqueado', code: 400 };
+		// validamos si esta bloqueado
+		await getRepository(fm_worker)
+			.createQueryBuilder()
+			.update(fm_worker)
+			.set({ block: 0 })
+			.where('email = :email', { email })
+			.execute();
+
+		//generamos token
 		const token = jwt.sign({ id, id_roles }, key);
+
 		// response
 		res.status(200).json({
 			message: 'Usuario logeado con exito',
 			info: { token, data: { ...data_user, id_roles } },
 		});
 	} catch (err) {
+		if (err.valid) await block(email);
 		next(err);
 	}
 };

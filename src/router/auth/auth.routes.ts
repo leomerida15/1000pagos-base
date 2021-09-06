@@ -5,7 +5,7 @@ const Auth: Router = Router();
 
 // controllers
 import { editPass, login, passMail, register, registerValid1, registerValid2 } from '../../controllers/auth/index';
-import { userByID } from '../../controllers/auth/user';
+import { workerByID } from '../../controllers/auth/user';
 
 // ? Auth
 //
@@ -21,6 +21,6 @@ Auth.route('/passMail').post(PassMailData, passMail);
 //
 Auth.route('/log/editPass').patch(editPass);
 //
-Auth.route('/user').get(userByID);
+Auth.route('/worker').get(workerByID);
 
 export default Auth;

@@ -27,7 +27,7 @@ export const RegisterData: ValidationChain[] = [
 	//
 	check('email', 'el correo no es valido').exists({ checkFalsy: true, checkNull: true }).isEmail().custom(NoSQL),
 	//
-	check('id_depart', 'el departamento no es correcto')
+	check('id_department', 'el departamento no es correcto')
 		.exists({ checkFalsy: true, checkNull: true })
 		.isNumeric()
 		.custom(NoSQL),
