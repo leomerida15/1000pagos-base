@@ -40,7 +40,7 @@ export const register = async (
 		const salt: string = await bcrypt.genSalt(10);
 		req.body.password = await bcrypt.hash(password, salt);
 
-		const resp = await getRepository(fm_client).save(req.body);
+		const resp = await getRepository(fm_worker).save(req.body);
 
 		// enviar correo de validacion
 		await mail.verify(req.body);
