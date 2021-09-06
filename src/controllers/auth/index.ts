@@ -29,11 +29,11 @@ export const register = async (
 		const { password, phone1, phone2, email, id_ident_type, ident_num }: any = req.body;
 
 		// validar existencia de la clave cumpuesta
-		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
+		const validIdent = await getRepository(fm_worker).findOne({ id_ident_type, ident_num });
 		if (validIdent) throw { message: 'el documento de identidad ya existe' };
 
 		// validar existencia de la clave cumpuesta
-		const validMail = await getRepository(fm_client).findOne({ email });
+		const validMail = await getRepository(fm_worker).findOne({ email });
 		if (validMail) throw { message: 'el correo ya existe' };
 
 		// encript password
@@ -111,21 +111,22 @@ export const login = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { password, email, worker }: any = req.body;
+
+		const { email }: any = req.body;
 
 		// encript password
-		const user: any = await (async () => {
-			if (!worker) return await getRepository(fm_client).findOne({ where: { email } });
-			else await getRepository(fm_worker).findOne({ where: { email } });
-		})();
+		const worker: any = await getRepository(fm_worker).findOne({ where: { email } });
 		if (!user) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const validPassword = await bcrypt.compare(password, user.password);
+
+		const validPassword = await bcrypt.compare(req.body.password, worker.password);
 		if (!validPassword) throw { message: 'correo o contraseña incorrecta', code: 400 };
 
-		const token = jwt.sign({ id: user.id }, key);
+		// generar token
+		const { password, id, id_roles, ...data_user } = worker;
+		const token = jwt.sign({ id, id_roles }, key);
 
-		// response
+    // response
 		res.status(200).json({ message: 'Usuario logeado con exito', info: { token } });
 	} catch (err) {
 		next(err);
