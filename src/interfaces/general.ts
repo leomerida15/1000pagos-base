@@ -5,5 +5,6 @@ export interface resp<info = any> {
 }
 
 export interface params {
-	id: number | string;
+	id: string | number;
+
 }

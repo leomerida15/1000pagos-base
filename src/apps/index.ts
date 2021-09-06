@@ -11,6 +11,7 @@ import log from '../hooks/logs/index';
 
 createConnection()
 	.then(async () => {
+
 		await contents();
 		log.text.OK('DB OK');
 	})
