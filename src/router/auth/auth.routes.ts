@@ -5,7 +5,6 @@ const Auth: Router = Router();
 
 // controllers
 import { editPass, login, passMail, register, registerValid1, registerValid2 } from '../../controllers/auth/index';
-import { workerByID } from '../../controllers/auth/worker';
 
 // ? Auth
 //

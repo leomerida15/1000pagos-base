@@ -170,7 +170,7 @@ export const login = async (
 			info: { data: { ...data_user, roles } },
 			token,
 		});
-	} catch (err) {
+	} catch (err: any) {
 		if (err.valid) await block(email);
 		next(err);
 	}

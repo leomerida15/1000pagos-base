@@ -3,12 +3,14 @@ import { Router } from 'express';
 const Worker: Router = Router();
 
 // controllers
-import { workerByID, workerAll } from '../../controllers/auth/worker';
+import { workerAll, worker, workerById } from '../../controllers/auth/worker';
 
-// ? Auth
+// ? worker
 //
-Worker.route('/').get(workerByID);
+Worker.route('/').get(worker);
 //
 Worker.route('/all').get(workerAll);
+//
+Worker.route('/:id').get(workerById);
 
 export default Worker;
