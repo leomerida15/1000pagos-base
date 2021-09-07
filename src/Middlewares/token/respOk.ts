@@ -7,7 +7,7 @@ const respOk = (req: Request<any, Api.resp>, res: Response<Api.resp>, msg: Api.r
 	const { token }: any = req.headers;
 	// msg.token = msg.token ? jwt.sign(token, Key, { expiresIn: 60 * 30 }) : msg.token;
 	msg.token = (() => {
-		return msg.token ? jwt.sign(token, Key, { expiresIn: 60 * 30 }) : msg.token;
+		return msg.token ? msg.token : jwt.sign(token, Key, { expiresIn: 60 * 30 });
 	})();
 
 	res.status(200).json(msg);
