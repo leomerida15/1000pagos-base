@@ -8,8 +8,8 @@ const respOk = (req: Request<any, Api.resp>, res: Response<Api.resp>, msg: Api.r
 
 	msg.token = (() => {
 		if (!msg.token) {
-			const token: any = req.headers;
-			return jwt.sign(token, Key, { expiresIn: '1h' });
+			const { id, type }: any = req.headers.token;
+			return jwt.sign({ id, type }, Key, { expiresIn: '1h' });
 		} else {
 			return msg.token;
 		}

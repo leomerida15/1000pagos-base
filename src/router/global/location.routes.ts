@@ -6,7 +6,7 @@ const Location: Router = Router();
 // controllers
 import { editPass, login, passMail, register, registerValid1, registerValid2 } from '../../controllers/auth/index';
 
-// ? Auth
+// ? Location
 //
 Location.route('/Location/:id').get();
 //

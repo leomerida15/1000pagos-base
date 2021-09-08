@@ -2,10 +2,9 @@ import { Application } from 'express';
 
 // rputers
 import auth from './auth';
-import client from './client';
-
+import global from './global';
 //
 export default (app: Application) => {
 	auth(app);
-	client(app);
+	global(app);
 };

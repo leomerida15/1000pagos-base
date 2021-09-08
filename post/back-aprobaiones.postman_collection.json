@@ -113,7 +113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"password\":\"Test123.\",\r\n    \"email\":\"test@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"password\":\"Test123.\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -121,10 +121,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/auth/login",
+							"raw": "http://10.198.68.21:5051/auth/login",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
@@ -300,15 +303,18 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDI2MTAzLCJleHAiOjE2MzEwMjc5MDN9.5lsGl1Hf60Sb3ANoRMfC1XsqHDmWH4FrQa8Pkkzmplc",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMTEyMTcwLCJleHAiOjE2MzExMTM5NzB9.PmFZ9bwr0BpzkOFHbfURcZmaTyv2yoqJeUBZ-9N0uZw",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5051/worker",
+							"raw": "http://10.198.68.21:5051/worker",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [

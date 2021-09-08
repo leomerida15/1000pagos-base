@@ -7,6 +7,6 @@ import { rolesAll } from '../../controllers/auth/roles';
 
 // ? roles
 //
-Worker.route('/all').get(rolesAll);
+Worker.route('/roles/all').get(rolesAll);
 
 export default Worker;
