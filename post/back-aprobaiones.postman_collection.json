@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1e5cb033-ab0a-481c-8a13-5a2474900d75",
+		"_postman_id": "e10f1c6b-703d-41b4-aeec-265515c8c392",
 		"name": "back-aprobaiones",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -297,34 +297,6 @@
 			"name": "roles",
 			"item": [
 				{
-					"name": "worker usuario ya logeado",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMTEyMTcwLCJleHAiOjE2MzExMTM5NzB9.PmFZ9bwr0BpzkOFHbfURcZmaTyv2yoqJeUBZ-9N0uZw",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://10.198.68.21:5051/worker",
-							"protocol": "http",
-							"host": [
-								"10",
-								"198",
-								"68",
-								"21"
-							],
-							"port": "5051",
-							"path": [
-								"worker"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "roles all",
 					"request": {
 						"method": "GET",
@@ -349,34 +321,32 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
 				{
-					"name": "worker user by id",
+					"name": "payment all",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6eyJ0b2tlbiI6eyJ0b2tlbiI6eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDMwMDY4LCJleHAiOjE2MzEwMzE4Njh9LCJ1c2VyLWFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOC40IiwiYWNjZXB0IjoiKi8qIiwiY2FjaGUtY29udHJvbCI6Im5vLWNhY2hlIiwicG9zdG1hbi10b2tlbiI6IjQ1NzU0Y2UxLTk4OTgtNDdjMy04ZWYzLTcxMjVhYjk2ZTk3ZSIsImhvc3QiOiJsb2NhbGhvc3Q6NTA1MSIsImFjY2VwdC1lbmNvZGluZyI6Imd6aXAsIGRlZmxhdGUsIGJyIiwiY29ubmVjdGlvbiI6ImtlZXAtYWxpdmUiLCJpYXQiOjE2MzEwMzAwODAsImV4cCI6MTYzMTAzMzY4MH0sInVzZXItYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjI4LjQiLCJhY2NlcHQiOiIqLyoiLCJjYWNoZS1jb250cm9sIjoibm8tY2FjaGUiLCJwb3N0bWFuLXRva2VuIjoiZDZkZmFlY2QtMjg0MS00MzJkLTlmMWUtYWU5YzM3Y2M2MjY5IiwiaG9zdCI6ImxvY2FsaG9zdDo1MDUxIiwiYWNjZXB0LWVuY29kaW5nIjoiZ3ppcCwgZGVmbGF0ZSwgYnIiLCJjb25uZWN0aW9uIjoia2VlcC1hbGl2ZSIsImlhdCI6MTYzMTAzMTI0OCwiZXhwIjoxNjMxMDM0ODQ4fSwidXNlci1hZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjguNCIsImFjY2VwdCI6IiovKiIsImNhY2hlLWNvbnRyb2wiOiJuby1jYWNoZSIsInBvc3RtYW4tdG9rZW4iOiIxMTQzODM0NS04OWM1LTQ0ODAtYWExZC0wYzhjM2UwMGI2Y2IiLCJob3N0IjoibG9jYWxob3N0OjUwNTEiLCJhY2NlcHQtZW5jb2RpbmciOiJnemlwLCBkZWZsYXRlLCBiciIsImNvbm5lY3Rpb24iOiJrZWVwLWFsaXZlIiwiaWF0IjoxNjMxMDMxODk2LCJleHAiOjE2MzEwMzU0OTZ9.Q98FkVdu9weo0WRNdctaZdZwwDaQEw8Z7mSh6fztKTQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzExMTgwMDcsImV4cCI6MTYzMTEyMTYwN30.RptCPJQPl2NGXTwZrMizKcBc2HI8xhKG9500MmaE9KU",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5051/worker/:id",
+							"raw": "http://localhost:5051/payment",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "5051",
 							"path": [
-								"worker",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
+								"payment"
 							]
 						}
 					},
