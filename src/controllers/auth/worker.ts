@@ -26,7 +26,11 @@ export const workerAll = async (req: Request<any, Api.resp>, res: Response, next
 			.leftJoinAndSelect('fm_worker.roles', 'roles')
 			.getMany();
 
-		const { password, ...info }: any = worker;
+		const info: any[] = worker.map((item: any) => {
+			const { password, ...data }: any = worker;
+
+			return data[0];
+		});
 
 		respOk(req, res, { message: 'data del usuario', info });
 	} catch (err) {
@@ -48,7 +52,9 @@ export const workerById = async (
 			.leftJoinAndSelect('fm_worker.roles', 'roles')
 			.getMany();
 
-		const { password, ...info }: any = worker;
+		const { password, ...data }: any = worker;
+
+		const info = data[0];
 
 		respOk(req, res, { message: 'data del usuario', info });
 	} catch (err) {

@@ -54,13 +54,13 @@ const estado = async (): Promise<void> => {
 	(16, 'MONAGAS','VE-N'),
 	(17, 'NUEVA ESPARTA','VE-O'),
 	(18, 'PORTUGUESA','VE-P'),
-	(19, 'SUCRE'),
-	(20, 'TACHIRA'),
-	(21, 'TRUJILLO'),
-	(22, 'YARACUY'),
-	(23, 'ZULIA'),
-	(24, 'VARGAS'),
-	(25, 'D. FEDERALES');`
+	(19, 'SUCRE','VE-R'),
+	(20, 'TACHIRA','VE-S'),
+	(21, 'TRUJILLO','VE-T'),
+	(22, 'YARACUY','VE-U'),
+	(23, 'ZULIA','VE-V'),
+	(24, 'VARGAS','VE-W'),
+	(25, 'Dependencias Federales','VE-Z');`
 				//@ts-expect-error
 				.repalceAll('"', '`')
 		);
