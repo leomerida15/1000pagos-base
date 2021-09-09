@@ -3,7 +3,7 @@ import {
 	getEstados,
 	getMunicipiosByEstado,
 	getParroquiasByMunicipio,
-	getCiudadByParroquia,
+	getCiudadByEstado,
 } from '../../controllers/global/location';
 
 const Location: Router = Router();
@@ -20,6 +20,6 @@ Location.route('/Location/:id_estado/municipio').get(getMunicipiosByEstado);
 //
 Location.route('/Location/:id_municipio/parroquia').get(getParroquiasByMunicipio);
 //
-Location.route('/Location/:id_parroquia/ciudad').get(getCiudadByParroquia);
+Location.route('/Location/:id_estado/ciudad').get(getCiudadByEstado);
 
 export default Location;

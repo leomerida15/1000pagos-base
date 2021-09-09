@@ -19,5 +19,5 @@ export interface pParroquia {
 }
 
 export interface pCiudad {
-	id_parroquia: string | number;
+	id_estado: string | number;
 }

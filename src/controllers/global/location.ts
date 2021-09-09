@@ -46,7 +46,6 @@ export const getParroquiasByMunicipio = async (
 ): Promise<void> => {
 	try {
 		const { id_municipio } = req.params;
-		console.log('id_municipio', id_municipio);
 
 		// getter list of estados to db ith typeorm
 		const info = await getRepository(fm_parroquia).find({ where: { id_municipio } });
@@ -57,16 +56,16 @@ export const getParroquiasByMunicipio = async (
 	}
 };
 
-export const getCiudadByParroquia = async (
+export const getCiudadByEstado = async (
 	req: Request<Api.pCiudad, Api.resp>,
 	res: Response<Api.resp>,
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { id_parroquia } = req.params;
+		const { id_estado } = req.params;
 
 		// getter list of estados to db ith typeorm
-		const info = await getRepository(fm_ciudad).find({ where: { id_parroquia } });
+		const info = await getRepository(fm_ciudad).find({ where: { id_estado } });
 
 		respOk(req, res, { message: 'lista de ciudad', info });
 	} catch (err) {
