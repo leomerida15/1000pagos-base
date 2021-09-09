@@ -29,11 +29,41 @@ const estado = async (): Promise<void> => {
 		{ id: 23, estado: 'Zulia', iso_3166: 'VE-V' },
 		{ id: 24, estado: 'Distrito Capital', iso_3166: 'VE-A' },
 		{ id: 25, estado: 'Dependencias Federales', iso_3166: 'VE-Z' },
-
 	];
 	//
-	const valid = await getRepository(fm_estado).find({ where: data });
-	if (!valid.length) await getRepository(fm_estado).save(data);
+	const valid = await getRepository(fm_estado).findOne(1);
+	if (!valid)
+		await getRepository(fm_estado).query(
+			/* SQL */ `
+	INSERT INTO "estados" ("id", "nombre","iso_3166") VALUES
+	(1, 'DISTRITO CAPITAL','VE-A'),
+	(2, 'AMAZONAS','VE-X'),
+	(3, 'ANZOATEGUI','VE-B'),
+	(4, 'APURE','VE-C'),
+	(5, 'ARAGUA','VE-D'),
+	(6, 'BARINAS','VE-E'),
+	(7, 'MIRANDA','VE-M'),
+	(8, 'CARABOBO','VE-G'),
+	(9, 'COJEDES','VE-H'),
+	(10, 'DELTA AMACURO','VE-Y'),
+	(11, 'FALCON','VE-I'),
+	(12, 'GUARICO','VE-J'),
+	(13, 'LARA','VE-K'),
+	(14, 'MERIDA','VE-L'),
+	(15, 'BOLIVAR','VE-F'),
+	(16, 'MONAGAS','VE-N'),
+	(17, 'NUEVA ESPARTA','VE-O'),
+	(18, 'PORTUGUESA','VE-P'),
+	(19, 'SUCRE','VE-R'),
+	(20, 'TACHIRA','VE-S'),
+	(21, 'TRUJILLO','VE-T'),
+	(22, 'YARACUY','VE-U'),
+	(23, 'ZULIA','VE-V'),
+	(24, 'VARGAS','VE-W'),
+	(25, 'Dependencias Federales','VE-Z');`
+				//@ts-expect-error
+				.repalceAll('"', '`')
+		);
 };
 
 export default estado;
