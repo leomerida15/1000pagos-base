@@ -147,7 +147,7 @@ const municipio = async (): Promise<void> => {
 		{ id: 142, id_estado: 11, municipio: 'Santa María de Ipire' },
 		{ id: 143, id_estado: 11, municipio: 'Sebastián Francisco de Miranda' },
 		{ id: 144, id_estado: 12, municipio: 'Andrés Eloy Blanco' },
-		{ id: 145, id_estado: 12, municipio: 'CRespo' },
+		{ id: 145, id_estado: 12, municipio: 'Crespo' },
 		{ id: 146, id_estado: 12, municipio: 'Iribarren' },
 		{ id: 147, id_estado: 12, municipio: 'Jiménez' },
 		{ id: 148, id_estado: 12, municipio: 'Morán' },
