@@ -35,7 +35,7 @@ const estado = async (): Promise<void> => {
 	if (!valid)
 		await getRepository(fm_estado).query(
 			/* SQL */ `
-	INSERT INTO "estados" ("id", "nombre","iso_3166") VALUES
+	INSERT INTO "fm_estado" ("id", "estado","iso_3166") VALUES
 	(1, 'DISTRITO CAPITAL','VE-A'),
 	(2, 'AMAZONAS','VE-X'),
 	(3, 'ANZOATEGUI','VE-B'),
@@ -61,8 +61,8 @@ const estado = async (): Promise<void> => {
 	(23, 'ZULIA','VE-V'),
 	(24, 'VARGAS','VE-W'),
 	(25, 'Dependencias Federales','VE-Z');`
-				//@ts-expect-error
-				.repalceAll('"', '`')
+				.split('"')
+				.join('`')
 		);
 };
 
