@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Api } from 'interfaces';
 const Key: string = process.env.KEY || '_secreto';
 
-const respOk = (req: Request<any, Api.resp>, res: Response<Api.resp>, msg: Api.resp<any>) => {
+const Resp = (req: Request<any, Api.Resp>, res: Response<Api.Resp>, msg: Api.Resp<any>) => {
 	// msg.token = msg.token ? jwt.sign(token, Key, { expiresIn: 60 * 30 }) : msg.token;
 
 	msg.token = (() => {
@@ -18,4 +18,4 @@ const respOk = (req: Request<any, Api.resp>, res: Response<Api.resp>, msg: Api.r
 	res.status(200).json(msg);
 };
 
-export default respOk;
+export default Resp;

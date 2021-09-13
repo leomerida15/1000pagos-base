@@ -14,12 +14,12 @@ import { mail } from '../../services';
 
 // db talbes
 import fm_worker from '../../db/models/fm_worker';
-import respOk from '../../Middlewares/token/respOk';
+import Resp from '../../Middlewares/res/resp';
 
 // getter a Client
 export const register = async (
-	req: Request<any, Api.resp, fm_worker>,
-	res: Response<Api.resp<{ token: string; data: any }>>,
+	req: Request<any, Api.Resp, fm_worker>,
+	res: Response<Api.Resp<{ token: string; data: any }>>,
 	next: NextFunction
 ): Promise<void> => {
 	try {
@@ -57,8 +57,8 @@ export const register = async (
 		// enviar correo de validacion
 		// await mail.verify(req.body);
 
-		// response
-		respOk(req, res, {
+		// Response
+		Resp(req, res, {
 			message: 'Trabajador registrado Revise su correo por favor',
 			info: { ...data_user, roles },
 			token,
@@ -70,7 +70,7 @@ export const register = async (
 
 // register valid 1
 export const registerValid1 = async (
-	req: Request<any, Api.resp, fm_worker>,
+	req: Request<any, Api.Resp, fm_worker>,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
@@ -83,7 +83,7 @@ export const registerValid1 = async (
 		const Worker = await getRepository(fm_worker).findOne({ email });
 		if (Worker) throw { message: 'el correo ya existe' };
 
-		respOk(req, res, { message: 'ok' });
+		Resp(req, res, { message: 'ok' });
 	} catch (err) {
 		next(err);
 	}
@@ -91,7 +91,7 @@ export const registerValid1 = async (
 
 // register valid 1
 export const registerValid2 = async (
-	req: Request<any, Api.resp, fm_worker>,
+	req: Request<any, Api.Resp, fm_worker>,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
@@ -104,7 +104,7 @@ export const registerValid2 = async (
 		const Worker = await getRepository(fm_worker).findOne({ id_ident_type, ident_num });
 		if (Worker) throw { message: 'el documento de identidad ya existe' };
 
-		respOk(req, res, { message: 'ok' });
+		Resp(req, res, { message: 'ok' });
 	} catch (err) {
 		next(err);
 	}
@@ -120,8 +120,8 @@ const block = async (email: string) => {
 };
 // getter a Client
 export const login = async (
-	req: Request<any, Api.resp, fm_worker>,
-	res: Response<Api.resp<{ token: string; data: any }>>,
+	req: Request<any, Api.Resp, fm_worker>,
+	res: Response<Api.Resp<{ token: string; data: any }>>,
 	next: NextFunction
 ): Promise<void> => {
 	const { email } = req.body;
@@ -164,8 +164,8 @@ export const login = async (
 		//generamos token
 		const token = jwt.sign({ id, type: 2 }, key, { expiresIn: 60 * 30 });
 
-		// response
-		respOk(req, res, {
+		// Response
+		Resp(req, res, {
 			message: 'Usuario logeado con exito',
 			info: { data: { ...data_user, roles } },
 			token,
@@ -178,7 +178,7 @@ export const login = async (
 
 // this function is for emit a mail for edit a password
 export const passMail = async (
-	req: Request<any, Api.resp, fm_worker>,
+	req: Request<any, Api.Resp, fm_worker>,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
@@ -192,8 +192,8 @@ export const passMail = async (
 		// emit mail
 		await mail.newPass(worker);
 
-		// response
-		respOk(req, res, { message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
+		// Response
+		Resp(req, res, { message: 'Le hemos enviado un correo electrónico para recuperar su contraseña' });
 	} catch (err) {
 		next(err);
 	}
@@ -201,8 +201,8 @@ export const passMail = async (
 
 // editar usuarios
 export const editPass = async (
-	req: Request<Api.params, Api.resp, fm_worker>,
-	res: Response<Api.resp>,
+	req: Request<Api.params, Api.Resp, fm_worker>,
+	res: Response<Api.Resp>,
 	next: NextFunction
 ): Promise<void> => {
 	try {
@@ -222,8 +222,8 @@ export const editPass = async (
 			.where('id = :id', { id })
 			.execute();
 
-		// response
-		respOk(req, res, { message: 'Contraseña actualizada con exito' });
+		// Response
+		Resp(req, res, { message: 'Contraseña actualizada con exito' });
 	} catch (err) {
 		next(err);
 	}

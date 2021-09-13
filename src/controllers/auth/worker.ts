@@ -1,10 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 import { Api } from 'interfaces';
-import respOk from '../../Middlewares/token/respOk';
+import Resp from '../../Middlewares/res/resp';
 import { getRepository } from 'typeorm';
 import fm_worker from '../../db/models/fm_worker';
 
-export const worker = async (req: Request<any, Api.resp>, res: Response, next: NextFunction): Promise<void> => {
+export const worker = async (req: Request<any, Api.Resp>, res: Response, next: NextFunction): Promise<void> => {
 	try {
 		const { id, type }: any = req.headers.token;
 
@@ -13,13 +13,13 @@ export const worker = async (req: Request<any, Api.resp>, res: Response, next: N
 
 		const { password, ...info }: any = worker;
 
-		respOk(req, res, { message: 'data del usuario', info });
+		Resp(req, res, { message: 'data del usuario', info });
 	} catch (err) {
 		next(err);
 	}
 };
 
-export const workerAll = async (req: Request<any, Api.resp>, res: Response, next: NextFunction): Promise<void> => {
+export const workerAll = async (req: Request<any, Api.Resp>, res: Response, next: NextFunction): Promise<void> => {
 	try {
 		const worker = await getRepository(fm_worker)
 			.createQueryBuilder('fm_worker')
@@ -32,14 +32,14 @@ export const workerAll = async (req: Request<any, Api.resp>, res: Response, next
 			return data[0];
 		});
 
-		respOk(req, res, { message: 'data del usuario', info });
+		Resp(req, res, { message: 'data del usuario', info });
 	} catch (err) {
 		next(err);
 	}
 };
 
 export const workerById = async (
-	req: Request<Api.params, Api.resp>,
+	req: Request<Api.params, Api.Resp>,
 	res: Response,
 	next: NextFunction
 ): Promise<void> => {
@@ -56,7 +56,7 @@ export const workerById = async (
 
 		const info = data[0];
 
-		respOk(req, res, { message: 'data del usuario', info });
+		Resp(req, res, { message: 'data del usuario', info });
 	} catch (err) {
 		next(err);
 	}

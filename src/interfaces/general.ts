@@ -1,6 +1,4 @@
-import { id } from './db';
-import estado from '../db/contents/estado';
-export interface resp<info = any> {
+export interface Resp<info = any> {
 	message: string;
 	info?: info;
 	token?: string;

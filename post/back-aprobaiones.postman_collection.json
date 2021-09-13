@@ -618,6 +618,36 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ident_types",
+			"item": [
+				{
+					"name": "get All tipos de identidad",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ0MjQwLCJleHAiOjE2MzE1NDYwNDB9.ALUo1JEumZJfedvadhPenF6bRgFbXsV0KmfwhwAHUpQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/ident_type",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"ident_type"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
