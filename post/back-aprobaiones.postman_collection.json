@@ -520,37 +520,42 @@
 			"item": [
 				{
 					"name": "FM RC",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
-									"type": "file",
-									"src": [],
-									"disabled": true
-								},
-								{
-									"key": "user",
-									"value": "test",
+									"key": "email\n",
+									"value": "test@test.com\n",
 									"type": "text"
 								},
 								{
-									"key": "rc_constitutive_act",
+									"key": "images\n",
 									"type": "file",
-									"src": "/C:/Users/dmerida/Downloads/unnamed (1).png"
+									"src": []
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "rc_property_document",
-									"type": "file",
-									"src": "/C:/Users/dmerida/Downloads/unnamed.png"
+									"value": "",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "rc_service_document",
-									"type": "file",
-									"src": []
+									"value": "",
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "rc_special_contributor",
@@ -603,12 +608,59 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:4040/1000pagosRC/RC",
+							"raw": "http://localhost:6060/1000pagosRC/RC",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "4040",
+							"port": "6060",
+							"path": [
+								"1000pagosRC",
+								"RC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/dmerida/Pictures/fm/rc_account_number'.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_constitutive_act.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_front_local.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ident_card.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_in_local.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_property_document.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ref_bank.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ref_perso.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_rif.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_service_document.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_special_contributor.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6060/1000pagosRC/RC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
 							"path": [
 								"1000pagosRC",
 								"RC"
