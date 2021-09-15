@@ -623,10 +623,16 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "FM_RC_IMAGENES",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -668,6 +674,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "valid client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test\",\r\n    \"last_name\":\"test\",\r\n    \"id_ident_type\":5,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"test6@gmail.com\",\r\n    \"phone1\":\"+5841811161\",\r\n    \"phone2\":\"+5815151891\",\r\n    \"pero\":\"dskjnak\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								"client"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -700,6 +741,10 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "client",
+			"item": []
 		}
 	]
 }
