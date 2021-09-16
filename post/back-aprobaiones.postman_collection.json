@@ -629,7 +629,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODE3MDQxLCJleHAiOjE2MzE4MTg4NDF9.0X7Ga9yFvPRYtIARiuqezrAz7eLbQbp5IBMewPo-j-E",
 								"type": "text"
 							}
 						],
@@ -637,8 +637,13 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "test@test.com",
+									"key": "id_client",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "id_commerce",
+									"value": "5",
 									"type": "text"
 								},
 								{
@@ -705,6 +710,42 @@
 							"path": [
 								"FM",
 								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valid existen client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_ident_type\":5,\r\n    \"ident_num\":\"1345678\",\r\n    \"email\":\"test6@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/client/valid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								"client",
+								"valid"
 							]
 						}
 					},

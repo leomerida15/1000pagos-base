@@ -10,7 +10,7 @@ import {
 import fm_bank_commerce from './fm_bank_commerce';
 
 @Entity()
-export class fm_bank {
+export default class fm_bank {
 	@PrimaryGeneratedColumn()
 	id?: number;
 

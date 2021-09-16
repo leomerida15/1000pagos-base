@@ -5,12 +5,11 @@ import fm_client from '../../db/models/fm_client';
 import Msg from '../../hooks/messages/index.ts';
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import fm_phone from '../../db/models/fm_phone';
 import { validationResult } from 'express-validator';
 import fm_ident_type from '../../db/models/fm_ident_type';
 
-export const vlaid_client = async (
+export const valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
 	next: NextFunction

@@ -8,8 +8,8 @@ import {
 	UpdateDateColumn,
 	CreateDateColumn,
 } from 'typeorm';
-import { fm_bank } from './fm_bank';
 import fm_commerce from './fm_commerce';
+import fm_bank from './fm_bank';
 
 @Entity()
 export default class fm_bank_commerce {
