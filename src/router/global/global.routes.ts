@@ -5,7 +5,7 @@ const Ident_type: Router = Router();
 
 // controllers
 
-// ? Ident_type
+// ? Ident_type 
 //
 Ident_type.route('/ident_type').get(getAllIdent_type);
 
