@@ -128,27 +128,21 @@ export const valid_existin_client = async (
 
 		let resp: Api.Resp = { message: ``, info: { mash: false } };
 
-		console.log('||---->', resp);
-
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
 		if (validIdent && validIdent.email != email) {
 			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
 		}
 
-		console.log('||---->', resp);
-
 		const validIdentType: any = await getRepository(fm_client)
 			.createQueryBuilder('fm_clinet')
 			.leftJoinAndSelect('fm_clinet.id_ident_type', 'id_ident_type')
-			.where('fm_clinet.id_ident_type = :id_ident_type', { id_ident_type })
+			.where(`fm_clinet.ident_num = ${ident_num}`)
 			.getOne();
 
 		if (validIdentType && validIdentType.id_ident_type.id != id_ident_type) {
 			throw { message: 'el tipo de docuemnto de identidad no coinside' };
 		}
-
-		console.log('||---->', resp);
 
 		// validar existencia de la clave cumpuesta
 		const validMail = await getRepository(fm_client).findOne({ email });
@@ -156,14 +150,10 @@ export const valid_existin_client = async (
 			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
 		}
 
-		console.log('||---->', resp);
-
 		// validar existencia de la clave cumpuesta
 		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
 		if (client) resp = { message: 'el usuario existe', info: { id: client.id, mash: true } };
-		else if (!resp.message) resp.message = `ni el correo ni la ci existen`;
-
-		console.log('||---->', resp);
+		else if (!resp.message.length) resp.message = `ni el correo ni la ci existen`;
 
 		Resp(req, res, resp);
 	} catch (err) {
