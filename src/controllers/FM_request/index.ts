@@ -138,6 +138,11 @@ export const valid_existin_client = async (
 			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
 		}
 
+		const validIdentType = await getRepository(fm_client).findOne({ ident_num });
+		if (validIdentType && validIdentType.id_ident_type != id_ident_type) {
+			throw { message: 'el tipo de docuemnto de identidad no coinside' };
+		}
+
 		// validar existencia de la clave cumpuesta
 		const validMail = await getRepository(fm_client).findOne({ email });
 		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
