@@ -130,7 +130,7 @@ export const valid_existin_client = async (
 
 		const { email, id_ident_type, ident_num } = req.body;
 
-		let resp: Api.Resp = { message: `el usuario si exite` };
+		let resp: Api.Resp = { message: `el usuario si exite`, info: { mash: false } };
 
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
@@ -146,7 +146,7 @@ export const valid_existin_client = async (
 
 		// validar existencia de la clave cumpuesta
 		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
-		if (client) resp.info = { iod: client.id };
+		if (client) resp.info = { id: client.id, mash: true };
 		else resp.message = `ni el correo ni la ci existen`;
 
 		Resp(req, res, resp);
