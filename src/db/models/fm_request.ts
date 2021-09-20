@@ -52,7 +52,7 @@ export default class fm_request {
 	rc_account_number!: number;
 
 	@Column()
-	text_account_number!: string;
+	bank_account_num!: string;
 
 	@OneToOne(() => fm_photo)
 	@JoinColumn({ name: 'rc_rif' })
@@ -80,8 +80,8 @@ export default class fm_request {
 
 	@Column({ default: 0 })
 	@OneToOne(() => fm_status_request)
-	@JoinColumn({ name: 'fm_status_request' })
-	fm_status_request?: number;
+	@JoinColumn({ name: 'status_request' })
+	status_request?: number;
 
 	@CreateDateColumn()
 	createdAt?: string;
