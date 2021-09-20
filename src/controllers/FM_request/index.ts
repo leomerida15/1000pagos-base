@@ -63,7 +63,6 @@ export const fm_valid_client = async (
 
 interface commerce extends fm_commerce {
 	location: fm_location;
-	bank_account_num: string;
 }
 
 export const fm_create_commerce = async (
@@ -75,8 +74,7 @@ export const fm_create_commerce = async (
 		validationResult(req).throw();
 
 		const id_client: any = req.params.id;
-		const { id_ident_type, ident_num, special_contributor, location, name, bank_account_num, id_activity } =
-			req.body;
+		const { id_ident_type, ident_num, special_contributor, location, name, id_activity } = req.body;
 		let commerce = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
 
 		let message: string = ``;
@@ -84,9 +82,6 @@ export const fm_create_commerce = async (
 		if (!commerce) {
 			const commerce_doc = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num });
 			if (commerce_doc) throw { message: 'el documento de identidad ya esta afiliado a una cliente diferente' };
-
-			const bank = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
-			if (!bank) throw { message: 'el banco ingresado no existe' };
 
 			// validar existencia de la clave cumpuesta
 			const reslocation = await getRepository(fm_location).save(location);
@@ -103,12 +98,12 @@ export const fm_create_commerce = async (
 			});
 			commerce = await getRepository(fm_commerce).save(data);
 
-			const bank_comer = getRepository(fm_bank_commerce).create({
-				bank_account_num,
-				id_commerce: commerce.id,
-				id_bank: bank.id,
-			});
-			await getRepository(fm_bank_commerce).save(bank_comer);
+			// const bank_comer = getRepository(fm_bank_commerce).create({
+			// 	bank_account_num,
+			// 	id_commerce: commerce.id,
+			// 	id_bank: bank.id,
+			// });
+			// await getRepository(fm_bank_commerce).save(bank_comer);
 
 			message = Msg('commercio', commerce.id).create;
 		} else message = Msg('commercio', commerce.id).get;
@@ -138,8 +133,13 @@ export const valid_existin_client = async (
 			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
 		}
 
-		const validIdentType = await getRepository(fm_client).findOne({ ident_num });
-		if (validIdentType && validIdentType.id_ident_type != id_ident_type) {
+		const validIdentType: any = await getRepository(fm_client)
+			.createQueryBuilder('fm_clinet')
+			.leftJoinAndSelect('fm_clinet.id_ident_type', 'id_ident_type')
+			.where('fm_clinet.id_ident_type = :id_ident_type', { id_ident_type })
+			.getOne();
+
+		if (validIdentType && validIdentType.id_ident_type.id != id_ident_type) {
 			throw { message: 'el tipo de docuemnto de identidad no coinside' };
 		}
 
@@ -155,6 +155,16 @@ export const valid_existin_client = async (
 		else resp.message = `ni el correo ni la ci existen`;
 
 		Resp(req, res, resp);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const FM_create = async (req: Request<any>, res: Response, next: NextFunction): Promise<void> => {
+	try {
+		validationResult(req).throw();
+
+		const { email, id_ident_type, ident_num } = req.body;
 	} catch (err) {
 		next(err);
 	}
