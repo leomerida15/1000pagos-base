@@ -185,7 +185,6 @@ export const FM_create = async (
 			id_client,
 			id_commerce,
 			id_type_request,
-			status_request,
 		} = req.body;
 
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
@@ -197,7 +196,7 @@ export const FM_create = async (
 		});
 		await getRepository(fm_bank_commerce).save(bank_comer);
 
-		const FM = await getRepository(fm_request).create({
+		const FM = getRepository(fm_request).create({
 			number_post,
 			bank_account_num,
 			rc_constitutive_act,
@@ -213,8 +212,10 @@ export const FM_create = async (
 			id_client,
 			id_commerce,
 			id_type_request,
-			status_request,
+			id_status_request: 0,
 		});
+
+		await getRepository(fm_request).save(FM);
 	} catch (err) {
 		next(err);
 	}

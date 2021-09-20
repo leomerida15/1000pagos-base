@@ -79,9 +79,9 @@ export default class fm_request {
 	id_type_request!: number;
 
 	@Column({ default: 0 })
-	@OneToOne(() => fm_status_request)
+	@ManyToOne(() => fm_status_request, (fm_status_request) => fm_status_request.requests)
 	@JoinColumn({ name: 'status_request' })
-	status_request?: number;
+	id_status_request?: number;
 
 	@CreateDateColumn()
 	createdAt?: string;
