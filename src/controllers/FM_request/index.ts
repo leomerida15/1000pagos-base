@@ -82,7 +82,7 @@ export const fm_create_commerce = async (
 
 		if (!commerce) {
 			const commerce_doc = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num });
-			if (commerce_doc) throw { message: 'el documento de identidad ya esta afiliado a una cliente diferente' };
+			if (commerce_doc) throw { message: 'el rif del comercio esta asociado a otro cliente' };
 
 			// validar existencia de la clave cumpuesta
 			const reslocation = await getRepository(fm_location).save(location);
