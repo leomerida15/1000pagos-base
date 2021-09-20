@@ -169,7 +169,52 @@ export const FM_create = async (
 	try {
 		validationResult(req).throw();
 
-		const { id_client, id_commerce } = req.body;
+		const {
+			number_post,
+			bank_account_num,
+			rc_constitutive_act,
+			rc_property_document,
+			rc_service_document,
+			rc_special_contributor,
+			rc_ref_bank,
+			rc_ref_perso,
+			rc_account_number,
+			rc_rif,
+			rc_ident_card,
+			id_payment_method,
+			id_client,
+			id_commerce,
+			id_type_request,
+			status_request,
+		} = req.body;
+
+		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
+
+		const bank_comer = getRepository(fm_bank_commerce).create({
+			bank_account_num,
+			id_commerce,
+			id_bank: bank.id,
+		});
+		await getRepository(fm_bank_commerce).save(bank_comer);
+
+		const FM = await getRepository(fm_request).create({
+			number_post,
+			bank_account_num,
+			rc_constitutive_act,
+			rc_property_document,
+			rc_service_document,
+			rc_special_contributor,
+			rc_ref_bank,
+			rc_ref_perso,
+			rc_account_number,
+			rc_rif,
+			rc_ident_card,
+			id_payment_method,
+			id_client,
+			id_commerce,
+			id_type_request,
+			status_request,
+		});
 	} catch (err) {
 		next(err);
 	}
