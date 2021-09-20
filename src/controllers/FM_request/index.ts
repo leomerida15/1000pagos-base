@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import e, { NextFunction, Request, Response } from 'express';
 import { Api } from 'interfaces';
 import Resp from '../../Middlewares/res/resp';
 import fm_client from '../../db/models/fm_client';
@@ -63,7 +63,6 @@ export const fm_valid_client = async (
 
 interface commerce extends fm_commerce {
 	location: fm_location;
-	dir_post: fm_location;
 	bank_account_num: string;
 }
 
@@ -76,16 +75,8 @@ export const fm_create_commerce = async (
 		validationResult(req).throw();
 
 		const id_client: any = req.params.id;
-		const {
-			id_ident_type,
-			ident_num,
-			special_contributor,
-			location,
-			dir_post,
-			name,
-			bank_account_num,
-			id_activity,
-		} = req.body;
+		const { id_ident_type, ident_num, special_contributor, location, name, bank_account_num, id_activity } =
+			req.body;
 		let commerce = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
 
 		let message: string = ``;
@@ -101,9 +92,6 @@ export const fm_create_commerce = async (
 			const reslocation = await getRepository(fm_location).save(location);
 			const id_location = reslocation.id;
 
-			const resDirPos = await getRepository(fm_location).save(dir_post);
-			const id_dir_pos = resDirPos.id;
-
 			const data = getRepository(fm_commerce).create({
 				name,
 				id_client,
@@ -111,12 +99,9 @@ export const fm_create_commerce = async (
 				ident_num,
 				id_location,
 				special_contributor,
-				id_dir_pos,
 				id_activity,
 			});
 			commerce = await getRepository(fm_commerce).save(data);
-
-			console.log(']||------->');
 
 			const bank_comer = getRepository(fm_bank_commerce).create({
 				bank_account_num,
@@ -128,7 +113,7 @@ export const fm_create_commerce = async (
 			message = Msg('commercio', commerce.id).create;
 		} else message = Msg('commercio', commerce.id).get;
 
-		Resp(req, res, { message });
+		Resp(req, res, { message, info: { id_commerce: commerce.id } });
 	} catch (err) {
 		next(err);
 	}
@@ -145,15 +130,26 @@ export const valid_existin_client = async (
 
 		const { email, id_ident_type, ident_num } = req.body;
 
+		let resp: Api.Resp = { message: `el usuario si exite` };
+
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
-		if (validIdent) throw { message: 'el documento de identidad ya esta afiliado a un correo' };
+		if (validIdent && validIdent.email != email) {
+			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
+		}
 
 		// validar existencia de la clave cumpuesta
 		const validMail = await getRepository(fm_client).findOne({ email });
-		if (validMail) throw { message: 'el correo ya esta asociado a otro documento de identidad' };
+		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
+			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
+		}
 
-		Resp(req, res, { message: 'ok' });
+		// validar existencia de la clave cumpuesta
+		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
+		if (client) resp.info = { iod: client.id };
+		else resp.message = `ni el correo ni la ci existen`;
+
+		Resp(req, res, resp);
 	} catch (err) {
 		next(err);
 	}

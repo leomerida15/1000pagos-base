@@ -728,7 +728,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_ident_type\":5,\r\n    \"ident_num\":\"1345678\",\r\n    \"email\":\"test6@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"id_ident_type\":1,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -764,7 +764,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"id_ident_type\":1, \r\n    \"ident_num\":\"14521454214\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"dir_post\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
+							"raw": "{ \r\n    \"id_ident_type\":1, \r\n    \"ident_num\":\"14521454214\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

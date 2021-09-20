@@ -59,9 +59,9 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'banks' })
 	banks?: fm_bank_commerce[];
 
-	@OneToOne(() => fm_location)
-	@JoinColumn({ name: 'id_dir_pos' })
-	id_dir_pos!: number;
+	@OneToMany(() => fm_aci_commerce, (fm_aci_commerce) => fm_aci_commerce.id_commerce)
+	@JoinColumn({ name: 'dir_pos' })
+	dir_pos!: number;
 
 	@ManyToMany(() => fm_photo)
 	@JoinTable()
