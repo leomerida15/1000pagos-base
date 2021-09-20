@@ -80,7 +80,7 @@ export default class fm_request {
 
 	@Column({ default: 0 })
 	@ManyToOne(() => fm_status_request, (fm_status_request) => fm_status_request.requests)
-	@JoinColumn({ name: 'status_request' })
+	@JoinColumn({ name: 'id_status_request' })
 	id_status_request?: number;
 
 	@CreateDateColumn()
