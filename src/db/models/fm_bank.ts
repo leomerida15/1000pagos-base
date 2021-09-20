@@ -22,7 +22,7 @@ export default class fm_bank {
 
 	@OneToMany(() => fm_bank_commerce, (fm_bank_commerce) => fm_bank_commerce.id_commerce)
 	@JoinColumn({ name: 'commerces' })
-	commerces!: fm_bank_commerce[];
+	commerces?: fm_bank_commerce[];
 
 	@CreateDateColumn()
 	createdAt?: string;

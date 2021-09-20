@@ -26,8 +26,18 @@ export const ProductData: ValidationChain[] = [
 		.isNumeric()
 		.custom(NoSQL),
 	//
-	check('id_location', 'la locacion es obligatoria')
+	check('location', 'la locacion es obligatoria')
 		.exists({ checkFalsy: true, checkNull: true })
-		.isNumeric()
+		.isObject()
+		.custom(NoSQL),
+	//
+	check('dir_post', 'la locacion es obligatoria')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isObject()
+		.custom(NoSQL),
+	//
+	check('bank_account_num', 'numero de cuenta es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isString()
 		.custom(NoSQL),
 ];

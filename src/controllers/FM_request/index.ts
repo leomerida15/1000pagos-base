@@ -12,6 +12,7 @@ import fm_commerce from '../../db/models/fm_commerce';
 import fm_location from '../../db/models/fm_location';
 import fm_bank from '../../db/models/fm_bank';
 import fm_dir_post from '../../db/models/fm_dir_pos';
+import fm_bank_commerce from '../../db/models/fm_bank_commerce';
 
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
@@ -62,10 +63,11 @@ export const fm_valid_client = async (
 
 interface commerce extends fm_commerce {
 	location: fm_location;
-	dir_postal: fm_location;
+	dir_post: fm_location;
+	bank_account_num: string;
 }
 
-export const fm_valid_commerce = async (
+export const fm_create_commerce = async (
 	req: Request<Api.params, Api.Resp, commerce>,
 	res: Response,
 	next: NextFunction
@@ -74,31 +76,54 @@ export const fm_valid_commerce = async (
 		validationResult(req).throw();
 
 		const id_client: any = req.params.id;
-		const { id_ident_type, ident_num, special_contributor, location, dir_post, name, account_bank }: any =
-			req.body;
-
+		const {
+			id_ident_type,
+			ident_num,
+			special_contributor,
+			location,
+			dir_post,
+			name,
+			bank_account_num,
+			id_activity,
+		} = req.body;
 		let commerce = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
 
 		let message: string = ``;
 
 		if (!commerce) {
+			const commerce_doc = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num });
+			if (commerce_doc) throw { message: 'el documento de identidad ya esta afiliado a una cliente diferente' };
+
+			const bank = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
+			if (!bank) throw { message: 'el banco ingresado no existe' };
+
 			// validar existencia de la clave cumpuesta
 			const reslocation = await getRepository(fm_location).save(location);
 			const id_location = reslocation.id;
 
-			const resDirPos = await getRepository(fm_dir_post).save(dir_post);
+			const resDirPos = await getRepository(fm_location).save(dir_post);
 			const id_dir_pos = resDirPos.id;
 
-			commerce = getRepository(fm_commerce).create({
+			const data = getRepository(fm_commerce).create({
 				name,
 				id_client,
 				id_ident_type,
 				ident_num,
 				id_location,
-				account_bank,
 				special_contributor,
 				id_dir_pos,
+				id_activity,
 			});
+			commerce = await getRepository(fm_commerce).save(data);
+
+			console.log(']||------->');
+
+			const bank_comer = getRepository(fm_bank_commerce).create({
+				bank_account_num,
+				id_commerce: commerce.id,
+				id_bank: bank.id,
+			});
+			await getRepository(fm_bank_commerce).save(bank_comer);
 
 			message = Msg('commercio', commerce.id).create;
 		} else message = Msg('commercio', commerce.id).get;

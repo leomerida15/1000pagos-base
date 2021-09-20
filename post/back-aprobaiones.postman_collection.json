@@ -750,6 +750,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "FM_commerce",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxOTA5MDE3LCJleHAiOjE2MzE5MTA4MTd9.7a6XIInM_huZSTdn8BIHyjdDcOiQwh7Y664ICTwKhc4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"id_ident_type\":1, \r\n    \"ident_num\":\"14521454214\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"dir_post\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/:id_client/commerce",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								":id_client",
+								"commerce"
+							],
+							"variable": [
+								{
+									"key": "id_client",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -786,6 +828,31 @@
 		{
 			"name": "client",
 			"item": []
+		},
+		{
+			"name": "global",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODk2NDcxLCJleHAiOjE2MzE4OTgyNzF9.-tpNkicShLfv-rnAmrNuZMq94rWgy-m8dCV2WPk0a_0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5051/activity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5051",
+					"path": [
+						"activity"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
