@@ -19,7 +19,7 @@ export default class fm_activity {
 
 	@OneToMany(() => fm_commerce, (fm_commerce) => fm_commerce.id_activity)
 	@JoinColumn({ name: 'commerces' })
-	commerces!: fm_commerce[];
+	commerces?: fm_commerce[];
 
 	@CreateDateColumn()
 	createdAt?: string;
