@@ -13,6 +13,7 @@ import fm_location from '../../db/models/fm_location';
 import fm_bank from '../../db/models/fm_bank';
 import fm_dir_post from '../../db/models/fm_dir_pos';
 import fm_bank_commerce from '../../db/models/fm_bank_commerce';
+import fm_request from '../../db/models/fm_request';
 
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
@@ -125,13 +126,17 @@ export const valid_existin_client = async (
 
 		const { email, id_ident_type, ident_num } = req.body;
 
-		let resp: Api.Resp = { message: `el usuario si exite`, info: { mash: false } };
+		let resp: Api.Resp = { message: ``, info: { mash: false } };
+
+		console.log('||---->', resp);
 
 		// validar existencia de la clave cumpuesta
 		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
 		if (validIdent && validIdent.email != email) {
 			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
 		}
+
+		console.log('||---->', resp);
 
 		const validIdentType: any = await getRepository(fm_client)
 			.createQueryBuilder('fm_clinet')
@@ -143,16 +148,22 @@ export const valid_existin_client = async (
 			throw { message: 'el tipo de docuemnto de identidad no coinside' };
 		}
 
+		console.log('||---->', resp);
+
 		// validar existencia de la clave cumpuesta
 		const validMail = await getRepository(fm_client).findOne({ email });
 		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
 			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
 		}
 
+		console.log('||---->', resp);
+
 		// validar existencia de la clave cumpuesta
 		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
-		if (client) resp.info = { id: client.id, mash: true };
-		else resp.message = `ni el correo ni la ci existen`;
+		if (client) resp = { message: 'el usuario existe', info: { id: client.id, mash: true } };
+		else if (!resp.message) resp.message = `ni el correo ni la ci existen`;
+
+		console.log('||---->', resp);
 
 		Resp(req, res, resp);
 	} catch (err) {
@@ -160,11 +171,15 @@ export const valid_existin_client = async (
 	}
 };
 
-export const FM_create = async (req: Request<any>, res: Response, next: NextFunction): Promise<void> => {
+export const FM_create = async (
+	req: Request<any, Api.Resp, fm_request>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
 	try {
 		validationResult(req).throw();
 
-		const { email, id_ident_type, ident_num } = req.body;
+		const { id_client, id_commerce } = req.body;
 	} catch (err) {
 		next(err);
 	}
