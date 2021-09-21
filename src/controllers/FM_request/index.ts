@@ -11,11 +11,9 @@ import fm_ident_type from '../../db/models/fm_ident_type';
 import fm_commerce from '../../db/models/fm_commerce';
 import fm_location from '../../db/models/fm_location';
 import fm_bank from '../../db/models/fm_bank';
-import fm_dir_post from '../../db/models/fm_dir_pos';
 import fm_bank_commerce from '../../db/models/fm_bank_commerce';
 import fm_request from '../../db/models/fm_request';
 import fm_dir_pos from '../../db/models/fm_dir_pos';
-import Log from '../../hooks/logs';
 
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
@@ -86,7 +84,6 @@ export const fm_create_commerce = async (
 			const commerce_doc = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num });
 			if (commerce_doc) throw { message: 'el rif del comercio esta asociado a otro cliente' };
 
-			// validar existencia de la clave cumpuesta
 			const reslocation = await getRepository(fm_location).save(location);
 			const id_location = reslocation.id;
 
@@ -148,13 +145,11 @@ export const valid_existin_client = async (
 			throw { message: 'el de docuemnto de identidad no coinside' };
 		}
 
-		// validar existencia de la clave cumpuesta
 		const validMail = await getRepository(fm_client).findOne({ email });
 		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
 			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
 		}
 
-		// validar existencia de la clave cumpuesta
 		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
 		if (client) resp = { message: 'el usuario existe', info: { id: client.id, mash: true } };
 		else if (!resp.message.length) resp.message = `ni el correo ni la ci existen`;
@@ -194,11 +189,20 @@ export const FM_create = async (
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
 		if (!bank) throw { message: 'el banco no existe' };
 
-		await getRepository(fm_bank_commerce).save({
+		const bank_comer = {
 			bank_account_num,
 			id_commerce,
 			id_bank: bank.id,
-		});
+		};
+
+		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne(bank_comer);
+		if (!valid_bank_commerce) {
+			await getRepository(fm_bank_commerce).save({
+				bank_account_num,
+				id_commerce,
+				id_bank: bank.id,
+			});
+		}
 
 		const FM = await getRepository(fm_request).save({
 			number_post,
@@ -219,12 +223,14 @@ export const FM_create = async (
 			id_status_request: 1,
 		});
 
-		const valid_location = await getRepository(fm_location).findOne(dir_pos);
-		const location = valid_location ? valid_location : await getRepository(fm_location).save(dir_pos);
+		const FM_save = await getRepository(fm_request).save(FM);
 
-		await getRepository(fm_dir_pos).save({ id_request: FM.id, id_location: location.id, id_commerce });
+		const validlocation = await getRepository(fm_location).findOne(dir_pos);
+		const location = validlocation ? validlocation : await getRepository(fm_location).save(dir_pos);
 
-		Resp(req, res, { message: Msg('FM').create });
+		await getRepository(fm_dir_pos).save({ id_location: location.id, id_commerce, id_request: FM_save.id });
+
+		res.status(200).json({ message: 'FM creada', info: { id: FM_save.id } });
 	} catch (err) {
 		next(err);
 	}

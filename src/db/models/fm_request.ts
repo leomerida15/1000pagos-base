@@ -3,6 +3,8 @@ import {
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
+	JoinTable,
+	ManyToMany,
 	ManyToOne,
 	OneToMany,
 	OneToOne,
@@ -78,7 +80,7 @@ export default class fm_request {
 	@JoinColumn({ name: 'id_commerce' })
 	id_commerce!: number;
 
-	@OneToOne(() => fm_type_request)
+	@ManyToOne(() => fm_type_request, (fm_type_request) => fm_type_request.requests)
 	@JoinColumn({ name: 'id_type_request' })
 	id_type_request!: number;
 

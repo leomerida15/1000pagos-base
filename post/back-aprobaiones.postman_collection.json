@@ -728,7 +728,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_ident_type\":1,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"id_ident_type\":3,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -764,7 +764,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"id_ident_type\":1, \r\n    \"ident_num\":\"14521454214\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
+							"raw": "{ \r\n    \"id_ident_type\":2, \r\n    \"ident_num\":\"145214542147\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -786,8 +786,36 @@
 							"variable": [
 								{
 									"key": "id_client",
-									"value": "1"
+									"value": "2"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear FM",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"rc_in_local\": 1,\r\n        \"rc_front_local\": 2,\r\n        \"rc_constitutive_act\": 3,\r\n        \"rc_ref_bank\": 4,\r\n        \"rc_ident_card\": 5,\r\n        \"rc_rif\": 6,\r\n        \"rc_account_number\": 7,\r\n        \"rc_ref_perso\": 8,\r\n        \"rc_service_document\": 9,\r\n        \"rc_property_document\": 10,\r\n        \"rc_special_contributor\": 11,\r\n    \"number_post\":5,\r\n\t\"bank_account_num\":\"01025665158351\",\r\n\t\"id_payment_method\":1,\r\n\t\"id_client\":1,\r\n\t\"id_commerce\":1,\r\n    \"dir_pos\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM"
 							]
 						}
 					},
