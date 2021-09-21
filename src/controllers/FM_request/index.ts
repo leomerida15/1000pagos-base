@@ -3,7 +3,7 @@ import { Api } from 'interfaces';
 import Resp from '../../Middlewares/res/resp';
 import fm_client from '../../db/models/fm_client';
 import Msg from '../../hooks/messages/index.ts';
-import { getRepository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import fm_phone from '../../db/models/fm_phone';
 import { validationResult } from 'express-validator';
@@ -19,7 +19,7 @@ import fm_dir_pos from '../../db/models/fm_dir_pos';
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -70,14 +70,14 @@ interface commerce extends fm_commerce {
 export const fm_create_commerce = async (
 	req: Request<Api.params, Api.Resp, commerce>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
 
 		const id_client: any = req.params.id;
 		const { id_ident_type, ident_num, special_contributor, location, name, id_activity } = req.body;
-		let commerce = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
+		let commerce: any = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
 
 		let message: string = ``;
 
@@ -88,28 +88,25 @@ export const fm_create_commerce = async (
 			const reslocation = await getRepository(fm_location).save(location);
 			const id_location = reslocation.id;
 
-			const data = getRepository(fm_commerce).create({
-				name,
-				id_client,
-				id_ident_type,
-				ident_num,
-				id_location,
-				special_contributor,
-				id_activity,
-			});
-			commerce = await getRepository(fm_commerce).save(data);
+			commerce = await getConnection()
+				.createQueryBuilder()
+				.insert()
+				.into(fm_commerce)
+				.values({
+					name,
+					id_ident_type,
+					ident_num,
+					special_contributor,
+					id_activity,
+					id_location,
+					id_client,
+				})
+				.execute();
 
-			// const bank_comer = getRepository(fm_bank_commerce).create({
-			// 	bank_account_num,
-			// 	id_commerce: commerce.id,
-			// 	id_bank: bank.id,
-			// });
-			// await getRepository(fm_bank_commerce).save(bank_comer);
-
-			message = Msg('commercio', commerce.id).create;
+			message = Msg('commercio', commerce.identifiers[0].id).create;
 		} else message = Msg('commercio', commerce.id).get;
 
-		Resp(req, res, { message, info: { id_commerce: commerce.id } });
+		Resp(req, res, { message, info: { id_commerce: commerce.identifiers[0].id } });
 	} catch (err) {
 		next(err);
 	}
@@ -119,7 +116,7 @@ export const fm_create_commerce = async (
 export const valid_existin_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -162,7 +159,7 @@ export const valid_existin_client = async (
 export const FM_create = async (
 	req: Request<any, Api.Resp, fm_request>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
