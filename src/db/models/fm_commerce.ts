@@ -5,17 +5,14 @@ import {
 	JoinColumn,
 	JoinTable,
 	ManyToMany,
-	ManyToOne,
 	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import fm_activity from './fm_activity';
-import fm_worker from './fm_worker';
 import fm_Client from './fm_client';
 import fm_bank_commerce from './fm_bank_commerce';
-import fm_dir_pos from './fm_dir_pos';
 import fm_request from './fm_request';
 import fm_photo from './fm_photo';
 import fm_location from './fm_location';
@@ -59,9 +56,9 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'banks' })
 	banks?: fm_bank_commerce[];
 
-	@OneToMany(() => fm_aci_commerce, (fm_aci_commerce) => fm_aci_commerce.id_commerce)
-	@JoinColumn({ name: 'dir_pos' })
-	dir_pos!: number;
+	@ManyToMany(() => fm_location)
+	@JoinTable({ name: 'fm_dir_pos' })
+	dir_pos?: fm_location[];
 
 	@ManyToMany(() => fm_photo)
 	@JoinTable()

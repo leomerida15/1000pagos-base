@@ -3,6 +3,8 @@ import {
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
+	JoinTable,
+	ManyToMany,
 	ManyToOne,
 	OneToOne,
 	PrimaryGeneratedColumn,
@@ -14,6 +16,7 @@ import fm_commerce from './fm_commerce';
 import fm_type_request from './fm_type_request';
 import fm_status_request from './fm_status_request';
 import fm_photo from './fm_photo';
+import fm_location from './fm_location';
 
 @Entity()
 export default class fm_request {
@@ -82,6 +85,10 @@ export default class fm_request {
 	@ManyToOne(() => fm_status_request, (fm_status_request) => fm_status_request.requests)
 	@JoinColumn({ name: 'id_status_request' })
 	id_status_request?: number;
+
+	@ManyToMany(() => fm_location)
+	@JoinTable({ name: 'fm_dir_pos' })
+	dir_pos?: fm_location[];
 
 	@CreateDateColumn()
 	createdAt?: string;

@@ -7,6 +7,7 @@ import {
 	ManyToOne,
 	UpdateDateColumn,
 	CreateDateColumn,
+	Index,
 } from 'typeorm';
 import fm_estado from './fm_estado';
 import fm_municipio from './fm_municipio';
@@ -14,6 +15,7 @@ import fm_ciudad from './fm_ciudad';
 import fm_parroquia from './fm_parroquia';
 
 @Entity()
+@Index(['id_estado', 'id_municipio', 'id_ciudad', 'id_parroquia', 'sector', 'calle', 'local'], { unique: true })
 export default class fm_location {
 	@PrimaryGeneratedColumn()
 	id?: number;
