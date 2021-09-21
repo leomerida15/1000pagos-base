@@ -7,3 +7,5 @@ export default (req: Request, res: Response, next: NextFunction) => {
 	res.header('Access-Control-Allow-Credentials', 'false');
 	next();
 };
+
+export * as Resp from './resp';

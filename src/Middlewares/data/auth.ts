@@ -33,16 +33,12 @@ export const RegisterData: ValidationChain[] = [
 		.custom(NoSQL),
 ];
 
-export const RegisterData1: ValidationChain[] = [
-	//
+export const validExistingClient: ValidationChain[] = [
 	check('email', 'el correo no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
 		.normalizeEmail()
 		.isEmail()
 		.custom(NoSQL),
-];
-
-export const RegisterData2: ValidationChain[] = [
 	//
 	check('id_ident_type', 'el tipo de documento de identidad no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
@@ -67,4 +63,49 @@ export const LoginData: ValidationChain[] = [
 
 export const PassMailData: ValidationChain[] = [
 	check('email', 'el correo no es valido').exists({ checkFalsy: true, checkNull: true }).isEmail().custom(NoSQL),
+];
+
+export const validClientData: ValidationChain[] = [
+	//
+	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
+	//
+	check('id_ident_type', 'el tipo de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric({ no_symbols: true })
+		.custom(NoSQL),
+	//
+	check('ident_num', 'el numero de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isLength({ min: 6, max: 20 })
+		.isNumeric({ no_symbols: true })
+		.custom(NoSQL),
+	//
+	check('phone1', 'telefono 1 invalido').isString().custom(NoSQL),
+	//
+	check('phone2', 'telefono 2 invalido').isString().custom(NoSQL),
+	//
+	check('email', 'el correo no es valido').exists({ checkFalsy: true, checkNull: true }).isEmail().custom(NoSQL),
+];
+
+export const RegisterData1: ValidationChain[] = [
+	//
+	check('email', 'el correo no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.normalizeEmail()
+		.isEmail()
+		.custom(NoSQL),
+];
+
+export const RegisterData2: ValidationChain[] = [
+	//
+	check('id_ident_type', 'el tipo de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('ident_num', 'el numero de documento de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isLength({ min: 6, max: 20 })
+		.isNumeric()
+		.custom(NoSQL),
 ];

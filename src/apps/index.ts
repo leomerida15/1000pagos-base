@@ -12,7 +12,6 @@ import { Doc } from '../hooks/docs';
 
 createConnection()
 	.then(async () => {
-
 		await contents();
 		log.text.OK('DB OK');
 	})

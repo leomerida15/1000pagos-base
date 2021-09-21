@@ -17,11 +17,11 @@ export default (req: Request, res: Response, next: NextFunction) => {
 		if (result) {
 			if (req.headers.token) {
 				const { token }: any = req.headers;
-				const resp: any = jwt.verify(token, Key);
+				const Resp: any = jwt.verify(token, Key);
 
-				console.log(resp);
+				console.log(Resp);
 
-				req.headers.token = resp;
+				req.headers.token = Resp;
 
 				next();
 				//

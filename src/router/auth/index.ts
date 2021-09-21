@@ -6,6 +6,6 @@ import Auth from './auth.routes';
 //
 export default (app: Application) => {
 	app.use('/auth', Auth);
-	app.use('/worker', Worker);
-	app.use('/roles', roles);
+	app.use(Worker);
+	app.use(roles);
 };

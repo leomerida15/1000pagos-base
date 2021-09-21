@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1e5cb033-ab0a-481c-8a13-5a2474900d75",
+		"_postman_id": "e10f1c6b-703d-41b4-aeec-265515c8c392",
 		"name": "back-aprobaiones",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -113,7 +113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"password\":\"Test123.\",\r\n    \"email\":\"test@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"password\":\"Test123.\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -237,7 +237,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6eyJ0b2tlbiI6eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDMwMDY4LCJleHAiOjE2MzEwMzE4Njh9LCJ1c2VyLWFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOC40IiwiYWNjZXB0IjoiKi8qIiwiY2FjaGUtY29udHJvbCI6Im5vLWNhY2hlIiwicG9zdG1hbi10b2tlbiI6IjQ1NzU0Y2UxLTk4OTgtNDdjMy04ZWYzLTcxMjVhYjk2ZTk3ZSIsImhvc3QiOiJsb2NhbGhvc3Q6NTA1MSIsImFjY2VwdC1lbmNvZGluZyI6Imd6aXAsIGRlZmxhdGUsIGJyIiwiY29ubmVjdGlvbiI6ImtlZXAtYWxpdmUiLCJpYXQiOjE2MzEwMzAwODAsImV4cCI6MTYzMTAzMzY4MH0sInVzZXItYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjI4LjQiLCJhY2NlcHQiOiIqLyoiLCJjYWNoZS1jb250cm9sIjoibm8tY2FjaGUiLCJwb3N0bWFuLXRva2VuIjoiZDZkZmFlY2QtMjg0MS00MzJkLTlmMWUtYWU5YzM3Y2M2MjY5IiwiaG9zdCI6ImxvY2FsaG9zdDo1MDUxIiwiYWNjZXB0LWVuY29kaW5nIjoiZ3ppcCwgZGVmbGF0ZSwgYnIiLCJjb25uZWN0aW9uIjoia2VlcC1hbGl2ZSIsImlhdCI6MTYzMTAzMTI0OCwiZXhwIjoxNjMxMDM0ODQ4fQ.F1waIadi3qMhZpryQjMSQBvClJcSj7ZfBY6rn6xlYTM",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMTMwNjIzLCJleHAiOjE2MzExMzI0MjN9.pZo_p6yWJSolcdt6TKUn8Hbkf-d7p2FgqtsQgZswtEo",
 								"type": "text"
 							}
 						],
@@ -263,7 +263,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6eyJ0b2tlbiI6eyJ0b2tlbiI6eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDMwMDY4LCJleHAiOjE2MzEwMzE4Njh9LCJ1c2VyLWFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOC40IiwiYWNjZXB0IjoiKi8qIiwiY2FjaGUtY29udHJvbCI6Im5vLWNhY2hlIiwicG9zdG1hbi10b2tlbiI6IjQ1NzU0Y2UxLTk4OTgtNDdjMy04ZWYzLTcxMjVhYjk2ZTk3ZSIsImhvc3QiOiJsb2NhbGhvc3Q6NTA1MSIsImFjY2VwdC1lbmNvZGluZyI6Imd6aXAsIGRlZmxhdGUsIGJyIiwiY29ubmVjdGlvbiI6ImtlZXAtYWxpdmUiLCJpYXQiOjE2MzEwMzAwODAsImV4cCI6MTYzMTAzMzY4MH0sInVzZXItYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjI4LjQiLCJhY2NlcHQiOiIqLyoiLCJjYWNoZS1jb250cm9sIjoibm8tY2FjaGUiLCJwb3N0bWFuLXRva2VuIjoiZDZkZmFlY2QtMjg0MS00MzJkLTlmMWUtYWU5YzM3Y2M2MjY5IiwiaG9zdCI6ImxvY2FsaG9zdDo1MDUxIiwiYWNjZXB0LWVuY29kaW5nIjoiZ3ppcCwgZGVmbGF0ZSwgYnIiLCJjb25uZWN0aW9uIjoia2VlcC1hbGl2ZSIsImlhdCI6MTYzMTAzMTI0OCwiZXhwIjoxNjMxMDM0ODQ4fSwidXNlci1hZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjguNCIsImFjY2VwdCI6IiovKiIsImNhY2hlLWNvbnRyb2wiOiJuby1jYWNoZSIsInBvc3RtYW4tdG9rZW4iOiIxMTQzODM0NS04OWM1LTQ0ODAtYWExZC0wYzhjM2UwMGI2Y2IiLCJob3N0IjoibG9jYWxob3N0OjUwNTEiLCJhY2NlcHQtZW5jb2RpbmciOiJnemlwLCBkZWZsYXRlLCBiciIsImNvbm5lY3Rpb24iOiJrZWVwLWFsaXZlIiwiaWF0IjoxNjMxMDMxODk2LCJleHAiOjE2MzEwMzU0OTZ9.Q98FkVdu9weo0WRNdctaZdZwwDaQEw8Z7mSh6fztKTQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMTMwNjIzLCJleHAiOjE2MzExMzI0MjN9.pZo_p6yWJSolcdt6TKUn8Hbkf-d7p2FgqtsQgZswtEo",
 								"type": "text"
 							}
 						],
@@ -294,31 +294,6 @@
 			"name": "roles",
 			"item": [
 				{
-					"name": "worker usuario ya logeado",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDI2MTAzLCJleHAiOjE2MzEwMjc5MDN9.5lsGl1Hf60Sb3ANoRMfC1XsqHDmWH4FrQa8Pkkzmplc",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:5051/worker",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5051",
-							"path": [
-								"worker"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "roles all",
 					"request": {
 						"method": "GET",
@@ -345,30 +320,472 @@
 					"response": []
 				},
 				{
-					"name": "worker user by id",
+					"name": "roles  By Worker",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6eyJ0b2tlbiI6eyJ0b2tlbiI6eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDMwMDY4LCJleHAiOjE2MzEwMzE4Njh9LCJ1c2VyLWFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOC40IiwiYWNjZXB0IjoiKi8qIiwiY2FjaGUtY29udHJvbCI6Im5vLWNhY2hlIiwicG9zdG1hbi10b2tlbiI6IjQ1NzU0Y2UxLTk4OTgtNDdjMy04ZWYzLTcxMjVhYjk2ZTk3ZSIsImhvc3QiOiJsb2NhbGhvc3Q6NTA1MSIsImFjY2VwdC1lbmNvZGluZyI6Imd6aXAsIGRlZmxhdGUsIGJyIiwiY29ubmVjdGlvbiI6ImtlZXAtYWxpdmUiLCJpYXQiOjE2MzEwMzAwODAsImV4cCI6MTYzMTAzMzY4MH0sInVzZXItYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjI4LjQiLCJhY2NlcHQiOiIqLyoiLCJjYWNoZS1jb250cm9sIjoibm8tY2FjaGUiLCJwb3N0bWFuLXRva2VuIjoiZDZkZmFlY2QtMjg0MS00MzJkLTlmMWUtYWU5YzM3Y2M2MjY5IiwiaG9zdCI6ImxvY2FsaG9zdDo1MDUxIiwiYWNjZXB0LWVuY29kaW5nIjoiZ3ppcCwgZGVmbGF0ZSwgYnIiLCJjb25uZWN0aW9uIjoia2VlcC1hbGl2ZSIsImlhdCI6MTYzMTAzMTI0OCwiZXhwIjoxNjMxMDM0ODQ4fSwidXNlci1hZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjguNCIsImFjY2VwdCI6IiovKiIsImNhY2hlLWNvbnRyb2wiOiJuby1jYWNoZSIsInBvc3RtYW4tdG9rZW4iOiIxMTQzODM0NS04OWM1LTQ0ODAtYWExZC0wYzhjM2UwMGI2Y2IiLCJob3N0IjoibG9jYWxob3N0OjUwNTEiLCJhY2NlcHQtZW5jb2RpbmciOiJnemlwLCBkZWZsYXRlLCBiciIsImNvbm5lY3Rpb24iOiJrZWVwLWFsaXZlIiwiaWF0IjoxNjMxMDMxODk2LCJleHAiOjE2MzEwMzU0OTZ9.Q98FkVdu9weo0WRNdctaZdZwwDaQEw8Z7mSh6fztKTQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6eyJ0b2tlbiI6eyJpZCI6NCwidHlwZSI6MiwiaWF0IjoxNjMxMDMwMDY4LCJleHAiOjE2MzEwMzE4Njh9LCJ1c2VyLWFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOC40IiwiYWNjZXB0IjoiKi8qIiwiY2FjaGUtY29udHJvbCI6Im5vLWNhY2hlIiwicG9zdG1hbi10b2tlbiI6IjQ1NzU0Y2UxLTk4OTgtNDdjMy04ZWYzLTcxMjVhYjk2ZTk3ZSIsImhvc3QiOiJsb2NhbGhvc3Q6NTA1MSIsImFjY2VwdC1lbmNvZGluZyI6Imd6aXAsIGRlZmxhdGUsIGJyIiwiY29ubmVjdGlvbiI6ImtlZXAtYWxpdmUiLCJpYXQiOjE2MzEwMzAwODAsImV4cCI6MTYzMTAzMzY4MH0sInVzZXItYWdlbnQiOiJQb3N0bWFuUnVudGltZS83LjI4LjQiLCJhY2NlcHQiOiIqLyoiLCJjYWNoZS1jb250cm9sIjoibm8tY2FjaGUiLCJwb3N0bWFuLXRva2VuIjoiZDZkZmFlY2QtMjg0MS00MzJkLTlmMWUtYWU5YzM3Y2M2MjY5IiwiaG9zdCI6ImxvY2FsaG9zdDo1MDUxIiwiYWNjZXB0LWVuY29kaW5nIjoiZ3ppcCwgZGVmbGF0ZSwgYnIiLCJjb25uZWN0aW9uIjoia2VlcC1hbGl2ZSIsImlhdCI6MTYzMTAzMTI0OCwiZXhwIjoxNjMxMDM0ODQ4fQ.F1waIadi3qMhZpryQjMSQBvClJcSj7ZfBY6rn6xlYTM",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5051/worker/:id",
+							"raw": "http://localhost:5051/roles/:id/worker",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "5051",
 							"path": [
-								"worker",
-								":id"
+								"roles",
+								":id",
+								"worker"
 							],
 							"variable": [
 								{
 									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "payment all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMjE1OTk4LCJleHAiOjE2MzEyMTc3OTh9.JglX6jF66S-9aDG2RECRMwSTpFdCtLd1Ud_G_As25kI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/payment/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"payment",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "estados",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ3MDkyLCJleHAiOjE2MzE1NDg4OTJ9.sSZ8blsUYl118oApgK6xXwH7Sx7IfMx9sTlhJB3Gle0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/Location/estado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"Location",
+								"estado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "municipios",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ3MDkyLCJleHAiOjE2MzE1NDg4OTJ9.sSZ8blsUYl118oApgK6xXwH7Sx7IfMx9sTlhJB3Gle0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/Location/:id_estado/municipio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"Location",
+								":id_estado",
+								"municipio"
+							],
+							"variable": [
+								{
+									"key": "id_estado",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "parroquias",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ3MDkyLCJleHAiOjE2MzE1NDg4OTJ9.sSZ8blsUYl118oApgK6xXwH7Sx7IfMx9sTlhJB3Gle0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/Location/:id_municipio/parroquia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"Location",
+								":id_municipio",
+								"parroquia"
+							],
+							"variable": [
+								{
+									"key": "id_municipio",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ciudad",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxMTIzNDAwLCJleHAiOjE2MzExMjUyMDB9.pKH1BkHM73B1tQIss7b7WayjoGve49IruPJdD-d1PrA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/Location/:id_estado/ciudad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"Location",
+								":id_estado",
+								"ciudad"
+							],
+							"variable": [
+								{
+									"key": "id_estado",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FM",
+			"item": [
+				{
+					"name": "FM RC",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email\n",
+									"value": "test@test.com\n",
+									"type": "text"
+								},
+								{
+									"key": "images\n",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_property_document",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_service_document",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_special_contributor",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_ref_bank",
+									"value": "4",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_ref_perso",
+									"value": "5",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_account_number",
+									"value": "6",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_front_local",
+									"value": "7",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_in_local",
+									"value": "8",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_rif",
+									"value": "9",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "rc_ident_card",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6060/1000pagosRC/RC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"1000pagosRC",
+								"RC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FM_RC_IMAGENES",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODE3MDQxLCJleHAiOjE2MzE4MTg4NDF9.0X7Ga9yFvPRYtIARiuqezrAz7eLbQbp5IBMewPo-j-E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_client",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "id_commerce",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/dmerida/Pictures/fm/rc_account_number'.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_constitutive_act.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_front_local.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ident_card.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_in_local.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_property_document.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ref_bank.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_ref_perso.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_rif.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_service_document.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_special_contributor.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:6060/1000pagosRC/RC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6060",
+							"path": [
+								"1000pagosRC",
+								"RC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valid client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"test\",\r\n    \"last_name\":\"test\",\r\n    \"id_ident_type\":5,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"test6@gmail.com\",\r\n    \"phone1\":\"+5841811161\",\r\n    \"phone2\":\"+5815151891\",\r\n    \"pero\":\"dskjnak\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/client",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valid existen client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_ident_type\":1,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/client/valid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								"client",
+								"valid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FM_commerce",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxOTA5MDE3LCJleHAiOjE2MzE5MTA4MTd9.7a6XIInM_huZSTdn8BIHyjdDcOiQwh7Y664ICTwKhc4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"id_ident_type\":1, \r\n    \"ident_num\":\"14521454214\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/:id_client/commerce",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								":id_client",
+								"commerce"
+							],
+							"variable": [
+								{
+									"key": "id_client",
 									"value": "1"
 								}
 							]
@@ -377,6 +794,65 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ident_types",
+			"item": [
+				{
+					"name": "get All tipos de identidad",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ0MjQwLCJleHAiOjE2MzE1NDYwNDB9.ALUo1JEumZJfedvadhPenF6bRgFbXsV0KmfwhwAHUpQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/ident_type",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"ident_type"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": []
+		},
+		{
+			"name": "global",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODk2NDcxLCJleHAiOjE2MzE4OTgyNzF9.-tpNkicShLfv-rnAmrNuZMq94rWgy-m8dCV2WPk0a_0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5051/activity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5051",
+					"path": [
+						"activity"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
