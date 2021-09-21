@@ -1,7 +1,7 @@
 import { check, oneOf, ValidationChain } from 'express-validator';
 import { NoSQL } from './index';
 
-export const ProductData: ValidationChain[] = [
+export const validCommerceData: ValidationChain[] = [
 	//
 	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
 	//
@@ -16,10 +16,7 @@ export const ProductData: ValidationChain[] = [
 		.isString()
 		.custom(NoSQL),
 	//
-	check('special_contributor', 'defina si es contribuidor especial')
-		.exists({ checkFalsy: true, checkNull: true })
-		.isBoolean()
-		.custom(NoSQL),
+	check('special_contributor', 'defina si es contribuidor especial').isNumeric().custom(NoSQL),
 	//
 	check('id_activity', 'Tipo de actividad comercial invalido')
 		.exists({ checkFalsy: true, checkNull: true })
@@ -29,15 +26,5 @@ export const ProductData: ValidationChain[] = [
 	check('location', 'la locacion es obligatoria')
 		.exists({ checkFalsy: true, checkNull: true })
 		.isObject()
-		.custom(NoSQL),
-	//
-	check('dir_post', 'la locacion es obligatoria')
-		.exists({ checkFalsy: true, checkNull: true })
-		.isObject()
-		.custom(NoSQL),
-	//
-	check('bank_account_num', 'numero de cuenta es requerido')
-		.exists({ checkFalsy: true, checkNull: true })
-		.isString()
 		.custom(NoSQL),
 ];

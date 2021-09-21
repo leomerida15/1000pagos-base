@@ -50,7 +50,7 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'aci' })
 	aci?: fm_bank_commerce[];
 
-	@OneToOne(() => fm_Client)
+	@ManyToOne(() => fm_Client)
 	@JoinColumn({ name: 'id_client' })
 	id_client!: number;
 
@@ -58,9 +58,9 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'banks' })
 	banks?: fm_bank_commerce[];
 
-	@OneToMany(() => fm_aci_commerce, (fm_aci_commerce) => fm_aci_commerce.id_commerce)
+	@OneToMany(() => fm_dir_pos, (fm_dir_pos) => fm_dir_pos.id_commerce)
 	@JoinColumn({ name: 'dir_pos' })
-	dir_pos!: number;
+	dir_pos?: number;
 
 	@ManyToMany(() => fm_photo)
 	@JoinTable()

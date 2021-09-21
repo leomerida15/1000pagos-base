@@ -68,10 +68,10 @@ export const Move = async (file: string, folder: string) => {
 export const Moves = async (files: string[], folder: string) => {
 	if (folder) await fileExistin(folder);
 
-	const Resp: any = files.map(
+	const resp: any = files.map(
 		async (file: string) => await fs.rename(`${base}/${file}`, `${base}/${folder}/${file}`)
 	);
-	await Promise.all(Resp);
+	await Promise.all(resp);
 
 	return files.map((file: any) => `${host}static/${folder}/${file}`);
 };
@@ -81,10 +81,10 @@ export const Route = (file: any, folder?: string) => {
 };
 //
 export const MoveRoute = async (file: any, folder: string) => {
-	const Resp: string = Route(file, folder);
-	const id = ID(Resp);
+	const resp: string = Route(file, folder);
+	const id = ID(resp);
 	await Move(id, folder);
-	return Resp;
+	return resp;
 };
 //
 export const Routes = (files: any, folder?: string) => {
@@ -159,9 +159,9 @@ export const Catchs = async (files: any[], folder: string): Promise<string[]> =>
 		}
 	});
 
-	const Resps: (string | false)[] = await Promise.all(stop);
+	const resps: (string | false)[] = await Promise.all(stop);
 
-	const data: any[] = Resps.filter((Resp: string | false) => Resp);
+	const data: any[] = resps.filter((resp: string | false) => resp);
 
 	return data;
 };

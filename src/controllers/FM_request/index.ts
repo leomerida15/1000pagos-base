@@ -14,11 +14,13 @@ import fm_bank from '../../db/models/fm_bank';
 import fm_dir_post from '../../db/models/fm_dir_pos';
 import fm_bank_commerce from '../../db/models/fm_bank_commerce';
 import fm_request from '../../db/models/fm_request';
+import fm_dir_pos from '../../db/models/fm_dir_pos';
+import Log from '../../hooks/logs';
 
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -69,7 +71,7 @@ interface commerce extends fm_commerce {
 export const fm_create_commerce = async (
 	req: Request<Api.params, Api.Resp, commerce>,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -78,7 +80,7 @@ export const fm_create_commerce = async (
 		const { id_ident_type, ident_num, special_contributor, location, name, id_activity } = req.body;
 		let commerce: any = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num, id_client });
 
-		let message: string = ``;
+		let Resps: Api.Resp = { message: '', info: {} };
 
 		if (!commerce) {
 			const commerce_doc = await getRepository(fm_commerce).findOne({ id_ident_type, ident_num });
@@ -103,10 +105,15 @@ export const fm_create_commerce = async (
 				})
 				.execute();
 
-			message = Msg('commercio', commerce.identifiers[0].id).create;
-		} else message = Msg('commercio', commerce.id).get;
+			Resps = {
+				message: Msg('commercio', commerce.identifiers[0].id).create,
+				info: { id_commerce: commerce.identifiers[0].id },
+			};
+		} else {
+			Resps = { message: Msg('commercio', commerce.id).get, info: { id_commerce: commerce.id } };
+		}
 
-		Resp(req, res, { message, info: { id_commerce: commerce.identifiers[0].id } });
+		Resp(req, res, Resps);
 	} catch (err) {
 		next(err);
 	}
@@ -116,7 +123,7 @@ export const fm_create_commerce = async (
 export const valid_existin_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -161,7 +168,7 @@ export const valid_existin_client = async (
 export const FM_create = async (
 	req: Request<any, Api.Resp, fm_request>,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -181,19 +188,19 @@ export const FM_create = async (
 			id_payment_method,
 			id_client,
 			id_commerce,
-			id_type_request,
-		} = req.body;
+			dir_pos,
+		}: any = req.body;
 
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
+		if (!bank) throw { message: 'el banco no existe' };
 
-		const bank_comer = getRepository(fm_bank_commerce).create({
+		await getRepository(fm_bank_commerce).save({
 			bank_account_num,
 			id_commerce,
 			id_bank: bank.id,
 		});
-		await getRepository(fm_bank_commerce).save(bank_comer);
 
-		const FM = getRepository(fm_request).create({
+		const FM = await getRepository(fm_request).save({
 			number_post,
 			bank_account_num,
 			rc_constitutive_act,
@@ -208,11 +215,16 @@ export const FM_create = async (
 			id_payment_method,
 			id_client,
 			id_commerce,
-			id_type_request,
-			id_status_request: 0,
+			id_type_request: 1,
+			id_status_request: 1,
 		});
 
-		await getRepository(fm_request).save(FM);
+		const valid_location = await getRepository(fm_location).findOne(dir_pos);
+		const location = valid_location ? valid_location : await getRepository(fm_location).save(dir_pos);
+
+		await getRepository(fm_dir_pos).save({ id_request: FM.id, id_location: location.id, id_commerce });
+
+		Resp(req, res, { message: Msg('FM').create });
 	} catch (err) {
 		next(err);
 	}

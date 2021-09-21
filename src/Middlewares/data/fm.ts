@@ -2,32 +2,73 @@ import { check, oneOf, ValidationChain } from 'express-validator';
 import { NoSQL } from './index';
 import fm_request from '../../db/models/fm_request';
 
-export const ProductData: ValidationChain[] = [
+export const validFmData: ValidationChain[] = [
 	//
-	check('text_account_number', 'nombre invalido')
+	check('rc_account_number', 'rc_account_number es requerido')
 		.exists({ checkFalsy: true, checkNull: true })
-		.isSemVer()
+		.isNumeric()
 		.custom(NoSQL),
 	//
-
+	check('rc_ref_bank', 'rc_ref_bank es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_property_document', 'rc_property_document es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_constitutive_act', 'rc_constitutive_act es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_ref_perso', 'rc_ref_perso es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_ident_card', 'rc_ident_card es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_service_document', 'rc_service_document es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('rc_rif', 'rc_rif es requerido').exists({ checkFalsy: true, checkNull: true }).isNumeric().custom(NoSQL),
+	//
+	check('number_post', 'number_post es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
 	// validar la data del cliente
 	//
-	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
-	//
-	check('last_name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
-	//
-	check('id_ident_type', 'el tipo de documento de identidad no es valido')
+	check('bank_account_num', 'bank_account_num invalido')
 		.exists({ checkFalsy: true, checkNull: true })
-		.isNumeric({ no_symbols: true })
+		.isString()
 		.custom(NoSQL),
 	//
-	check('ident_num', 'el numero de documento de identidad no es valido')
+	check('id_payment_method', 'id_payment_method es requerido')
 		.exists({ checkFalsy: true, checkNull: true })
-		.isLength({ min: 6, max: 20 })
-		.isNumeric({ no_symbols: true })
+		.isNumeric()
 		.custom(NoSQL),
 	//
-	check('phone', 'telefono invalido').isString().custom(NoSQL),
+	check('id_client', 'id_client es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
 	//
-	check('email', 'el correo no es valido').exists({ checkFalsy: true, checkNull: true }).isEmail().custom(NoSQL),
+	check('id_commerce', 'id_commerce es requerido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isNumeric()
+		.custom(NoSQL),
+	//
+	check('dir_pos', 'la dir_pos es obligatoria')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isObject()
+		.custom(NoSQL),
 ];
