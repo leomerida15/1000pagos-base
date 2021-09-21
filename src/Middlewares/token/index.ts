@@ -19,8 +19,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
 				const { token }: any = req.headers;
 				const Resp: any = jwt.verify(token, Key);
 
-				console.log(Resp);
-
 				req.headers.token = Resp;
 
 				next();

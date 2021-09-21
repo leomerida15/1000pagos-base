@@ -21,6 +21,7 @@ const app: Application = express();
 
 // middleware preRoutes
 preRoutes(app);
+
 app.use(express.json());
 
 // Routes
