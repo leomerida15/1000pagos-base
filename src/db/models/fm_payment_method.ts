@@ -19,7 +19,7 @@ export default class fm_payment_method {
 
 	@OneToMany(() => fm_request, (fm_request) => fm_request.id_commerce)
 	@JoinColumn({ name: 'requests' })
-	requests!: fm_request[];
+	requests?: fm_request[];
 
 	@CreateDateColumn()
 	createdAt?: string;
