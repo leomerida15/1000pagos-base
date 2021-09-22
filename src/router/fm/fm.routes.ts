@@ -8,6 +8,7 @@ import {
 import { validExistingClient, validClientData } from '../../Middlewares/data/auth';
 import { validCommerceData } from '../../Middlewares/data/commerce';
 import { validFmData } from '../../Middlewares/data/fm';
+import { getFm } from '../../controllers/FM_request/index';
 
 const FM: Router = Router();
 
@@ -23,6 +24,6 @@ FM.route('/FM/client/valid').post(validExistingClient, valid_existin_client);
 //
 // entregar data GET
 //
-FM.route('/FM/:id').get();
+FM.route('/FM').get(getFm);
 
 export default FM;

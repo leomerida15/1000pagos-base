@@ -239,13 +239,38 @@ export const FM_create = async (
 };
 
 // responder FM por id
-export const getFmById = async (req: Request<any, Api.Resp>, res: Response, next: NextFunction): Promise<void> => {
+export const getFm = async (
+	req: Request<any, Api.Resp>,
+	res: Response<Api.Resp>,
+	next: NextFunction
+): Promise<void> => {
 	try {
-		const FM = await getRepository(fm_request)
+		const FM: any = await getRepository(fm_request)
 			.createQueryBuilder('fm_request')
+			.leftJoinAndSelect('fm_request.rc_constitutive_act', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_property_document', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_service_document', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_special_contributor', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_ref_bank', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_ref_perso', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_account_number', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_rif', 'fm_photo')
+			.leftJoinAndSelect('fm_request.rc_ident_card', 'fm_photo')
+			.leftJoinAndSelect('fm_request.id_payment_method', 'fm_payment_method')
+			.leftJoinAndSelect('fm_request.id_client', 'fm_client')
+			.leftJoinAndSelect('fm_request.id_commerce', 'fm_commerce')
+			.leftJoinAndSelect('fm_request.id_type_request', 'fm_type_request')
+			.leftJoinAndSelect('fm_request.id_status_request', 'fm_status_request')
+			.leftJoinAndSelect('fm_request.dir_pos', 'fm_dir_pos')
 			.where('fm_request.id_status_request = 1')
 			.orderBy('fm_request.id', 'ASC')
 			.getOne();
+
+		if (!FM) throw { message: 'no existen FM en espera de aprobacion' };
+
+		await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
+
+		Resp(req, res, { message: 'FM respondida', info: { id: FM.id } });
 	} catch (err) {
 		next(err);
 	}
