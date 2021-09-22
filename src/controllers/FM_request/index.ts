@@ -247,15 +247,17 @@ export const getFm = async (
 	try {
 		const FM: any = await getRepository(fm_request)
 			.createQueryBuilder('fm_request')
-			.leftJoin('fm_request.rc_constitutive_act', 'fm_photo')
-			.leftJoin('fm_request.rc_property_document', 'fm_photo')
-			.leftJoin('fm_request.rc_service_document', 'fm_photo')
-			.leftJoin('fm_request.rc_special_contributor', 'fm_photo')
-			.leftJoin('fm_request.rc_ref_bank', 'fm_photo')
-			.leftJoin('fm_request.rc_ref_perso', 'fm_photo')
-			.leftJoin('fm_request.rc_account_number', 'fm_photo')
-			.leftJoin('fm_request.rc_rif', 'fm_photo')
-			.leftJoin('fm_request.rc_ident_card', 'fm_photo')
+			.leftJoin(
+				`fm_request.rc_constitutive_act ,fm_request.rc_property_document
+			    , fm_request.rc_service_document
+			    , fm_request.rc_special_contributor
+			    , fm_request.rc_ref_bank
+			    , fm_request.rc_ref_perso
+			    , fm_request.rc_account_number
+			    , fm_request.rc_rif
+			    , fm_request.rc_ident_card`,
+				'fm_photo'
+			)
 			.leftJoin('fm_request.id_payment_method', 'fm_payment_method')
 			.leftJoin('fm_request.id_client', 'fm_client')
 			.leftJoin('fm_request.id_commerce', 'fm_commerce')
