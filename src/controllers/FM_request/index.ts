@@ -247,28 +247,28 @@ export const getFm = async (
 	try {
 		const FM: any = await getRepository(fm_request)
 			.createQueryBuilder('fm_request')
-			.leftJoinAndSelect('fm_request.rc_constitutive_act', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_property_document', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_service_document', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_special_contributor', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_ref_bank', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_ref_perso', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_account_number', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_rif', 'fm_photo')
-			.leftJoinAndSelect('fm_request.rc_ident_card', 'fm_photo')
-			.leftJoinAndSelect('fm_request.id_payment_method', 'fm_payment_method')
-			.leftJoinAndSelect('fm_request.id_client', 'fm_client')
-			.leftJoinAndSelect('fm_request.id_commerce', 'fm_commerce')
-			.leftJoinAndSelect('fm_request.id_type_request', 'fm_type_request')
-			.leftJoinAndSelect('fm_request.id_status_request', 'fm_status_request')
-			.leftJoinAndSelect('fm_request.dir_pos', 'fm_dir_pos')
+			.leftJoin('fm_request.rc_constitutive_act', 'fm_photo')
+			.leftJoin('fm_request.rc_property_document', 'fm_photo')
+			.leftJoin('fm_request.rc_service_document', 'fm_photo')
+			.leftJoin('fm_request.rc_special_contributor', 'fm_photo')
+			.leftJoin('fm_request.rc_ref_bank', 'fm_photo')
+			.leftJoin('fm_request.rc_ref_perso', 'fm_photo')
+			.leftJoin('fm_request.rc_account_number', 'fm_photo')
+			.leftJoin('fm_request.rc_rif', 'fm_photo')
+			.leftJoin('fm_request.rc_ident_card', 'fm_photo')
+			.leftJoin('fm_request.id_payment_method', 'fm_payment_method')
+			.leftJoin('fm_request.id_client', 'fm_client')
+			.leftJoin('fm_request.id_commerce', 'fm_commerce')
+			.leftJoin('fm_request.id_type_request', 'fm_type_request')
+			.leftJoin('fm_request.id_status_request', 'fm_status_request')
+			.leftJoin('fm_request.dir_pos', 'fm_dir_pos')
 			.where('fm_request.id_status_request = 1')
 			.orderBy('fm_request.id', 'ASC')
 			.getOne();
 
 		if (!FM) throw { message: 'no existen FM en espera de aprobacion' };
 
-		await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
+		// await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
 
 		Resp(req, res, { message: 'FM respondida', info: { id: FM.id } });
 	} catch (err) {
