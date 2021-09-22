@@ -19,8 +19,10 @@ FM.route('/FM/:id/commerce').post(validCommerceData, fm_create_commerce);
 //
 FM.route('/FM').post(validFmData, FM_create);
 //
-FM.route('/FM').post(FM_create);
-//
 FM.route('/FM/client/valid').post(validExistingClient, valid_existin_client);
+//
+// entregar data GET
+//
+FM.route('/FM/:id').get();
 
 export default FM;

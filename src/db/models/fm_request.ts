@@ -68,7 +68,7 @@ export default class fm_request {
 	@JoinColumn({ name: 'rc_ident_card' })
 	rc_ident_card!: number;
 
-	@OneToOne(() => fm_way_pay)
+	@ManyToOne(() => fm_way_pay)
 	@JoinColumn({ name: 'id_payment_method' })
 	id_payment_method!: number;
 

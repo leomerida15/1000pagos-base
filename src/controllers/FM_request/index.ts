@@ -15,6 +15,7 @@ import fm_bank_commerce from '../../db/models/fm_bank_commerce';
 import fm_request from '../../db/models/fm_request';
 import fm_dir_pos from '../../db/models/fm_dir_pos';
 
+// crear al cliente
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
@@ -62,10 +63,54 @@ export const fm_valid_client = async (
 	}
 };
 
+// validar que el cliente existe
+export const valid_existin_client = async (
+	req: Request<any, Api.Resp, fm_client>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		validationResult(req).throw();
+
+		const { email, id_ident_type, ident_num } = req.body;
+
+		let resp: Api.Resp = { message: ``, info: { mash: false } };
+
+		// validar existencia de la clave cumpuesta
+		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
+		if (validIdent && validIdent.email != email) {
+			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
+		}
+
+		const validIdentType: any = await getRepository(fm_client)
+			.createQueryBuilder('fm_clinet')
+			.leftJoinAndSelect('fm_clinet.id_ident_type', 'id_ident_type')
+			.where(`fm_clinet.ident_num = ${ident_num}`)
+			.getOne();
+
+		if (validIdentType && validIdentType.id_ident_type.id != id_ident_type) {
+			throw { message: 'el de docuemnto de identidad no coinside' };
+		}
+
+		const validMail = await getRepository(fm_client).findOne({ email });
+		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
+			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
+		}
+
+		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
+		if (client) resp = { message: 'el usuario existe', info: { id: client.id, mash: true } };
+		else if (!resp.message.length) resp.message = `ni el correo ni la ci existen`;
+
+		Resp(req, res, resp);
+	} catch (err) {
+		next(err);
+	}
+};
+
 interface commerce extends fm_commerce {
 	location: fm_location;
 }
-
+// crear comercio
 export const fm_create_commerce = async (
 	req: Request<Api.params, Api.Resp, commerce>,
 	res: Response,
@@ -116,50 +161,7 @@ export const fm_create_commerce = async (
 	}
 };
 
-// register valid 1
-export const valid_existin_client = async (
-	req: Request<any, Api.Resp, fm_client>,
-	res: Response,
-	next: NextFunction
-): Promise<void> => {
-	try {
-		validationResult(req).throw();
-
-		const { email, id_ident_type, ident_num } = req.body;
-
-		let resp: Api.Resp = { message: ``, info: { mash: false } };
-
-		// validar existencia de la clave cumpuesta
-		const validIdent = await getRepository(fm_client).findOne({ id_ident_type, ident_num });
-		if (validIdent && validIdent.email != email) {
-			throw { message: 'el documento de identidad ya esta afiliado a un correo' };
-		}
-
-		const validIdentType: any = await getRepository(fm_client)
-			.createQueryBuilder('fm_clinet')
-			.leftJoinAndSelect('fm_clinet.id_ident_type', 'id_ident_type')
-			.where(`fm_clinet.ident_num = ${ident_num}`)
-			.getOne();
-
-		if (validIdentType && validIdentType.id_ident_type.id != id_ident_type) {
-			throw { message: 'el de docuemnto de identidad no coinside' };
-		}
-
-		const validMail = await getRepository(fm_client).findOne({ email });
-		if (validMail && validMail.ident_num != ident_num && validMail.id_ident_type != id_ident_type) {
-			throw { message: 'el correo ya esta asociado a otro documento de identidad' };
-		}
-
-		const client = await getRepository(fm_client).findOne({ id_ident_type, ident_num, email });
-		if (client) resp = { message: 'el usuario existe', info: { id: client.id, mash: true } };
-		else if (!resp.message.length) resp.message = `ni el correo ni la ci existen`;
-
-		Resp(req, res, resp);
-	} catch (err) {
-		next(err);
-	}
-};
-
+// crear FM
 export const FM_create = async (
 	req: Request<any, Api.Resp, fm_request>,
 	res: Response,
@@ -231,6 +233,19 @@ export const FM_create = async (
 		await getRepository(fm_dir_pos).save({ id_location: location.id, id_commerce, id_request: FM_save.id });
 
 		res.status(200).json({ message: 'FM creada', info: { id: FM_save.id } });
+	} catch (err) {
+		next(err);
+	}
+};
+
+// responder FM por id
+export const getFmById = async (req: Request<any, Api.Resp>, res: Response, next: NextFunction): Promise<void> => {
+	try {
+		const FM = await getRepository(fm_request)
+			.createQueryBuilder('fm_request')
+			.where('fm_request.id_status_request = 1')
+			.orderBy('fm_request.id', 'ASC')
+			.getOne();
 	} catch (err) {
 		next(err);
 	}
