@@ -26,7 +26,7 @@ deploy_qa:
     - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo yarn "
     - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
   only: 
-    - qa
+    - qa-back-aprobacion
 #deploy_produccion: 
 #  stage: deploy
 #  script: 
