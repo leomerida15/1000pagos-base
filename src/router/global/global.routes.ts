@@ -1,16 +1,21 @@
 import { Router } from 'express';
 import { getAllIdent_type, getAllActivity } from '../../controllers/global';
-
-const Ident_type: Router = Router();
+import { getAllStatus } from '../../controllers/global/index';
+const global: Router = Router();
 
 // controllers
 
-// ? Ident_type 
+// ? Ident_type
 //
-Ident_type.route('/ident_type').get(getAllIdent_type);
+global.route('/ident_type').get(getAllIdent_type);
 
 // ? activity
 //
-Ident_type.route('/activity').get(getAllActivity);
+global.route('/activity').get(getAllActivity);
 
-export default Ident_type;
+// ? status
+//
+global.route('/status').get(getAllStatus);
+
+// ? images
+export default global;

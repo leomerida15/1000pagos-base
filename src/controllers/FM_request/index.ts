@@ -19,7 +19,7 @@ import fm_dir_pos from '../../db/models/fm_dir_pos';
 export const fm_valid_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -67,7 +67,7 @@ export const fm_valid_client = async (
 export const valid_existin_client = async (
 	req: Request<any, Api.Resp, fm_client>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -114,7 +114,7 @@ interface commerce extends fm_commerce {
 export const fm_create_commerce = async (
 	req: Request<Api.params, Api.Resp, commerce>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -165,7 +165,7 @@ export const fm_create_commerce = async (
 export const FM_create = async (
 	req: Request<any, Api.Resp, fm_request>,
 	res: Response,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		validationResult(req).throw();
@@ -242,20 +242,20 @@ export const FM_create = async (
 export const getFm = async (
 	req: Request<any, Api.Resp>,
 	res: Response<Api.Resp>,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		const FM: any = await getRepository(fm_request)
 			.createQueryBuilder('fm_request')
-			.leftJoinAndSelect('fm_request.rc_constitutive_act','rc_constitutive_act')
-			.leftJoinAndSelect('fm_request.rc_property_document','rc_property_document')
-			.leftJoinAndSelect('fm_request.rc_service_document','rc_service_document')
-			.leftJoinAndSelect('fm_request.rc_special_contributor','rc_special_contributor')
-			.leftJoinAndSelect('fm_request.rc_ref_bank','rc_ref_bank')
-			.leftJoinAndSelect('fm_request.rc_ref_perso','rc_ref_perso')
-			.leftJoinAndSelect('fm_request.rc_account_number','rc_account_number')
-			.leftJoinAndSelect('fm_request.rc_rif','rc_rif')
-			.leftJoinAndSelect('fm_request.rc_ident_card','rc_ident_card')
+			.leftJoinAndSelect('fm_request.rc_constitutive_act', 'rc_constitutive_act')
+			.leftJoinAndSelect('fm_request.rc_property_document', 'rc_property_document')
+			.leftJoinAndSelect('fm_request.rc_service_document', 'rc_service_document')
+			.leftJoinAndSelect('fm_request.rc_special_contributor', 'rc_special_contributor')
+			.leftJoinAndSelect('fm_request.rc_ref_bank', 'rc_ref_bank')
+			.leftJoinAndSelect('fm_request.rc_ref_perso', 'rc_ref_perso')
+			.leftJoinAndSelect('fm_request.rc_account_number', 'rc_account_number')
+			.leftJoinAndSelect('fm_request.rc_rif', 'rc_rif')
+			.leftJoinAndSelect('fm_request.rc_ident_card', 'rc_ident_card')
 			.leftJoinAndSelect('fm_request.id_payment_method', 'fm_payment_method')
 			.leftJoinAndSelect('fm_request.id_client', 'fm_client')
 			.leftJoinAndSelect('fm_request.id_commerce', 'fm_commerce')
@@ -271,6 +271,28 @@ export const getFm = async (
 		// await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
 
 		Resp(req, res, { message: 'FM respondida', info: FM });
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const editStatusById = async (
+	req: Request<Api.params, Api.Resp>,
+	res: Response<Api.Resp>,
+	next: NextFunction,
+): Promise<void> => {
+	try {
+		const { id }: any = req.params;
+		const { id_status_request }: any = req.body;
+
+		const FM: any = await getRepository(fm_request).findOne(id);
+		if (!FM) throw { message: 'FM no existe' };
+
+		await getRepository(fm_request).update(id, { id_status_request });
+
+		const message: string = Msg('Status del FM').edit;
+
+		Resp(req, res, { message });
 	} catch (err) {
 		next(err);
 	}

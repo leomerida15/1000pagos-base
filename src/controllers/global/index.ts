@@ -5,11 +5,12 @@ import Resp from '../../Middlewares/res/resp';
 import Msg from '../../hooks/messages/index.ts';
 import { Api } from 'interfaces';
 import fm_activity from '../../db/models/fm_activity';
+import fm_status_request from '../../db/models/fm_status_request';
 
 export const getAllIdent_type = async (
 	req: Request<any, any, Api.Resp>,
 	res: Response<Api.Resp>,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		const info = await getRepository(fm_ident_type).find();
@@ -25,12 +26,28 @@ export const getAllIdent_type = async (
 export const getAllActivity = async (
 	req: Request<any, any, Api.Resp>,
 	res: Response<Api.Resp>,
-	next: NextFunction
+	next: NextFunction,
 ): Promise<void> => {
 	try {
 		const info = await getRepository(fm_activity).find();
 
 		const message: string = Msg('Actividad').getAll;
+
+		Resp(req, res, { message, info });
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const getAllStatus = async (
+	req: Request<any, any, Api.Resp>,
+	res: Response<Api.Resp>,
+	next: NextFunction,
+): Promise<void> => {
+	try {
+		const info = await getRepository(fm_status_request).find();
+
+		const message: string = Msg('Status').getAll;
 
 		Resp(req, res, { message, info });
 	} catch (err) {
