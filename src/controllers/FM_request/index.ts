@@ -342,7 +342,7 @@ export const editStatusById = async (
 		const FM: any = await getRepository(fm_request).findOne(id);
 		if (!FM) throw { message: 'FM no existe' };
 
-		await getRepository(fm_request).update(id, { id_status_request });
+		await getRepository(fm_request).update({id}, { id_status_request });
 
 		const message: string = Msg('Status del FM').edit;
 
