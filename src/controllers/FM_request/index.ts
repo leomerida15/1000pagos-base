@@ -251,6 +251,7 @@ export const getFm = async (
  			,a.number_post
  			,p.name AS paymet
  			,a.bank_account_num
+ 			,c.id AS id_client
  			,c.name AS name_client
  			,c.last_name AS last_name_client
  			,c.email AS email_client
@@ -320,7 +321,9 @@ export const getFm = async (
 
 		const phones = await getRepository(fm_phone).find({ id_client: FM[0].id_client });
 
-		const info = { ...FM[0], phone1: phones[0], phone2: phones[1] };
+		
+
+		const info = { ...FM[0], phone1: phones[0].phone, phone2: phones[1].phone };
 
 		// await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
 
@@ -336,13 +339,17 @@ export const editStatusById = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { id }: any = req.params;
+		const { id_FM }: any = req.params;
 		const { id_status_request }: any = req.body;
 
-		const FM: any = await getRepository(fm_request).findOne(id);
+		
+
+		const FM: any = await getRepository(fm_request).findOne(id_FM);
 		if (!FM) throw { message: 'FM no existe' };
 
-		await getRepository(fm_request).update({id}, { id_status_request });
+		
+
+		await getRepository(fm_request).update(id_FM, { id_status_request });
 
 		const message: string = Msg('Status del FM').edit;
 
