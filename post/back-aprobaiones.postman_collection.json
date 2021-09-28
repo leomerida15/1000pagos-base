@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e10f1c6b-703d-41b4-aeec-265515c8c392",
+		"_postman_id": "c22f1b11-37df-4e4a-911e-43e518e2c6b1",
 		"name": "back-aprobaiones",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -816,6 +816,73 @@
 							"port": "5051",
 							"path": [
 								"FM"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyNzY0NDUzLCJleHAiOjE2MzI3NjYyNTN9.6UyICSGpELgdf91IN2k8AXCdtx-ejYU8phkWcpELWkI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyNzY0NDUzLCJleHAiOjE2MzI3NjYyNTN9.6UyICSGpELgdf91IN2k8AXCdtx-ejYU8phkWcpELWkI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_status_request\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/:id_FM/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								":id_FM",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id_FM",
+									"value": "1"
+								}
 							]
 						}
 					},

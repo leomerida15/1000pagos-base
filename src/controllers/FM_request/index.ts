@@ -245,32 +245,108 @@ export const getFm = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const FM: any = await getRepository(fm_request)
-			.createQueryBuilder('fm_request')
-			.leftJoinAndSelect('fm_request.rc_constitutive_act','rc_constitutive_act')
-			.leftJoinAndSelect('fm_request.rc_property_document','rc_property_document')
-			.leftJoinAndSelect('fm_request.rc_service_document','rc_service_document')
-			.leftJoinAndSelect('fm_request.rc_special_contributor','rc_special_contributor')
-			.leftJoinAndSelect('fm_request.rc_ref_bank','rc_ref_bank')
-			.leftJoinAndSelect('fm_request.rc_ref_perso','rc_ref_perso')
-			.leftJoinAndSelect('fm_request.rc_account_number','rc_account_number')
-			.leftJoinAndSelect('fm_request.rc_rif','rc_rif')
-			.leftJoinAndSelect('fm_request.rc_ident_card','rc_ident_card')
-			.leftJoinAndSelect('fm_request.id_payment_method', 'fm_payment_method')
-			.leftJoinAndSelect('fm_request.id_client', 'fm_client')
-			.leftJoinAndSelect('fm_request.id_commerce', 'fm_commerce')
-			.leftJoinAndSelect('fm_request.id_type_request', 'fm_type_request')
-			.leftJoinAndSelect('fm_request.id_status_request', 'fm_status_request')
-			.leftJoinAndSelect('fm_request.dir_pos', 'fm_dir_pos')
-			.where('fm_request.id_status_request = 1')
-			.orderBy('fm_request.id', 'ASC')
-			.getOne();
+		const FM: any = await getConnection().query(/*sql*/ `
+		SELECT 
+ 			a.id AS id_fm 
+ 			,a.number_post
+ 			,p.name AS paymet
+ 			,a.bank_account_num
+ 			,c.name AS name_client
+ 			,c.last_name AS last_name_client
+ 			,c.email AS email_client
+ 			,i.name AS ident_type_client
+ 			,c.ident_num AS ident_num_client
+ 			,cc.name AS name_commerce
+ 			,ic.name AS ident_type_commerce
+ 			,cc.ident_num AS ident_num_commerce
+ 			,cc.special_contributor
+ 			,es.estado AS estado_commerce
+ 			,mu.municipio AS municipio_commerce
+ 			,ci.ciudad AS ciudad_commerce
+ 			,pa.parroquia AS parroquia_commerce
+ 			,l.sector AS sector_commerce
+ 			,l.calle AS calle_commerce
+ 			,l.local AS local_commerce
+ 			,esp.estado AS estado_pos
+ 			,mup.municipio AS municipio_pos
+ 			,cip.ciudad AS ciudad_pos
+ 			,pap.parroquia AS parroquia_pos
+ 			,lp.sector AS sector_pos
+ 			,lp.calle AS calle_pos
+ 			,lp.local AS local_pos
+ 			,p1.path AS path_rc_ident_card
+ 			,p2.path AS path_rc_rif
+ 			,p3.path AS path_rc_constitutive_act
+ 			,p4.path AS path_rc_property_document
+ 			,p5.path AS path_rc_service_document
+ 			,p6.path AS path_rc_ref_bank
+ 			,p7.path AS path_rc_ref_perso
+ 			,p8.path AS path_rc_account_number
+ 			,p9.path AS path_rc_special_contributor
+		
+		FROM 
+			(SELECT * FROM fm_request 
+ 			WHERE id_status_request = 1
+ 			ORDER by id ASC 
+ 			LIMIT 1) AS a
 
-		if (!FM) throw { message: 'no existen FM en espera de aprobacion' };
+			INNER JOIN fm_client AS c ON id_client = c.id
+			INNER JOIN fm_commerce AS cc ON id_commerce = cc.id
+			INNER JOIN fm_ident_type AS i ON c.id_ident_type = i.id 
+			INNER JOIN fm_ident_type AS ic ON cc.id_ident_type = ic.id
+			INNER JOIN fm_location AS l ON cc.id_location = l.id
+			INNER JOIN fm_estado as es ON l.id_estado = es.id
+			INNER JOIN fm_municipio as mu ON l.id_municipio = mu.id
+			INNER JOIN fm_ciudad as ci ON l.id_ciudad = ci.id
+			INNER JOIN fm_parroquia as pa ON l.id_parroquia = pa.id
+			INNER JOIN fm_payment_method as p ON id_payment_method = p.id
+			LEFT JOIN fm_photo AS p1 ON rc_ident_card = p1.id
+			LEFT JOIN fm_photo AS p2 ON rc_rif = p2.id
+			LEFT JOIN fm_photo AS p3 ON rc_constitutive_act = p3.id
+			LEFT JOIN fm_photo AS p4 ON rc_property_document = p4.id
+			LEFT JOIN fm_photo AS p5 ON rc_service_document = p5.id
+			LEFT JOIN fm_photo AS p6 ON rc_ref_bank = p6.id
+			LEFT JOIN fm_photo AS p7 ON rc_ref_perso = p7.id
+			LEFT JOIN fm_photo AS p8 ON rc_account_number = p8.id
+			LEFT JOIN fm_photo AS p9 ON rc_special_contributor = p9.id
+			INNER JOIN fm_dir_pos AS dp ON a.id = dp.id_request 
+			INNER JOIN fm_location AS lp ON dp.id_location = lp.id
+			INNER JOIN fm_estado as esp ON lp.id_estado = esp.id
+			INNER JOIN fm_municipio as mup ON lp.id_municipio = mup.id
+			INNER JOIN fm_ciudad as cip ON lp.id_ciudad = cip.id
+			INNER JOIN fm_parroquia as pap ON lp.id_parroquia = pap.id`);
+
+		if (!FM.length) throw { message: 'No existen formularios de solicitud en espera de aprobacion' };
+
+		const phones = await getRepository(fm_phone).find({ id_client: FM[0].id_client });
+
+		const info = { ...FM[0], phone1: phones[0], phone2: phones[1] };
 
 		// await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
 
-		Resp(req, res, { message: 'FM respondida', info: FM });
+		Resp(req, res, { message: 'FM respondida', info });
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const editStatusById = async (
+	req: Request<Api.params, Api.Resp>,
+	res: Response<Api.Resp>,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		const { id }: any = req.params;
+		const { id_status_request }: any = req.body;
+
+		const FM: any = await getRepository(fm_request).findOne(id);
+		if (!FM) throw { message: 'FM no existe' };
+
+		await getRepository(fm_request).update(id, { id_status_request });
+
+		const message: string = Msg('Status del FM').edit;
+
+		Resp(req, res, { message });
 	} catch (err) {
 		next(err);
 	}

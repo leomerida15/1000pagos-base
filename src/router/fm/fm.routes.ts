@@ -4,11 +4,12 @@ import {
 	valid_existin_client,
 	fm_create_commerce,
 	FM_create,
+	getFm,
+	editStatusById,
 } from '../../controllers/FM_request/index';
 import { validExistingClient, validClientData } from '../../Middlewares/data/auth';
 import { validCommerceData } from '../../Middlewares/data/commerce';
 import { validFmData } from '../../Middlewares/data/fm';
-import { getFm } from '../../controllers/FM_request/index';
 
 const FM: Router = Router();
 
@@ -21,9 +22,13 @@ FM.route('/FM/:id/commerce').post(validCommerceData, fm_create_commerce);
 FM.route('/FM').post(validFmData, FM_create);
 //
 FM.route('/FM/client/valid').post(validExistingClient, valid_existin_client);
-//
-// entregar data GET
+
+// ? entregar data GET
 //
 FM.route('/FM').get(getFm);
+
+// ? cambiar status fm
+//
+FM.route('/FM/:id_FM/status').put(editStatusById);
 
 export default FM;
