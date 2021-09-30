@@ -24,7 +24,7 @@ export const fm_valid_client = async (
 	try {
 		validationResult(req).throw();
 
-		const { phone1, phone2, email, id_ident_type, ident_num }: any = req.body;
+		const { phone1, phone2, email, id_ident_type, ident_num, location }: any = req.body;
 
 		let client = await getRepository(fm_client).findOne({ email, id_ident_type, ident_num });
 
@@ -44,11 +44,13 @@ export const fm_valid_client = async (
 			const salt: string = await bcrypt.genSalt(10);
 			req.body.password = await bcrypt.hash(type[0].name + ident_num + '.', salt);
 
+			const reslocation = await getRepository(fm_location).save(location);
+			req.body.id_location = reslocation.id;
+
 			client = await getRepository(fm_client).save(req.body);
-			const resp = await getRepository(fm_client).save(req.body);
 
 			// definimos data de telefonos
-			const id_client: any = resp.id;
+			const id_client: any = client.id;
 			const phones: fm_phone[] = [phone1, phone2].map((phone: string): fm_phone => ({ phone, id_client }));
 
 			// guardamos los telefonos
@@ -161,6 +163,30 @@ export const fm_create_commerce = async (
 	}
 };
 
+export const valid_bank_account = async (
+	req: Request<any, Api.Resp>,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	try {
+		validationResult(req).throw();
+
+		const { bank_account_num, email }: any = req.body;
+
+		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
+		if (!bank) throw { message: 'el banco no existe' };
+
+		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
+			where: { bank_account_num, email: { not: [email] }, id_bank: bank.id },
+		});
+		if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+
+		Resp(req, res, { message: 'OK' });
+	} catch (err) {
+		next(err);
+	}
+};
+
 // crear FM
 export const FM_create = async (
 	req: Request<any, Api.Resp, fm_request>,
@@ -191,14 +217,11 @@ export const FM_create = async (
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
 		if (!bank) throw { message: 'el banco no existe' };
 
-		const bank_comer = {
-			bank_account_num,
-			id_commerce,
-			id_bank: bank.id,
-		};
-
-		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne(bank_comer);
-		if (!valid_bank_commerce) {
+		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
+			where: { bank_account_num, id_client: { not: [id_client] }, id_bank: bank.id },
+		});
+		if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+		else {
 			await getRepository(fm_bank_commerce).save({
 				bank_account_num,
 				id_commerce,
@@ -321,8 +344,6 @@ export const getFm = async (
 
 		const phones = await getRepository(fm_phone).find({ id_client: FM[0].id_client });
 
-		
-
 		const info = { ...FM[0], phone1: phones[0].phone, phone2: phones[1].phone };
 
 		// await getRepository(fm_request).update(FM.id, { id_status_request: 2 });
@@ -342,12 +363,8 @@ export const editStatusById = async (
 		const { id_FM }: any = req.params;
 		const { id_status_request }: any = req.body;
 
-		
-
 		const FM: any = await getRepository(fm_request).findOne(id_FM);
 		if (!FM) throw { message: 'FM no existe' };
-
-		
 
 		await getRepository(fm_request).update(id_FM, { id_status_request });
 

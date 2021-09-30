@@ -52,6 +52,20 @@ export const validExistingClient: ValidationChain[] = [
 		.custom(NoSQL),
 ];
 
+export const validBankAccount: ValidationChain[] = [
+	check('email', 'el correo no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.normalizeEmail()
+		.isEmail()
+		.custom(NoSQL),
+	//
+	check('bank_account_num', 'el numero de cuenta de identidad no es valido')
+		.exists({ checkFalsy: true, checkNull: true })
+		.isLength({ min: 20, max: 20 })
+		.isNumeric()
+		.custom(NoSQL),
+];
+
 export const LoginData: ValidationChain[] = [
 	check('password', 'la contraseña debe tener 1 numero, 1 mayuscula, 1 simbolo y un minimo de 6 caracteres')
 		.exists({ checkFalsy: true, checkNull: false })
