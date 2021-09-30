@@ -32,9 +32,9 @@ export default class fm_bank_commerce {
 	@Column({ unique: true })
 	bank_account_num!: string;
 
-	@CreateDateColumn()
+	@CreateDateColumn({ select: false })
 	createdAt?: string;
 
-	@UpdateDateColumn({ type: 'timestamp' })
+	@UpdateDateColumn({ type: 'timestamp', select: false })
 	updatedAt?: number;
 }
