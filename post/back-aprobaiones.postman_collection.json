@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c22f1b11-37df-4e4a-911e-43e518e2c6b1",
+		"_postman_id": "e10f1c6b-703d-41b4-aeec-265515c8c392",
 		"name": "back-aprobaiones",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,10 +30,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/auth/register",
+							"raw": "http://10.198.73.15:5051/auth/register",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"73",
+								"15"
 							],
 							"port": "5051",
 							"path": [
@@ -121,10 +124,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/auth/login",
+							"raw": "http://10.198.68.21:5051/auth/login",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
@@ -532,12 +538,14 @@
 								{
 									"key": "email\n",
 									"value": "test@test.com\n",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "images\n",
 									"type": "file",
-									"src": []
+									"src": [],
+									"disabled": true
 								},
 								{
 									"key": "",
@@ -608,15 +616,14 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:6060/1000pagosRC/RC",
+							"raw": "http://localhost:5051/FM",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "6060",
+							"port": "5051",
 							"path": [
-								"1000pagosRC",
-								"RC"
+								"FM"
 							]
 						}
 					},
@@ -629,7 +636,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODE3MDQxLCJleHAiOjE2MzE4MTg4NDF9.0X7Ga9yFvPRYtIARiuqezrAz7eLbQbp5IBMewPo-j-E",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyMjU1NTA0LCJleHAiOjE2MzIyNTczMDR9.I4oBtSZ5VFZlT4QeJJCmdb51GHaIc28jNYe1lT3XX90",
 								"type": "text"
 							}
 						],
@@ -638,23 +645,21 @@
 							"formdata": [
 								{
 									"key": "id_client",
-									"value": "2",
+									"value": "3",
 									"type": "text"
 								},
 								{
 									"key": "id_commerce",
-									"value": "5",
+									"value": "4",
 									"type": "text"
 								},
 								{
 									"key": "images",
 									"type": "file",
 									"src": [
-										"/C:/Users/dmerida/Pictures/fm/rc_account_number'.png",
+										"/C:/Users/dmerida/Pictures/fm/rc_account_number.png",
 										"/C:/Users/dmerida/Pictures/fm/rc_constitutive_act.png",
-										"/C:/Users/dmerida/Pictures/fm/rc_front_local.png",
 										"/C:/Users/dmerida/Pictures/fm/rc_ident_card.png",
-										"/C:/Users/dmerida/Pictures/fm/rc_in_local.png",
 										"/C:/Users/dmerida/Pictures/fm/rc_property_document.png",
 										"/C:/Users/dmerida/Pictures/fm/rc_ref_bank.png",
 										"/C:/Users/dmerida/Pictures/fm/rc_ref_perso.png",
@@ -666,10 +671,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:6060/1000pagosRC/RC",
+							"raw": "http://10.198.68.21:6060/1000pagosRC/RC",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "6060",
 							"path": [
@@ -687,13 +695,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNzI0NDgwLCJleHAiOjE2MzE3MjYyODB9.NLXdcpcusMJL9KPc0Iha4GwagQsPvk9ntcmCU6z_CtA",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyMjQ2OTcwLCJleHAiOjE2MzIyNDg3NzB9.U9QJMGrMS5lGOKtRuNrGFm5C7v_3O00EeVwGFE-Q9Tc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"test\",\r\n    \"last_name\":\"test\",\r\n    \"id_ident_type\":5,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"test6@gmail.com\",\r\n    \"phone1\":\"+5841811161\",\r\n    \"phone2\":\"+5815151891\",\r\n    \"pero\":\"dskjnak\"\r\n}",
+							"raw": "{\r\n    \"name\":\"test\",\r\n    \"last_name\":\"test\",\r\n    \"id_ident_type\":1,\r\n    \"ident_num\":\"111111121\",\r\n    \"email\":\"aldrin2@gmail.com\",\r\n    \"phone1\":\"+5841811161\",\r\n    \"phone2\":\"+5815151891\",\r\n    \"pero\":\"dskjnak\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -701,10 +709,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/FM/client",
+							"raw": "http://10.198.68.21:5051/FM/client",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
@@ -728,7 +739,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_ident_type\":3,\r\n    \"ident_num\":\"12345678\",\r\n    \"email\":\"leomerida15@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"id_ident_type\":3,\r\n    \"ident_num\":\"123456478\",\r\n    \"email\":\"leomerida415@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -758,13 +769,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxOTA5MDE3LCJleHAiOjE2MzE5MTA4MTd9.7a6XIInM_huZSTdn8BIHyjdDcOiQwh7Y664ICTwKhc4",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyMjQ3OTM5LCJleHAiOjE2MzIyNTE1Mzl9.ndk1h20jiqQZZDTgXmdlxogVQMxZziJSyazHeTBtQjc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"id_ident_type\":2, \r\n    \"ident_num\":\"145214542147\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
+							"raw": "{ \r\n    \"id_ident_type\":2, \r\n    \"ident_num\":\"1452145422431547\", \r\n    \"special_contributor\":0, \r\n    \"location\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}, \r\n    \"name\":\"aaa\", \r\n    \"bank_account_num\":\"0102816516554\",\r\n    \"id_activity\":4225\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -786,7 +797,7 @@
 							"variable": [
 								{
 									"key": "id_client",
-									"value": "2"
+									"value": "4"
 								}
 							]
 						}
@@ -797,10 +808,16 @@
 					"name": "crear FM",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyMjQ3MDAxLCJleHAiOjE2MzIyNTA2MDF9.C6Rbf8_q3mJlMddrSkPJc1_rW1v0uXuLPDX6kKgIwwA",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"rc_in_local\": 1,\r\n        \"rc_front_local\": 2,\r\n        \"rc_constitutive_act\": 3,\r\n        \"rc_ref_bank\": 4,\r\n        \"rc_ident_card\": 5,\r\n        \"rc_rif\": 6,\r\n        \"rc_account_number\": 7,\r\n        \"rc_ref_perso\": 8,\r\n        \"rc_service_document\": 9,\r\n        \"rc_property_document\": 10,\r\n        \"rc_special_contributor\": 11,\r\n    \"number_post\":5,\r\n\t\"bank_account_num\":\"01025665158351\",\r\n\t\"id_payment_method\":1,\r\n\t\"id_client\":1,\r\n\t\"id_commerce\":1,\r\n    \"dir_pos\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}\r\n}",
+							"raw": "{\r\n           \"rc_account_number\": 51,\r\n        \"rc_ident_card\": 52,\r\n        \"rc_property_document\": 53,\r\n        \"rc_ref_perso\": 54,\r\n        \"rc_special_contributor\": 59,\r\n        \"rc_service_document\": 58,\r\n        \"rc_rif\": 55,\r\n        \"rc_constitutive_act\": 56,\r\n        \"rc_ref_bank\": 57\r\n    \"number_post\":6,\r\n\t\"bank_account_num\":\"010256655189851\",\r\n\t\"id_payment_method\":2,\r\n\t\"id_client\":3,\r\n\t\"id_commerce\":5,\r\n    \"dir_pos\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -808,81 +825,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/FM",
+							"raw": "http://10.198.68.21:5051/FM",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
 								"FM"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get status",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyNzY0NDUzLCJleHAiOjE2MzI3NjYyNTN9.6UyICSGpELgdf91IN2k8AXCdtx-ejYU8phkWcpELWkI",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:5051/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5051",
-							"path": [
-								"status"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "edit status",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMyNzY0NDUzLCJleHAiOjE2MzI3NjYyNTN9.6UyICSGpELgdf91IN2k8AXCdtx-ejYU8phkWcpELWkI",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id_status_request\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:5051/FM/:id_FM/status",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5051",
-							"path": [
-								"FM",
-								":id_FM",
-								"status"
-							],
-							"variable": [
-								{
-									"key": "id_FM",
-									"value": "1"
-								}
 							]
 						}
 					},
@@ -923,6 +876,36 @@
 		{
 			"name": "client",
 			"item": []
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "get all products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidHlwZSI6MiwiaWF0IjoxNjMzMDE2NzIyLCJleHAiOjE2MzMwMTg1MjJ9.d1D7tUU6_MgN6OnPeXNMuFMLgykumF9uKrLnFTY5pnU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "global",
