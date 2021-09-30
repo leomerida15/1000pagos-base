@@ -176,11 +176,19 @@ export const valid_bank_account = async (
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
 		if (!bank) throw { message: 'el banco no existe' };
 
-		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
-			where: { bank_account_num, email: { not: [email] }, id_bank: bank.id },
-		});
-		if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
-
+		let valid_bank_commerce: any;
+		const client: any = await getRepository(fm_client).findOne({ email });
+		if (!client) {
+			valid_bank_commerce = await getRepository(fm_commerce).findOne({
+				where: { bank_account_num, id_bank: bank.id },
+			});
+			if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+		} else {
+			valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
+				where: { bank_account_num, client: { not: [client.id] }, id_bank: bank.id },
+			});
+			if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+		}
 		Resp(req, res, { message: 'OK' });
 	} catch (err) {
 		next(err);
