@@ -27,7 +27,7 @@ export default class fm_product {
 	@OneToMany(() => fm_photo, (fm_photo) => fm_photo.id)
 	photos?: fm_photo[];
 
-	@OneToMany(() => fm_dir_pos, (fm_dir_pos) => fm_dir_pos.id_commerce)
+	@OneToMany(() => fm_dir_pos, (fm_dir_pos) => fm_dir_pos.id_product)
 	@JoinColumn({ name: 'dir_pos' })
 	dir_pos?: number;
 

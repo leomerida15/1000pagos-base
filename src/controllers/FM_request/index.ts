@@ -178,14 +178,23 @@ export const valid_bank_account = async (
 
 		let valid_bank_commerce: any;
 		const client: any = await getRepository(fm_client).findOne({ email });
+
+		const obj = {
+			bank_account_num,
+			id_bank: bank.id,
+		};
+
 		if (!client) {
-			valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({ bank_account_num, id_bank: bank.id });
+			valid_bank_commerce = await getRepository(fm_bank_commerce).findOne(obj);
 			if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
 		} else {
-			valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
-				where: { bank_account_num, client: { not: [client.id] }, id_bank: bank.id },
-			});
-			if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+			valid_bank_commerce = await getConnection()
+				.createQueryBuilder()
+				.from(fm_bank_commerce, 'fm_bank_commerce')
+				.where('fm_bank_commerce.id_client NOT IN (:ids)', { ...obj, ids: [client.id] })
+				.getMany();
+
+			if (valid_bank_commerce.length) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
 		}
 		Resp(req, res, { message: 'OK' });
 	} catch (err) {
@@ -223,10 +232,19 @@ export const FM_create = async (
 		const bank: any = await getRepository(fm_bank).findOne({ code: bank_account_num.slice(0, 4) });
 		if (!bank) throw { message: 'el banco no existe' };
 
-		const valid_bank_commerce = await getRepository(fm_bank_commerce).findOne({
-			where: { bank_account_num, id_client: { not: [id_client] }, id_bank: bank.id },
-		});
-		if (valid_bank_commerce) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
+		const obj = {
+			bank_account_num,
+			id_bank: bank.id,
+			ids: [id_client],
+		};
+
+		const valid_bank_commerce = await getConnection()
+			.createQueryBuilder()
+			.from(fm_bank_commerce, 'fm_bank_commerce')
+			.where('fm_bank_commerce.id_client NOT IN (:ids)', obj)
+			.getMany();
+
+		if (valid_bank_commerce.length) throw { message: 'El numero de cuenta esta asociado a otro cliente' };
 		else {
 			await getRepository(fm_bank_commerce).save({
 				bank_account_num,

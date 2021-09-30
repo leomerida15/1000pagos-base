@@ -32,7 +32,7 @@ export default class fm_dir_pos {
 	id_request!: number;
 
 	@ManyToOne(() => fm_product, (fm_product) => fm_product.dir_pos)
-	@JoinColumn({ name: 'id_request' })
+	@JoinColumn({ name: 'id_product' })
 	id_product!: number;
 
 	@CreateDateColumn({ select: false })
