@@ -124,7 +124,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://10.198.68.21:5051/auth/login",
+							"raw": "http://10.198.68.21:5051/:5051/auth/login",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -134,8 +134,15 @@
 							],
 							"port": "5051",
 							"path": [
+								":5051",
 								"auth",
 								"login"
+							],
+							"variable": [
+								{
+									"key": "5051",
+									"value": null
+								}
 							]
 						}
 					},
@@ -721,6 +728,45 @@
 							"path": [
 								"FM",
 								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valid bank",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMDIxNTYxLCJleHAiOjE2MzMwMjMzNjF9.9yfzjhgBf4dJ5sNwsyL3BTSneqHruIFnjg2lfw7TX3Q",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"1000pagos@corre224240.com\",\r\n    \"bank_account_num\":\"01025678912345678912\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.198.68.21:5051/FM/bank/valid",
+							"protocol": "http",
+							"host": [
+								"10",
+								"198",
+								"68",
+								"21"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								"bank",
+								"valid"
 							]
 						}
 					},
