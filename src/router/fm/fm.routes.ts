@@ -10,7 +10,7 @@ import {
 import { validExistingClient, validClientData, validBankAccount } from '../../Middlewares/data/auth';
 import { validCommerceData } from '../../Middlewares/data/commerce';
 import { validFmData } from '../../Middlewares/data/fm';
-import { valid_bank_account } from '../../controllers/FM_request/index';
+import { valid_bank_account } from '../../controllers/FM_request';
 
 const FM: Router = Router();
 
