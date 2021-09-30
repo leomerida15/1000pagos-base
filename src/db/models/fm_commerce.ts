@@ -41,7 +41,7 @@ export default class fm_commerce {
 	@JoinColumn({ name: 'id_activity' })
 	id_activity!: number;
 
-	@OneToOne(() => fm_location)
+	@ManyToOne(() => fm_location, (fm_location) => fm_location.commerces)
 	@JoinColumn({ name: 'id_location' })
 	id_location!: number;
 

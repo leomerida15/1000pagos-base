@@ -3,4 +3,5 @@
 /dist
 /client
 /src/db/base
+/src/db/json/diferidos.json
 # /src/hook`
