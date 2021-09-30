@@ -37,7 +37,7 @@ export default class fm_commerce {
 	@Column({ default: 1 })
 	special_contributor!: number;
 
-	@OneToMany(() => fm_activity, (fm_activity) => fm_activity.commerces)
+	@ManyToOne(() => fm_activity, (fm_activity) => fm_activity.commerces)
 	@JoinColumn({ name: 'id_activity' })
 	id_activity!: number;
 

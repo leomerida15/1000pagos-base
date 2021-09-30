@@ -17,5 +17,9 @@ global.route('/activity').get(getAllActivity);
 //
 global.route('/status').get(getAllStatus);
 
+// ?
+//
+// global.route('/')
+
 // ? images
 export default global;
