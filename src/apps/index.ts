@@ -3,19 +3,7 @@ import express, { Application, Request, Response } from 'express';
 import { posRoutes, preRoutes } from '../Middlewares';
 import Routes from '../router';
 
-import { createConnection, getRepository } from 'typeorm';
-import contents from '../db/contents';
-import log from '../hooks/logs/index';
 import { Doc } from '../hooks/docs';
-
-//database
-
-createConnection()
-	.then(async () => {
-		await contents();
-		log.text.OK('DB OK');
-	})
-	.catch((err) => console.log('DB ERR', err));
 
 const app: Application = express();
 

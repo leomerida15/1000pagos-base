@@ -1,8 +1,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
-import { InitDB } from '../db/json';
-import { getAllDiferidos } from '../controllers/diferidos/index';
+import db, { InitDB } from '../db/json';
 
 export default (httpServer: http.Server): void => {
 	InitDB();
@@ -15,6 +14,6 @@ export default (httpServer: http.Server): void => {
 	});
 
 	wss.on('connection', (ws) => {
-		ws.emit('diferidos', getAllDiferidos);
+		ws.emit('list_diferidos', db.getData('/diferidos'));
 	});
 };
