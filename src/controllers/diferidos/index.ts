@@ -2,7 +2,9 @@ import { getRepository } from 'typeorm';
 import db from '../../db/json/index';
 import fm_request from '../../db/models/fm_request';
 
-export const getAllDiferidos = async (): Promise<string[]> => {
+export const getAllDiferidos = async (msg: string): Promise<string[]> => {
+	console.log('socket en Emit ' + msg);
+
 	const inDB: fm_request[] = db.getDate('/diferidos');
 	const ids: any[] = inDB.map((request: fm_request) => request.id);
 
