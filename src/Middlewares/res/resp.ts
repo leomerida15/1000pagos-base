@@ -6,9 +6,6 @@ const Key: string = process.env.KEY || '_secreto';
 const Resp = (req: Request<any, Api.Resp>, res: Response<Api.Resp>, msg: Api.Resp<any>) => {
 	// msg.token = msg.token ? jwt.sign(token, Key, { expiresIn: 60 * 30 }) : msg.token;
 
-	console.log('req.headers.token',req.headers.token);
-	
-
 	msg.token = (() => {
 		if (!msg.token) {
 			const { id, type }: any = req.headers.token;
@@ -17,6 +14,9 @@ const Resp = (req: Request<any, Api.Resp>, res: Response<Api.Resp>, msg: Api.Res
 			return msg.token;
 		}
 	})();
+
+	console.log('msg.token',msg.token);
+	
 
 	res.status(200).json(msg);
 };
