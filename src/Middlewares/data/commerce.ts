@@ -3,7 +3,7 @@ import { NoSQL } from './index';
 
 export const validCommerceData: ValidationChain[] = [
 	//
-	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isAlpha().custom(NoSQL),
+	check('name', 'nombre invalido').exists({ checkFalsy: true, checkNull: true }).isString().custom(NoSQL),
 	//
 	check('id_ident_type', 'el tipo de documento de identidad no es valido')
 		.exists({ checkFalsy: true, checkNull: true })
