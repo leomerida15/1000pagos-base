@@ -14,6 +14,7 @@ import fm_bank from '../../db/models/fm_bank';
 import fm_bank_commerce from '../../db/models/fm_bank_commerce';
 import fm_request from '../../db/models/fm_request';
 import fm_dir_pos from '../../db/models/fm_dir_pos';
+import { refresh } from '../../apps/WebSocket';
 
 // crear al cliente
 export const fm_valid_client = async (
@@ -379,18 +380,20 @@ export const getFm = async (
 };
 
 export const editStatusById = async (
-	req: Request<Api.params, Api.Resp>,
+	req: Request<Api.params, Api.Resp, { id_status_request: number }>,
 	res: Response<Api.Resp>,
 	next: NextFunction
 ): Promise<void> => {
 	try {
 		const { id_FM }: any = req.params;
-		const { id_status_request }: any = req.body;
+		const { id_status_request } = req.body;
 
 		const FM: any = await getRepository(fm_request).findOne(id_FM);
 		if (!FM) throw { message: 'FM no existe' };
 
 		await getRepository(fm_request).update(id_FM, { id_status_request });
+
+		if (id_status_request === 4) await refresh();
 
 		const message: string = Msg('Status del FM').edit;
 
