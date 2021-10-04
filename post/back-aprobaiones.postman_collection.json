@@ -689,7 +689,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMDI1NjYyLCJleHAiOjE2MzMwMjc0NjJ9.mf8UqeS0olrK21D-GfZl45rIhJEAjPkKlXe5O5_CIi8",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMzcxNzMwLCJleHAiOjE2MzMzNzM1MzB9.BUFnSbaNt3kDrBQ8hUv8Hu2oBQgEWUuYOCz14YKNB9A",
 								"type": "text"
 							}
 						],
@@ -724,13 +724,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMDI2OTAzLCJleHAiOjE2MzMwMjg3MDN9.gAa7hNRLDWq8rWWEh611ppdU9GCCYvXF3nz98kSv86s",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMTEwODA2LCJleHAiOjE2MzMxMTI2MDZ9.Jv3lEakXkfJiRrTb0xkDBc14M5SaYoTJUHa9iVOyqHI",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"aldrin2@gmail.com\",\r\n    \"bank_account_num\":\"01021234567891234567\"\r\n}",
+							"raw": "{\r\n    \"email\":\"jbkb@co44reo.com\",\r\n    \"bank_account_num\":\"01021565144404344444\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -738,10 +738,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5051/FM/bank/valid",
+							"raw": "http://10.198.68.21:5051/FM/bank/valid",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
@@ -796,7 +799,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMDI1MDYzLCJleHAiOjE2MzMwMjY4NjN9.ZEeoMSaGTss8WEl6C55idtf2ct5316hGuIJFQvDkqQY",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMzcxNzU4LCJleHAiOjE2MzMzNzUzNTh9.tTf_CI7T30mCT2I4UMiZOaBsN4RW87xQNI_WvL921tA",
 								"type": "text"
 							}
 						],
@@ -824,7 +827,7 @@
 							"variable": [
 								{
 									"key": "id_client",
-									"value": "3"
+									"value": "2"
 								}
 							]
 						}
@@ -838,13 +841,13 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMDI3NDMwLCJleHAiOjE2MzMwMjkyMzB9.CGYeZKB7NUPaFS9zTZ5AUMgoFOzwrGNmaSP7DOiPL-Q",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMzcxNzU4LCJleHAiOjE2MzMzNzUzNTh9.tTf_CI7T30mCT2I4UMiZOaBsN4RW87xQNI_WvL921tA",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n      \"rc_account_number\": 1,\r\n        \"rc_ident_card\": 2,\r\n        \"rc_constitutive_act\": 3,\r\n        \"rc_ref_perso\": 4,\r\n        \"rc_ref_bank\": 5,\r\n        \"rc_property_document\": 6,\r\n        \"rc_service_document\": 7,\r\n        \"rc_rif\": 8,\r\n        \"rc_special_contributor\": 9,\r\n    \"number_post\":6,\r\n\t\"bank_account_num\":\"01021234567891234567\",\r\n\t\"id_payment_method\":2,\r\n\t\"id_client\":3,\r\n\t\"id_commerce\":4,\r\n    \"dir_pos\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}\r\n}",
+							"raw": "{\r\n      \"rc_account_number\": 1,\r\n        \"rc_ident_card\": 2,\r\n        \"rc_constitutive_act\": 3,\r\n        \"rc_ref_perso\": 4,\r\n        \"rc_ref_bank\": 5,\r\n        \"rc_property_document\": 6,\r\n        \"rc_service_document\": 7,\r\n        \"rc_rif\": 8,\r\n        \"rc_special_contributor\": 9,\r\n    \"number_post\":6,\r\n\t\"bank_account_num\":\"01021234567891234567\",\r\n\t\"id_payment_method\":2,\r\n\t\"id_client\":2,\r\n\t\"id_commerce\":4,\r\n    \"dir_pos\":{\"id_estado\":1,\"id_municipio\":1,\"id_parroquia\":1,\"id_ciudad\":1,\"sector\":\"aaa\",\"calle\":\"aa\",\"local\":\"aa\"}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -864,6 +867,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "edit status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMzcxNzU4LCJleHAiOjE2MzMzNzUzNTh9.tTf_CI7T30mCT2I4UMiZOaBsN4RW87xQNI_WvL921tA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_status_request\":4,\r\n    \"valids\":{        \r\n        \"valid_rc_constitutive_act\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_property_document\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_service_document\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_special_contributor\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_ref_bank\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_ref_perso\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_account_number\":{\"stauts\":true,\"msg\":\"\"},\r\n        \"valid_rc_rif\":{\"stauts\":false,\"msg\":\"aaa\"},\r\n        \"valid_rc_ident_card\":{\"stauts\":true,\"msg\":\"\"}\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5051/FM/:id_FM/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"FM",
+								":id_FM",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id_FM",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -877,15 +922,18 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxNTQ0MjQwLCJleHAiOjE2MzE1NDYwNDB9.ALUo1JEumZJfedvadhPenF6bRgFbXsV0KmfwhwAHUpQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMzMTE2ODQ1LCJleHAiOjE2MzMxMjA0NDV9.N6elAxKvQKMirG7ojPYGhfftP4d6I8ct0cp3zEu_HEs",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5051/ident_type",
+							"raw": "http://10.198.68.21:5051/ident_type",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"198",
+								"68",
+								"21"
 							],
 							"port": "5051",
 							"path": [
@@ -932,29 +980,34 @@
 			]
 		},
 		{
-			"name": "global",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODk2NDcxLCJleHAiOjE2MzE4OTgyNzF9.-tpNkicShLfv-rnAmrNuZMq94rWgy-m8dCV2WPk0a_0",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:5051/activity",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5051",
-					"path": [
-						"activity"
-					]
+			"name": "actividad comercial",
+			"item": [
+				{
+					"name": "global",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidHlwZSI6MiwiaWF0IjoxNjMxODk2NDcxLCJleHAiOjE2MzE4OTgyNzF9.-tpNkicShLfv-rnAmrNuZMq94rWgy-m8dCV2WPk0a_0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5051/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5051",
+							"path": [
+								"activity"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

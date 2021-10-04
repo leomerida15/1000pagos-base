@@ -7,7 +7,6 @@ import log from './hooks/logs/index';
 import fm_request from 'db/models/fm_request';
 // init server
 
-
 //database
 
 createConnection()
@@ -16,14 +15,17 @@ createConnection()
 		log.text.OK('DB OK');
 
 		const httpServer = app.listen(app.get('port'), () => {
-			console.log('                                                                  ()_()');
-			console.log(`app corriendo en el puerto http://localhost:${app.get('port')} leoM             (o.o)`);
-			console.log('                                                                  (|_|)*');
+			console.log(`app corriendo en el puerto http://localhost:${app.get('port')} leoM   `);
+			console.log('_________');
+			console.log('|       |');
+			console.log('| ()_() |');
+			console.log(`| (o.o) |`);
+			console.log('| (|_|)*|');
+			console.log('|_______|');
+			console.log('| DB OK |');
+			console.log('|_______|');
 		});
 
-		
 		WebSocket(httpServer);
 	})
 	.catch((err) => console.log('DB ERR', err));
-
-

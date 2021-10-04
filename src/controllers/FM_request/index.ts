@@ -380,7 +380,7 @@ export const getFm = async (
 };
 
 export const editStatusById = async (
-	req: Request<Api.params, Api.Resp, { id_status_request: number }>,
+	req: Request<Api.params, Api.Resp, { id_status_request: number; valids?: any }>,
 	res: Response<Api.Resp>,
 	next: NextFunction
 ): Promise<void> => {
@@ -393,7 +393,21 @@ export const editStatusById = async (
 
 		await getRepository(fm_request).update(id_FM, { id_status_request });
 
-		if (id_status_request === 4) await refresh();
+		if (id_status_request === 4) {
+			await refresh();
+			const valids: any = {};
+
+			for (const key in req.body.valids) {
+				if (Object.prototype.hasOwnProperty.call(req.body.valids, key)) {
+					const e = req.body.valids[key];
+
+					if (!e.status) valids[key] = e.msg;
+					else valids[key] = '';
+				}
+			}
+
+			await getRepository(fm_request).update(id_FM, valids);
+		}
 
 		const message: string = Msg('Status del FM').edit;
 
