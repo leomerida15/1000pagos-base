@@ -5,7 +5,7 @@ import Routes from '../router';
 
 import { Doc } from '../hooks/docs';
 
-const app: Application = express();
+const app: any = express();
 
 // middleware preRoutes
 preRoutes(app);

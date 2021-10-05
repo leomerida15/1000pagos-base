@@ -4,7 +4,6 @@ import WebSocket, { diferidos } from './apps/WebSocket';
 import { createConnection, getRepository } from 'typeorm';
 import contents from './db/contents';
 import log from './hooks/logs/index';
-import fm_request from 'db/models/fm_request';
 // init server
 
 //database
