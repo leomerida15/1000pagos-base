@@ -10,36 +10,28 @@ before_script:
   - cat ~/.ssh/key.pem
   - echo $IP_REMOTE
   - which ssh-agent
- 
-#deploy_dev: 
+
+#deploy_dev:
 #  stage: deploy
-#  script: 
-     
-  #  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo yarn "
-  #  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-#  only: 
+#  script:
+
+#  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT/ && sudo yarn "
+#  - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTE " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
+#  only:
 #    - dev
-deploy_qa: 
+deploy_qa:
   stage: deploy
-  script: 
+  script:
     - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo git checkout qa-back-aprobacion && sudo git pull "
     - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo yarn "
     - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-  only: 
+  only:
     - qa-back-aprobacion
-deploy_qa_client: 
-  stage: deploy
-  script: 
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT/ && sudo git checkout qa-client && sudo git pull " 
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT2/ && sudo yarn "
-    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEQA " cd $DOCUMENT_ROOT2 && sudo pm2 restart client  "
-  only: 
-    - qa-client
-#deploy_produccion: 
+#deploy_produccion:
 #  stage: deploy
-#  script: 
-     
+#  script:
+
 #    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT/ && sudo yarn "
 #    - ssh  -i ~/.ssh/key.pem $USUARIO@$IP_REMOTEPRO " cd $DOCUMENT_ROOT && sudo pm2 restart backoffice  "
-#  only: 
-#    - master        
+#  only:
+#    - master
