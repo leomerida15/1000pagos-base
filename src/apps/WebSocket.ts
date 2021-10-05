@@ -9,7 +9,8 @@ export let diferidos: any[];
 export const refresh = async () => {
 	const valid = await getRepository(fm_request).find();
 
-	diferidos = await getConnection().query(/*sql*/ `
+	if (valid.length) {
+		diferidos = await getConnection().query(/*sql*/ `
 	SELECT 
 		 a.id AS id_fm 
 		 ,c.id AS id_client
@@ -31,6 +32,7 @@ export const refresh = async () => {
 		INNER JOIN fm_commerce AS cc ON id_commerce = cc.id
 		INNER JOIN fm_ident_type AS i ON c.id_ident_type = i.id 
 		INNER JOIN fm_ident_type AS ic ON cc.id_ident_type = ic.id`);
+	}
 };
 
 export default async (httpServer: http.Server): Promise<void> => {
