@@ -9,7 +9,7 @@ export let diferidos: any[];
 export const refresh = async () => {
 	const valid = await getRepository(fm_request).find();
 
-	const diferidos = await getConnection().query(/*sql*/ `
+	diferidos = await getConnection().query(/*sql*/ `
 	SELECT 
 		 a.id AS id_fm 
 		 ,c.id AS id_client
