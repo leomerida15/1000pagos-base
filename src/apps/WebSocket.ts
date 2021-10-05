@@ -9,23 +9,28 @@ export let diferidos: any[];
 export const refresh = async () => {
 	const valid = await getRepository(fm_request).find();
 
-	const fms = valid.length
-		? await getConnection()
-				.createQueryBuilder(fm_request, 'fm_request')
-				.where('fm_request.id_status_request = 4')
-				.leftJoinAndSelect('fm_request.id_client', 'fm_client')
-				.leftJoinAndSelect('fm_request.id_commerce', 'fm_commerce')
-				.getMany()
-		: valid;
+	const diferidos = await getConnection().query(/*sql*/ `
+	SELECT 
+		 a.id AS id_fm 
+		 ,c.id AS id_client
+		 ,c.name AS name_client
+		 ,c.last_name AS last_name_client
+		 ,c.email AS email_client
+		 ,i.name AS ident_type_client
+		 ,c.ident_num AS ident_num_client
+		 ,cc.name AS name_commerce
+		 ,ic.name AS ident_type_commerce
+		 ,cc.ident_num AS ident_num_commerce
+	
+	FROM 
+		(SELECT * FROM fm_request 
+		 WHERE id_status_request = 4
+		 ORDER by id ASC ) AS a
 
-	diferidos = fms.map((fm: any) => {
-		for (const key in fm) {
-			if (!key.includes('valid')) continue;
-			fm[key] = { status: fm[key] !== '', msg: fm[key] };
-		}
-
-		return fm;
-	});
+		INNER JOIN fm_client AS c ON id_client = c.id
+		INNER JOIN fm_commerce AS cc ON id_commerce = cc.id
+		INNER JOIN fm_ident_type AS i ON c.id_ident_type = i.id 
+		INNER JOIN fm_ident_type AS ic ON cc.id_ident_type = ic.id`);
 };
 
 export default async (httpServer: http.Server): Promise<void> => {
