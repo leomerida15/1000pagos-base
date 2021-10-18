@@ -3,7 +3,7 @@ import express, { Application, Request, Response } from 'express';
 import { posRoutes, preRoutes } from '../Middlewares';
 import Routes from '../router';
 
-import { Doc } from '../hooks/docs';
+import { base } from '../hooks/docs/doc';
 
 const app: any = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 Routes(app);
 
 //
-app.use('/static/*', express.static(Doc.base + '*'));
+app.use('/static/*', express.static(base + '*'));
 
 // meddleware posRutes
 posRoutes(app);

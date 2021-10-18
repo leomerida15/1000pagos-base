@@ -1,18 +1,21 @@
 {
-	"type": "mysql",
-	"host": "localhost",
-	"port": 3306,
-	"username": "root",
-	"password": "",
-	"database": "1000pagosdev",
+	"type": "mssql",
+
+	"host": "10.198.72.31",
+	"username": "usr_milpagos",
+	"password": "usr_milpagos",
+	"database": "milpagos",
+	"maxQueryExecutionTime": "",
+	"requestTimeout": 30000000,
+	"connectionTimeout": 30000,
 	"synchronize": true,
 	"logging": false,
-	"entities": ["src/db/models/**/*.ts"],
-	"migrations": ["src/db/base/**/*.ts"],
-	"subscribers": ["src/db/subscriber/**/*.ts"],
+	"entities": ["src/entity/**/*.ts"],
+	"migrations": ["src/migration/**/*.ts"],
+	"subscribers": ["src/subscriber/**/*.ts"],
 	"cli": {
-		"entitiesDir": "src/db/models",
-		"migrationsDir": "src/db/base",
-		"subscribersDir": "src/db/subscriber"
+		"entitiesDir": "src/entity",
+		"migrationsDir": "src/migration",
+		"subscribersDir": "src/subscriber"
 	}
 }

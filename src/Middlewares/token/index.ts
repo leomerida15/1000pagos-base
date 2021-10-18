@@ -11,19 +11,15 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
 		// valid use
 		const result: boolean =
+			// @ts-ignore
 			list.includes(req.baseUrl) || list.includes(req.path.split('/')[1]) || list.includes(req.path.split('/')[2]);
-
-		
-	
 
 		// use
 		if (result) {
 			if (req.headers.token) {
 				const { token }: any = req.headers;
-				
-				const Resp: any = jwt.verify(token, Key);
 
-				
+				const Resp: any = jwt.verify(token, Key);
 
 				req.headers.token = Resp;
 
@@ -33,8 +29,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 		} else {
 			next();
 		}
-	} catch (err: any) {
-		err.code = 403;
+	} catch (err) {
 		next(err);
 	}
 };
